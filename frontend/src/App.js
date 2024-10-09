@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import RegisterTraveler from './components/RegisterTraveler'; // Đảm bảo đường dẫn đúng
+import Login from './components/Login'; // Giả sử bạn đã tạo component Login
+import AdminDashboard from './components/AdminDashboard'; // Dashboard Admin
+import TravelerDashboard from './components/TravelerDashboard'; // Dashboard Traveler
+import StaffDashboard from './components/StaffDashboard'; // Dashboard Staff
+import HotelOwnerDashboard from './components/HotelOwnerDashboard'; // Dashboard Hotel Owner
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<RegisterTraveler />} /> {/* Chỉ định trang đầu tiên */}
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
+                <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
+                <Route path="/staff-dashboard" element={<StaffDashboard />} />
+                <Route path="/hotel-owner-dashboard" element={<HotelOwnerDashboard />} />
+            </Routes>
+        </Router>
+    );
+};
 
 export default App;
