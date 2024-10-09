@@ -1,0 +1,12 @@
+   //Copy code từ 7->12 (bỏ chú thích) 
+//Vendor ->laravel->framework -> src\Illuminate ->Foundation ->Http ->Kernel.php
+//Tìm function  $middlewareGroups và thay đoạn code vào đó
+
+
+
+// protected $middlewareGroups = [
+//     'api' => [
+//     \Illuminate\Routing\Middleware\SubstituteBindings::class,
+//     // Bạn có thể thêm các middleware khác tại đây nếu cần
+// ],
+// ];
