@@ -29,6 +29,7 @@ const RegisterTraveler = () => {
 
     return (
         <form onSubmit={handleRegister}>
+            <h1> Hello</h1>
             <input type="text" placeholder="Căn cước công dân" value={personId} onChange={(e) => setPersonId(e.target.value)} required />
             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
             <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
