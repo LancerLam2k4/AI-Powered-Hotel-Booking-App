@@ -1,0 +1,33 @@
+<?php
+namespace Illuminate\Foundation\Support\Providers;
+//Copy Full
+//vendor -> laravel -> framework -> src\Illuminate ->Foundation ->Support/Providers ->RouteServiceProvider.php
+
+//thêm thư viện bên dưới nếu thiếu (không xóa bất kì thư hiện có sãn kể cả không dùng)
+use Closure;
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Traits\ForwardsCalls;
+
+class RouteServiceProvider extends ServiceProvider
+{
+   // Tìm vào sửa hàm Boot() này như bên dưới
+    public function boot()
+    {
+        $this->mapApiRoutes();
+    }
+
+//THêm dòng này nếu chưa có
+    public const API_PATH = 'routes/api.php';
+
+ //Tạo mới hàm này
+    protected function mapApiRoutes()
+    {
+        Route::middleware('api')
+            ->prefix('api')
+            ->group(base_path(self::API_PATH));
+    }
+    //Không nên đụng tới các hàm khác
+}
