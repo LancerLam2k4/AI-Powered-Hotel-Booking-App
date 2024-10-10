@@ -1,0 +1,106 @@
+/* Login.css */
+
+html, body {
+    height: 100%; /* Đảm bảo chiều cao của body là 100% */
+    margin: 0; /* Xóa margin mặc định */
+    display: flex; /* Sử dụng flexbox cho body */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    background-image: url('https://haisanxanh.com/uploads/images/khach-san-phu-quoc-gan-bien.jpg');
+    background-size: cover; /* Phóng to ảnh để bao phủ toàn bộ màn hình */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
+    background-attachment: fixed; /* Giữ ảnh cố định khi cuộn */
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Chiều cao tối thiểu 80% của viewport */
+    min-width: 400px; /* Chiều rộng tối thiểu 400px */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa */
+    background-color:rgba(242, 230, 230, 0.8); /* Màu nền */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transform: translateX(300px); /* Di chuyển sang phải 50px */
+}
+
+/* Đảm bảo body không thể nhỏ hơn kích thước container */
+body {
+    min-width: 400px; /* Ngăn không cho thu nhỏ trình duyệt dưới kích thước container */
+    min-height: calc(80vh + 40px); /* Tính toán chiều cao tối thiểu của body dựa trên container và padding */
+}
+
+
+
+
+.logo {
+    align-self: flex-start; /* Đặt logo ở góc trái */
+    width: 60px;
+    height: 60px;
+}
+
+.heading {
+    text-align: center; /* Đặt tiêu đề ở giữa */
+    margin-bottom:20px;
+    font-size: 28px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column; /* Xếp các input theo chiều dọc */
+    width: 100%;
+}
+
+.input-group label {
+    margin: 5px 0; /* Khoảng cách giữa label và input */
+}
+
+.input-group input {
+    padding: 10px;
+    margin-bottom: 10px; /* Khoảng cách giữa các input */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.link-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 13px;
+    align-items: center
+}
+
+.login-button {
+    text-align: center; /* Đặt button ở giữa */
+    margin: 20px 0;
+}
+.link-group a {
+    text-decoration: none;
+    font-size: 13px;
+}
+.link-group p {
+    display: inline-block;
+}
+
+.alternative {
+    text-align: center; /* Đặt phần Or và logo ở giữa */
+    margin: 20px 0;
+}
+
+.or {
+    margin-bottom: 10px; /* Khoảng cách giữa chữ Or và logo */
+}
+
+.social-logos img {
+    width: 30px; /* Đặt kích thước logo */
+    margin: 0 10px; /* Khoảng cách giữa các logo */
+}
+
+.footer {
+    text-align: center; /* Đặt footer ở giữa */
+    margin-top: 20px;
+}
