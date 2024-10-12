@@ -1,12 +1,12 @@
 /* Login.css */
 
-html, body {
-    height: 100%; /* Đảm bảo chiều cao của body là 100% */
+.login-page{
+    height: 100vh;
     margin: 0; /* Xóa margin mặc định */
     display: flex; /* Sử dụng flexbox cho body */
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; /* Căn giữa theo chiều dọc */
-    background-image: url('https://haisanxanh.com/uploads/images/khach-san-phu-quoc-gan-bien.jpg');
+    background-image: url('/public/bg-login.png');
     background-size: cover; /* Phóng to ảnh để bao phủ toàn bộ màn hình */
     background-position: center; /* Căn giữa ảnh */
     background-repeat: no-repeat; /* Không lặp lại ảnh */

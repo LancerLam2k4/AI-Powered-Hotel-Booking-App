@@ -37,8 +37,9 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <img className='logo' src='image.png'/>
+        <div className='login-page'>
+            <div className="login-container">
+            <img className='logo' src='Logo.png'/>
             <div className="heading">
                 <h2>Welcome Back</h2>
             </div>
@@ -61,7 +62,7 @@ const Login = () => {
                 />
                 <div className="link-group">
                     <a href="#">Forgot password?</a>
-                    <p>Don't have an account, <a href="/">register here</a> .</p>
+                    <p>Don't have an account, <a href="/register">register here</a> .</p>
                 </div>
             </div>
 
@@ -85,6 +86,8 @@ const Login = () => {
                 <p>Developed by Group 5</p>
             </div>
         </div>
+        </div>
+        
     );
 };
 
