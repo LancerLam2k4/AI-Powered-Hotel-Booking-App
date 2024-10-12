@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './Register.css';
 const RegisterTraveler = () => {
     const [personId, setPersonId] = useState('');
     const [username, setUsername] = useState('');
@@ -28,7 +28,8 @@ const RegisterTraveler = () => {
     };
 
     return (
-        <form onSubmit={handleRegister}>
+        <div className='register-page'>
+            <form onSubmit={handleRegister}>
             <h1> Hello</h1>
             <input type="text" placeholder="Căn cước công dân" value={personId} onChange={(e) => setPersonId(e.target.value)} required />
             <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
@@ -38,6 +39,8 @@ const RegisterTraveler = () => {
             <input type="text" placeholder="Preferences" value={preferences} onChange={(e) => setPreferences(e.target.value)} />
             <button type="submit">Register</button>
         </form>
+        </div>
+        
     );
 };
 
