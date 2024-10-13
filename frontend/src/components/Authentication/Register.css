@@ -1,6 +1,6 @@
 
 .register-page {
-    height: 100vh; /* Đảm bảo chiều cao của body là 100% */
+    height: 100vh;
     margin: 0; /* Xóa margin mặc định */
     display: flex; /* Sử dụng flexbox cho body */
     justify-content: center; /* Căn giữa theo chiều ngang */
@@ -10,4 +10,30 @@
     background-position: center; /* Căn giữa ảnh */
     background-repeat: no-repeat; /* Không lặp lại ảnh */
     background-attachment: fixed; /* Giữ ảnh cố định khi cuộn */
+}
+.logo {
+    align-self: flex-start; /* Đặt logo ở góc trái */
+    width: 60px;
+    height: 60px;
+}
+/* CSS cho modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
 }
