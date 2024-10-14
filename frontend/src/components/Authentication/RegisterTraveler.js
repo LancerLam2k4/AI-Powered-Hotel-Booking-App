@@ -55,46 +55,73 @@ const RegisterTraveler = () => {
     return (
         <div className='register-page'>
             <img className='logo' src='Logo.png' alt='Logo' />
-            <form onSubmit={handleRegister}>
-                <h1>Register</h1>
-                <input
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Căn cước công dân"
-                    value={personId}
-                    onChange={(e) => setPersonId(e.target.value)}
-                    required
-                />
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={passwordConfirmation}
-                    onChange={(e) => setPasswordConfirmation(e.target.value)}
-                    required
-                />
-                <button type="submit">Submit</button>
-            </form>
+            <h1>Welcome to us</h1>
+            <div className='register-container'>
+                <div className='image-container'>
+                    <img className='img-register' src='img-register.png' alt='img-register' />
+                </div>
+                <div className='form-container'>
+                    <form onSubmit={handleRegister}>
+                        <div className='form-group'>
+                            <label>Username :</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Your Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <label>Email :</label>
+                            <input
+                                type="email"
+                                placeholder="Enter Your Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <label>Person ID :</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Your Person ID"
+                                value={personId}
+                                onChange={(e) => setPersonId(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <label>Password :</label>
+                            <input
+                                type="password"
+                                placeholder="Enter Your Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <label>Confirm Password :</label>
+                            <input
+                                type="password"
+                                placeholder="Re-enter Your Password"
+                                value={passwordConfirmation}
+                                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className='button-container'>
+                             <button type="submit">Submit</button>
+                             <button type="button" onClick={()=>window.location.href='/'}>Return</button>
+                        </div>
 
+                    </form>
+                </div>
+            </div>
+            <label className='footer'>Develop by Group 5</label>
+    
             {/* Modal để nhập mã xác nhận */}
             {isModalOpen && (
                 <div className='modal'>
@@ -115,6 +142,8 @@ const RegisterTraveler = () => {
             )}
         </div>
     );
+    
+    
 };
 
 export default RegisterTraveler;
