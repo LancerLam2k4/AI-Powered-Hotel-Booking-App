@@ -1,0 +1,138 @@
+.top-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    position: relative;
+}
+.admin-dashboard {
+    display: flex;
+}
+  
+.logo {
+    height: 60px;
+    width: auto;
+}
+.logo + label {
+    margin-left: 10vh;
+    margin-right: auto;
+    font-size: 30px;
+    font-family: 'Roboto Slab', serif;
+    font-style: italic;
+}
+  
+.search-bar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+  
+.profile-icon {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+}
+
+.sidebar {
+    position: absolute;
+    top: 188px; /* Start at 188px from the top */
+    left: 143px; /* Start at 143px from the left */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between buttons */
+}
+  
+.sidebar button {
+    width: 110px;
+    height: 50px;
+    font-size: 16px;
+    background-color: #db7b06; /* Button background color */
+    border: 1px solid #000; /* Border for visibility */
+    border-radius: 8px;
+    cursor: pointer;
+}
+  
+.sidebar button:hover {
+    background-color: #e65f06; /* Hover effect */
+}
+
+.rooms-management-box {
+    position: absolute;
+    top: 132px; /* Starting 132px from the top */
+    left: 300px; /* Starting 340px from the left */
+    width: 1113px;
+    height: 452px;
+    background-color: #f9f9f9; /* Light background color for the box */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9); /* Adding a slight shadow */
+    padding: 20px; /* Padding inside the box */
+}
+  
+  .rooms-management-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px; /* Space below the title */
+}
+
+.table-container {
+    width: 96%;
+    height: auto;
+    border: 1px solid #000; /* Bold border to match Rooms Management box */
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto; /* Scroll if content is too wide */
+    margin-top: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #000; /* Bold border between rows */
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+    font-size: 18px;
+  }
+  
+  .table td {
+    font-size: 16px;
+  }
+  
+  .table-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-button, .delete-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+  }
+  
