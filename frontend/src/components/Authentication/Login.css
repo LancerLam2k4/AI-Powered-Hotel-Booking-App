@@ -21,11 +21,11 @@
     min-height: 80vh; /* Chiều cao tối thiểu 80% của viewport */
     min-width: 400px; /* Chiều rộng tối thiểu 400px */
     max-width: 400px; /* Giới hạn chiều rộng tối đa */
-    background-color:rgba(242, 230, 230, 0.8); /* Màu nền */
+    background-color:rgba(242, 230, 230, 0.4); /* Màu nền */
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
     border-radius: 8px;
-    transform: translateX(300px); /* Di chuyển sang phải 50px */
+    transform: translateX(-300px); /* Di chuyển sang phải 50px */
 }
 
 /* Đảm bảo body không thể nhỏ hơn kích thước container */
