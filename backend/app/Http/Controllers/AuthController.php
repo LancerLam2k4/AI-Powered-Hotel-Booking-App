@@ -12,33 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function registerTraveler(Request $request)
-{
-    $request->validate([
-        'person_id' => 'required|string|unique:users',
-        'username' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-    ]);
-
-    $user = User::create([
-        'person_id' => $request->person_id,
-        'username' => $request->username,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'role' => 'traveler',
-    ]);
-
-    Traveler::create([
-        'user_id' => $user->id,
-        'preferences' => $request->preferences ?? '', // Đảm bảo có giá trị mặc định
-        'search_history' => $request->search_history ?? '', // Đảm bảo có giá trị mặc định
-    ]);
-
-    return response()->json(['message' => 'Traveler registered successfully!', 'user' => $user], 201);
-}
-
-
 public function checkEmailAndSendCode(Request $request)
 {
     $request->validate(['email' => 'required|email']);
@@ -89,7 +62,7 @@ public function verifyCode(Request $request)
 {
     $request->validate([
         'email' => 'required|email',
-        'code' => 'required',
+        'code' => 'required|numeric',
     ]);
 
     $verification = EmailVerification::where('email', $request->email)
@@ -107,6 +80,7 @@ public function verifyCode(Request $request)
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'role' => 'traveler',
+        'avatar' => null,
     ]);
     Traveler::create([
         'user_id' => $user->id,
