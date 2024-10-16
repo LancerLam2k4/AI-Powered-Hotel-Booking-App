@@ -6,6 +6,8 @@ import AdminDashboard from './components/AdminDashboard'; // Dashboard Admin
 import TravelerDashboard from './components/TravelerDashboard'; // Dashboard Traveler
 import StaffDashboard from './components/StaffDashboard'; // Dashboard Staff
 import HotelOwnerDashboard from './components/HotelOwnerDashboard'; // Dashboard Hotel Owner
+import ForgotPassword from './components/Authentication/ForgotPassword';
+import ResetPassword from './components/Authentication/ResetPassword';
 
 const App = () => {
     return (
@@ -17,6 +19,8 @@ const App = () => {
                 <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
                 <Route path="/staff-dashboard" element={<StaffDashboard />} />
                 <Route path="/hotel-owner-dashboard" element={<HotelOwnerDashboard />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:token" element={<ResetPassword />} />
             </Routes>
         </Router>
     );

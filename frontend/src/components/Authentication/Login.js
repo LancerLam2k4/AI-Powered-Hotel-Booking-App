@@ -61,7 +61,7 @@ const Login = () => {
                     required
                 />
                 <div className="link-group">
-                    <a href="#">Forgot password?</a>
+                    <a href="/forgot-password">Forgot password?</a>
                     <p>Don't have an account, <a href="/register">register here</a> .</p>
                 </div>
             </div>

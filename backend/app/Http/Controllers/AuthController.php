@@ -9,6 +9,9 @@ use App\Models\User;
 use App\Models\Traveler;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;;
+
 
 class AuthController extends Controller
 {
@@ -111,4 +114,51 @@ public function verifyCode(Request $request)
 
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
+
+    public function forgotPassword(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email|exists:users,email',
+    ]);
+
+    $token = Str::random(60);
+
+    // Lưu token vào bảng `password_resets`
+    DB::table('password_resets')->updateOrInsert(
+        ['email' => $request->email],
+        ['token' => $token, 'created_at' => now()]
+    );
+
+    // Gửi email với nút xác nhận
+    Mail::to($request->email)->send(new ResetPasswordMail($token));
+
+    return response()->json(['message' => 'Password reset email sent.']);
+}
+
+public function showResetForm($token)
+{
+    return view('auth.reset-password', ['token' => $token]);
+}
+
+public function resetPassword(Request $request)
+{
+    $request->validate([
+        'token' => 'required',
+        'password' => 'required|min:8|confirmed',
+    ]);
+
+    $reset = DB::table('password_resets')->where('token', $request->token)->first();
+
+    if (!$reset) {
+        return response()->json(['message' => 'Invalid or expired token.'], 400);
+    }
+
+    $user = User::where('email', $reset->email)->first();
+    $user->password = Hash::make($request->password);
+    $user->save();
+
+    DB::table('password_resets')->where('email', $reset->email)->delete();
+
+    return response()->json(['message' => 'Password reset successful!']);
+}
 }
