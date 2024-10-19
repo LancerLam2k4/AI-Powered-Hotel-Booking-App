@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
-
-const ForgotPassword = () => {
+const ForgotPassword = ({ onClose }) => {
     const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleForgotPassword = async (e) => {
         e.preventDefault();
         try {
             await axios.post('http://localhost:8000/api/forgot-password', { email });
-            alert('A password reset email has been sent. Please check your inbox.');
+            setMessage('Password reset email sent. Check your inbox.');
         } catch (error) {
             console.error(error);
-            alert(error.response?.data?.message || 'Error occurred while sending password reset email.');
+            setMessage('Failed to send reset password email.');
         }
     };
 
     return (
-        <div className="forgot-password-page">
+        <div>
             <h2>Forgot Password</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Email:</label>
+            <form onSubmit={handleForgotPassword}>
                 <input
                     type="email"
                     placeholder="Enter your email"
@@ -29,8 +27,9 @@ const ForgotPassword = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <button type="submit">Send Email</button>
+                <button type="submit">Send Reset Email</button>
             </form>
+            {message && <p>{message}</p>}
         </div>
     );
 };
