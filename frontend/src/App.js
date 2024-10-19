@@ -20,7 +20,7 @@ const App = () => {
                 <Route path="/staff-dashboard" element={<StaffDashboard />} />
                 <Route path="/hotel-owner-dashboard" element={<HotelOwnerDashboard />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password/:token" element={<ResetPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
             </Routes>
         </Router>
     );

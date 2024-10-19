@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import ForgotPassword from './ForgotPassword';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -36,58 +38,74 @@ const Login = () => {
         }
     };
 
+    const handleForgotPasswordClick = () => {
+        setIsForgotPasswordOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsForgotPasswordOpen(false);
+    };
+
     return (
         <div className='login-page'>
             <div className="login-container">
-            <img className='logo' src='Logo.png'/>
-            <div className="heading">
-                <h2>Welcome Back</h2>
-            </div>
-            <div className="input-group">
-                <label>Email</label>
-                <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <label>Password</label>
-                <input
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <div className="link-group">
-                    <a href="/forgot-password">Forgot password?</a>
-                    <p>Don't have an account, <a href="/register">register here</a> .</p>
+                <img className='logo' src='Logo.png' alt='Logo' />
+                <div className="heading">
+                    <h2>Welcome Back</h2>
+                </div>
+                <div className="input-group">
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <div className="link-group">
+                        <button onClick={handleForgotPasswordClick} className="link-button">
+                            Forgot password?
+                        </button>
+                        <p>Don't have an account, <a href="/register">register here</a>.</p>
+                    </div>
+                </div>
+
+                <div className="login-button">
+                    <button type="submit" onClick={handleLogin}>Login</button>
+                </div>
+
+                <div className="alternative">
+                    <div className="or">Or</div>
+                    <div className="social-logos">
+                        <img src="/path/to/logo1.png" alt="Logo 1" />
+                        <img src="/path/to/logo2.png" alt="Logo 2" />
+                        <img src="/path/to/logo3.png" alt="Logo 3" />
+                    </div>
+                </div>
+
+                <div className="footer">
+                    <p>Developed by Group 5</p>
                 </div>
             </div>
 
-            {/* Khối 4: Login Button */}
-            <div className="login-button">
-                <button type="submit" onClick={handleLogin}>Login</button>
-            </div>
-
-            {/* Khối 5: Or và Logos */}
-            <div className="alternative">
-                <div className="or">Or</div>
-                <div className="social-logos">
-                    <img src="/path/to/logo1.png" alt="Logo 1" />
-                    <img src="/path/to/logo2.png" alt="Logo 2" />
-                    <img src="/path/to/logo3.png" alt="Logo 3" />
+            {/* Modal Forgot Password */}
+            {isForgotPasswordOpen && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="close-button" onClick={handleCloseModal}>X</button>
+                        <ForgotPassword onClose={handleCloseModal} />
+                    </div>
                 </div>
-            </div>
-
-            {/* Khối 6: Footer */}
-            <div className="footer">
-                <p>Developed by Group 5</p>
-            </div>
+            )}
         </div>
-        </div>
-        
     );
 };
 
