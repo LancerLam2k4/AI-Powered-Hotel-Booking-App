@@ -75,9 +75,18 @@ body {
 }
 
 .login-button {
-    text-align: center; /* Đặt button ở giữa */
-    margin: 20px 0;
+    padding: 10px 20px; /* Khoảng cách trong của nút */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s;
 }
+
+
+
 .link-group a {
     text-decoration: none;
     font-size: 13px;
@@ -99,6 +108,15 @@ body {
     width: 30px; /* Đặt kích thước logo */
     margin: 0 10px; /* Khoảng cách giữa các logo */
 }
+
+
+
+
+
+
+
+
+
 
 .footer {
     text-align: center; /* Đặt footer ở giữa */

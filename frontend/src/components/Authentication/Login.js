@@ -82,14 +82,15 @@ const Login = () => {
                     <button type="submit" onClick={handleLogin}>Login</button>
                 </div>
 
-                <div className="alternative">
-                    <div className="or">Or</div>
-                    <div className="social-logos">
-                        <img src="/path/to/logo1.png" alt="Logo 1" />
-                        <img src="/path/to/logo2.png" alt="Logo 2" />
-                        <img src="/path/to/logo3.png" alt="Logo 3" />
-                    </div>
+            {/* Khối 5: Or và Logos */}
+            <div className="alternative">
+                <div className="or">Or</div>
+                <div className="social-logos">
+                    <img src="facebook.png" alt="Facebook" />
+                    <img src="google.png" alt="Google" />
+                    <img src="twitter.png" alt="Twitter" />
                 </div>
+            </div>
 
                 <div className="footer">
                     <p>Developed by Group 5</p>
