@@ -24,37 +24,39 @@ const AdminDashboard = () => {
       </div>
 
       {/* Rooms Management Section */}
-      <div class="rooms-management-box">
-    <div class="rooms-management-title">Rooms Management</div>
-    <div class="table-container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Room number</th>
-        <th>Room type</th>
-        <th>Price</th>
-        <th>Image</th>
-        <th>Add</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>101</td>
-        <td>Single</td>
-        <td>$50</td>
-        <td><image src="/room.png" alt="Room Image" width="50" height="50"/></td>
-        <td>
-          <div class="table-buttons">
-            <button class="edit-button">Edit</button>
-            <button class="delete-button">Delete</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-    </div>
+      <div className="rooms-management-box">
+        <div className="rooms-management-title">Rooms Management</div>
+        <div className="table-container">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Room number</th>
+                <th>Room type</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>
+                <button className="add-button">Add</button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>101</td>
+                <td>Single</td>
+                <td>$50</td>
+                <td><img src="/room.png" alt="Room Image" width="180" height="150" /></td>
+                <td>
+                  <div className="table-buttons">
+                    <button className="edit-button">Edit</button> {/* Edit Button */}
+                    <button className="delete-button">Delete</button> {/* Delete Button */}
+                  </div>
+                </td>
+              </tr>
+              {/* Add more rows as needed */}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };
