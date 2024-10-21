@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Room;
-use App\Models\UploadImages;
 
 
 class RoomController extends Controller
@@ -99,10 +98,8 @@ class RoomController extends Controller
 
 
     public function indexUpload(){
-        $room = UploadImages::all();
-        return view('testBackend.images',compact(
-            'room'
-        ));
+        // $room = UploadImages::all();
+        return view('testBackend.images');
     }
     public function uploadImages(Request $req){
         // Validate ảnh
