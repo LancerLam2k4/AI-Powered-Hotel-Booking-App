@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Register.css';
 
-
 const RegisterTraveler = () => {
     const [personId, setPersonId] = useState('');
     const [username, setUsername] = useState('');
@@ -11,7 +10,6 @@ const RegisterTraveler = () => {
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [userId, setUserId] = useState(null);
 
     // Hàm kiểm tra toàn bộ các giá trị đầu vào
     const validateInputs = () => {
@@ -46,14 +44,13 @@ const RegisterTraveler = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/api/check-email', {
+            await axios.post('http://localhost:8000/api/check-email', {
                 person_id: personId,
                 username,
                 email,
                 password,
                 password_confirmation: passwordConfirmation,
             });
-            setUserId(response.data.user_id);
             alert('A verification code has been sent to your email. Please check and enter the code.');
             setIsModalOpen(true);
         } catch (error) {
@@ -65,7 +62,7 @@ const RegisterTraveler = () => {
     const handleVerifyCode = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/verify-code', {
+            await axios.post('http://localhost:8000/api/verify-code', {
                 email,
                 code: verificationCode,
                 person_id: personId,
@@ -152,7 +149,6 @@ const RegisterTraveler = () => {
                 </div>
             </div>
             <label className='footer'>Develop by Group 5</label>
-    
             {isModalOpen && (
                 <div className='modal'>
                     <div className='modal-content'>
