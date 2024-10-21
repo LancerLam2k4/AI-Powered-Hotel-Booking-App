@@ -153,6 +153,7 @@ h1 {
 
 .modal-content h2 {
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .modal-content input {
@@ -163,7 +164,7 @@ h1 {
     border: 1px solid #ddd;
 }
 
-.modal-content button {
+.modal-content .register-button {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
