@@ -76,7 +76,7 @@
     padding: 20px; /* Padding inside the box */
 }
   
-  .rooms-management-title {
+.rooms-management-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px; /* Space below the title */
@@ -96,43 +96,85 @@
   .table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .table th, .table td {
+    table-layout: auto; /* Allows columns to adjust based on content */
+}
+
+.table th, .table td {
     padding: 12px;
     text-align: left;
-    border-bottom: 2px solid #000; /* Bold border between rows */
-  }
-  
-  .table th {
+    border: 1px solid #000;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+.table th {
     background-color: #f2f2f2;
     font-size: 18px;
-  }
-  
-  .table td {
+}
+
+.table td {
     font-size: 16px;
-  }
-  
-  .table-buttons {
+}
+
+/* Set specific column widths */
+.table th:nth-child(1), .table td:nth-child(1) {
+    width: 10%; /* Adjust width for Room number column */
+}
+
+.table th:nth-child(2), .table td:nth-child(2) {
+    width: 15%; /* Adjust width for Room type column */
+}
+
+.table th:nth-child(3), .table td:nth-child(3) {
+    width: 15%; /* Adjust width for Price column */
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+    width: 40%; /* Make Image column the largest */
+}
+
+.table th:nth-child(5), .table td:nth-child(5) {
+    width: 20%; /* Adjust width for Add (buttons) column */
+}
+
+.table-buttons {
     display: flex;
     gap: 10px;
-  }
-  
-  .edit-button, .delete-button {
+}
+
+.edit-button, .delete-button {
     padding: 6px 12px;
     font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .edit-button {
-    background-color: #4CAF50;
+}
+
+.edit-button {
+    background-color: #cfe64c;
     color: white;
-  }
-  
-  .delete-button {
+}
+
+.delete-button {
     background-color: #f44336;
     color: white;
-  }
-  
+}
+
+.add-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.add-button:hover {
+    background-color: #45a049;
+}
+
+/* Image column styling */
+.table td img {
+    max-width: 100%; /* Ensure image doesn't overflow */
+    height: auto; /* Maintain aspect ratio */
+}
