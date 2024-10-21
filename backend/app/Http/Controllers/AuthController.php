@@ -43,27 +43,9 @@ class AuthController extends Controller
         // Gửi email chứa mã xác thực
         Mail::to($email)->send(new VerificationCodeMail($verificationCode));
 
-        return response()->json(['message' => 'Mã xác thực đã được gửi tới email của bạn']);
+        return response()->json(['message' => 'Verification code sent!']);
     }
-    public function checkEmail(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|unique:users,email',
-        ]);
 
-        $verificationCode = rand(100000, 999999);
-
-        // Lưu mã xác minh vào bảng `email_verifications`
-        EmailVerification::updateOrCreate(
-            ['email' => $request->email],
-            ['code' => $verificationCode]
-        );
-
-        // Gửi email xác minh
-        Mail::to($request->email)->send(new VerificationCodeMail($verificationCode));
-
-        return response()->json(['message' => 'Verification code sent!', 'user_id' => $request->user_id]);
-    }
     public function verifyCode(Request $request)
     {
         $request->validate([
@@ -86,12 +68,14 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'traveler',
-            'avatar' => null,
+            'avatar' => null, // Avatar mặc định
         ]);
+
+        // Tạo traveler liên kết với user
         Traveler::create([
-            'user_id' => $user->id,
-            'preferences' => null, // Ban đầu chưa có thông tin sở thích
-            'search_history' => null, // Ban đầu chưa có lịch sử tìm kiếm
+            'user_id' => $user->user_id, // Dùng user_id từ model User
+            'preferences' => null,
+            'search_history' => null,
         ]);
 
         // Xóa mã xác minh sau khi đăng ký thành công
