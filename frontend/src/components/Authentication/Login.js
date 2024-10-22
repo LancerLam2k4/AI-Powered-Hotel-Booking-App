@@ -78,9 +78,10 @@ const Login = () => {
                     </div>
                 </div>
 
-                <div className="login-button">
-                    <button type="submit" onClick={handleLogin}>Login</button>
-                </div>
+                <div class="button-container">
+    <button class="login-button">Login</button>
+</div>
+
 
             {/* Khối 5: Or và Logos */}
             <div className="alternative">
