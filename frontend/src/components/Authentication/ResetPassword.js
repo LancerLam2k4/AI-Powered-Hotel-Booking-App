@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import './ResetPassword.css';
 
 const ResetPassword = () => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [message, setMessage] = useState('');
@@ -10,7 +12,6 @@ const ResetPassword = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const token = params.get('token');
-    const email = params.get('email');
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
@@ -42,25 +43,25 @@ const ResetPassword = () => {
     }, [success]);
 
     return (
-        <div>
-            <h1>Reset Password</h1>
+        <div className="reset-password-container">
+            
+
+            {/* Tiêu đề */}
+            <h1>Forgot Password</h1>
+
+            {/* Thông báo */}
             {!success ? (
                 <form onSubmit={handleResetPassword}>
+                    
                     <input
-                        type="password"
-                        placeholder="New Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="password"
-                        placeholder="Confirm New Password"
-                        value={passwordConfirmation}
-                        onChange={(e) => setPasswordConfirmation(e.target.value)}
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <button type="submit">Reset Password</button>
+                    <a href="/login">Back to login</a>
                 </form>
             ) : (
                 <div>
