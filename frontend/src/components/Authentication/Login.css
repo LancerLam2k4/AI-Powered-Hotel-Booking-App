@@ -75,7 +75,7 @@ body {
 }
 
 .login-button {
-    padding: 12px 19px; /* Điều chỉnh kích thước nút */
+    padding: 12px 25px; /* Điều chỉnh kích thước nút */
     font-size: 18px; /* Tăng kích thước chữ */
     cursor: pointer;
     border-radius: 8px; /* Bo góc lớn hơn */
@@ -84,9 +84,6 @@ body {
     color: white;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm shadow nhẹ */
-    outline: none; /* Xóa outline mặc định */
-    width: 100%; /* Đặt chiều rộng nút bằng với container */
-    text-align: center; /* Căn giữa chữ trong nút */
 }
 
 .login-button:hover {
@@ -98,11 +95,6 @@ body {
 .login-button:active {
     background-color: #004085; /* Màu tối hơn khi nhấn */
     transform: scale(0.98); /* Thu nhỏ nhẹ khi nhấn */
-    outline: none; /* Xóa outline khi nhấn */
-}
-
-.login-button:focus {
-    outline: none; /* Xóa outline khi nút được focus */
 }
 
 
@@ -143,7 +135,6 @@ body {
     text-align: center; /* Đặt footer ở giữa */
     margin-top: 20px;
 }
-
 
 
 

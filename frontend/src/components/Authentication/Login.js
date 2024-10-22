@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import ForgotPassword from './ForgotPassword';
-
+import './ForgotPassword.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -97,15 +97,16 @@ const Login = () => {
                 </div>
             </div>
 
-            {/* Modal Forgot Password */}
             {isForgotPasswordOpen && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <button className="close-button" onClick={handleCloseModal}>X</button>
-                        <ForgotPassword onClose={handleCloseModal} />
-                    </div>
-                </div>
-            )}
+    <div className="modal-overlay">
+        <div className="modal-content">
+            <button className="close-button" onClick={handleCloseModal}>x</button> {/* Nút X nhỏ */}
+           
+            <ForgotPassword onClose={handleCloseModal} />
+        </div>
+    </div>
+)}
+
         </div>
     );
 };
