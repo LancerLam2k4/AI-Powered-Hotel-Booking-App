@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import './ResetPassword.css';
 
 const ResetPassword = () => {
     const [password, setPassword] = useState('');
@@ -42,7 +43,7 @@ const ResetPassword = () => {
     }, [success]);
 
     return (
-        <div>
+        <div className="reset-password-container">
             <h1>Reset Password</h1>
             {!success ? (
                 <form onSubmit={handleResetPassword}>
