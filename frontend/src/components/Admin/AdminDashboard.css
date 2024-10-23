@@ -1,109 +1,114 @@
-.top-section {
+/* Header Section */
+.header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    background-color: lightgrey;
     padding: 20px;
-    width: 100%;
-    position: relative;
 }
-.admin-dashboard {
-    display: flex;
+label {
+    cursor: default;
+    margin-left: 160px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
 }
-  
+
 .logo {
     height: 60px;
-    width: auto;
 }
-.logo + label {
-    margin-left: 10vh;
-    margin-right: auto;
-    font-size: 30px;
-    font-family: 'Roboto Slab', serif;
-    font-style: italic;
+
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
 }
-  
+
 .search-bar {
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
+    width: 400px;
     padding: 10px;
     font-size: 18px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
-  
-.profile-icon {
+
+.search-btn {
     position: absolute;
-    top: 20px;
-    right: 40px;
-    height: 70px;
-    width: 70px;
-    border-radius: 50%;
+    right: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.sidebar {
-    position: absolute;
-    top: 188px; /* Start at 188px from the top */
-    left: 143px; /* Start at 143px from the left */
+.search-btn img {
+    height: 24px;
+    width: 24px;
+}
+
+/* Make the profile icon clickable */
+.profile-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Navigation Bar */
+.nav-bar {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between buttons */
+    padding: 20px;
+    gap: 10px;
+    width: 150px;
 }
-  
-.sidebar button {
-    width: 110px;
-    height: 50px;
+
+.nav-btn {
+    padding: 10px;
     font-size: 16px;
-    background-color: #db7b06; /* Button background color */
-    border: 1px solid #000; /* Border for visibility */
+    background-color: #db7b06;
+    border: 1px solid #000;
     border-radius: 8px;
     cursor: pointer;
 }
-  
-.sidebar button:hover {
-    background-color: #e65f06; /* Hover effect */
+
+.nav-btn:hover {
+    background-color: #e65f06;
 }
 
+/* Rooms Management */
 .rooms-management-box {
-    position: absolute;
-    top: 132px; /* Starting 132px from the top */
-    left: 300px; /* Starting 340px from the left */
-    width: 1113px;
-    height: 452px;
-    background-color: #f9f9f9; /* Light background color for the box */
+    margin-left: 200px;
+    margin-top: -290px;
+    background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9); /* Adding a slight shadow */
-    padding: 20px; /* Padding inside the box */
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9);
+    min-height: 70vh;
+    width: calc(100% - 250px);
 }
-  
+
 .rooms-management-title {
     font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px; /* Space below the title */
+    margin-bottom: 20px;
 }
 
 .table-container {
     width: 96%;
-    height: auto;
-    border: 1px solid #000; /* Bold border to match Rooms Management box */
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    overflow-x: auto; /* Scroll if content is too wide */
-    margin-top: 20px;
-  }
-  
-  .table {
+    overflow-x: auto;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto; /* Allows columns to adjust based on content */
+    table-layout: auto; /* Allows columns to fit content automatically */
 }
 
 .table th, .table td {
     padding: 12px;
     text-align: left;
     border: 1px solid #000;
-    white-space: nowrap; /* Prevents text wrapping */
+    white-space: nowrap; /* Prevents text from wrapping */
 }
 
 .table th {
@@ -115,66 +120,117 @@
     font-size: 16px;
 }
 
-/* Set specific column widths */
-.table th:nth-child(1), .table td:nth-child(1) {
-    width: 10%; /* Adjust width for Room number column */
+/* Remove any fixed widths for specific columns */
+.table th:nth-child(4) {
+    width: auto; /* Adjust column width automatically based on content */
 }
 
-.table th:nth-child(2), .table td:nth-child(2) {
-    width: 15%; /* Adjust width for Room type column */
+.table th:nth-child(8){
+    max-width: 54px;
+}
+.table th:nth-child(1){
+    max-width: 60px;
 }
 
-.table th:nth-child(3), .table td:nth-child(3) {
-    width: 15%; /* Adjust width for Price column */
-}
-
-.table th:nth-child(4), .table td:nth-child(4) {
-    width: 40%; /* Make Image column the largest */
-}
-
-.table th:nth-child(5), .table td:nth-child(5) {
-    width: 20%; /* Adjust width for Add (buttons) column */
-}
-
-.table-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.edit-button, .delete-button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.edit-button {
-    background-color: #cfe64c;
-    color: white;
-}
-
-.delete-button {
-    background-color: #f44336;
-    color: white;
-}
-
-.add-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.add-button:hover {
-    background-color: #45a049;
-}
-
-/* Image column styling */
 .table td img {
-    max-width: 100%; /* Ensure image doesn't overflow */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%;
+    height: auto;
+}
+
+/* Availability Column */
+.table .availability {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.table .availability.unavailable {
+    color: #dc3545;
+}
+
+/* Amenities Column */
+.table .amenities {
+    color: #6c757d;
+}
+
+/* Star Rating */
+.star-rating {
+    display: inline-block;
+    font-size: 20px;
+    color: gold;
+    position: relative;
+}
+
+.star-rating::before {
+    content: '★★★★★';
+    color: lightgray;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.star-rating::after {
+    content: '★★★★★';
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    overflow: hidden;
+    white-space: nowrap;
+    color: gold;
+}
+
+.add-room-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white;              /* White text */
+    padding: 8px 16px;         /* Reduced padding */
+    font-size: 14px;           /* Smaller font size */
+    border: none;              /* No border */
+    border-radius: 5px;        /* Rounded corners */
+    cursor: pointer;           /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.add-room-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Edit and Delete Icons */
+.table-buttons img {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s;
+}
+
+.table-buttons .edit-icon:hover {
+    transform: scale(1.1);
+}
+
+.table-buttons .delete-icon {
+    margin-left: 5px;
+}
+
+.table-buttons .delete-icon:hover {
+    transform: scale(1.1);
+}
+
+img.add-icon {
+    width: 30px;
+    height: 30px;
+}
+
+img.add-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: lightgrey;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 16px;
 }
