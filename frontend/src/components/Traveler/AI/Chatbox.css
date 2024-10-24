@@ -1,0 +1,72 @@
+.chatbox-container {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    z-index: 1000;
+  }
+  
+  .chatbox-header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .chatbox-messages {
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .chatbox-input {
+    display: flex;
+    border-top: 1px solid #ccc;
+  }
+  
+  .chatbox-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-right: 1px solid #ccc;
+  }
+  
+  .chatbox-input button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .message {
+    margin: 10px 0;
+  }
+  
+  .message.You {
+    text-align: right;
+  }
+  
+  .chatbox-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+  }
+  
