@@ -143,7 +143,7 @@ const RegisterTraveler = () => {
                         </div>
                         <div className='button-container'>
                             <button type="submit">Submit</button>
-                            <button type="button" onClick={() => window.location.href='/login'}>Return</button>
+                            <button type="button" onClick={() => window.location.href='/'}>Return</button>
                         </div>
                     </form>
                 </div>
