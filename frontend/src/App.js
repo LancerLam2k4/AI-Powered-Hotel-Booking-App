@@ -9,7 +9,7 @@ import HotelOwnerDashboard from './components/HotelOwner/HotelOwnerDashboard'; /
 import ForgotPassword from './components/Authentication/ForgotPassword';
 import ResetPassword from './components/Authentication/ResetPassword';
 import TravelerProfile from'../src/components/Traveler/ProfileTraveler/HomeProfile';
-import UpadteTravelerProfile from '../src/components/Traveler/ProfileTraveler/UpdateProfile.js'
+import EditBasicInfo from './components/Traveler/ProfileTraveler/EditBasicInfo'
 const App = () => {
     return (
         <Router>
@@ -23,7 +23,7 @@ const App = () => {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/traveler-profile" element={<TravelerProfile />} />
-                <Route path="/updatetraveler-profile" element={<UpadteTravelerProfile />} />
+                <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
             </Routes>
         </Router>
     );
