@@ -138,7 +138,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer-adminDashboard">
         Developed by Group 5
       </footer>
     </div>
