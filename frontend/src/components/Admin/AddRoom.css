@@ -1,0 +1,147 @@
+/* AddRoom.css */
+
+.add-room-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.add-room-box {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9);
+}
+
+.add-room-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+  width: 100%;           
+  display: block;        
+  text-align: left;      
+  padding-left: 0;       
+  margin-left: 0;        
+}
+
+form input[type="text"],
+form input[type="number"] {
+  width: 95%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: left; 
+}
+
+label {
+  cursor: default;
+  margin-left: 30px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 24px;
+}
+
+.image-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Aligns the main image section with file upload on left and preview on right */
+.main-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  flex-direction: row;
+}
+
+.choose-file {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.file-label {
+  display: inline-block;
+  font-weight: bold;
+  color: #555;
+}
+
+.main-preview-img {
+  width: 150px;          /* Adjust as needed */
+  height: auto;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.sub-images-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sub-image-wrapper {
+  position: relative; 
+  display: inline-block; 
+  margin: 10px; 
+}
+
+.sub-preview-img {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 0; 
+}
+
+.remove-btn {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 2px 5px; 
+  z-index: 1; 
+}
+
+.add-room-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.add-room-btn:hover {
+  background-color: #45a049;
+}
