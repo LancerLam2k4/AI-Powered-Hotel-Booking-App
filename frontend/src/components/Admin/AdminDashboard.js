@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   // Fetch rooms data from the backend
   useEffect(() => {
     const fetchRooms = async () => {
@@ -34,7 +33,7 @@ const AdminDashboard = () => {
 
   // Add, Edit, Delete functionality placeholders
   const handleAddRoom = () => {
-    navigate('/add-room');
+    // Implement add room logic here
   };
 
   const handleEditRoom = (roomId) => {
@@ -127,8 +126,8 @@ const AdminDashboard = () => {
                   <td><img src={room.image_url} alt="Room" width="100" height="80" /></td>
                   <td>
                     <div className="table-buttons">
-                      <img src="editbtn.png" alt="Edit" className="edit-room-icon" onClick={() => handleEditRoom(room.room_id)} />
-                      <img src="deletebtn.png" alt="Delete" className="delete-room-icon" onClick={() => handleDeleteRoom(room.room_id)} />
+                      <img src="editbtn.png" alt="Edit" className="edit-icon" onClick={() => handleEditRoom(room.room_id)} />
+                      <img src="deletebtn.png" alt="Delete" className="delete-icon" onClick={() => handleDeleteRoom(room.room_id)} />
                     </div>
                   </td>
                 </tr>
@@ -139,7 +138,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="footer-adminDashboard">
+      <footer className="footer">
         Developed by Group 5
       </footer>
     </div>
