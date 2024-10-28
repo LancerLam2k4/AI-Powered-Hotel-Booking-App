@@ -1,16 +1,14 @@
-/* Login.css */
-
-.login-page{
+.login-page {
     height: 100vh;
-    margin: 0; /* Xóa margin mặc định */
-    display: flex; /* Sử dụng flexbox cho body */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-image: url('/public/bg-login.png');
-    background-size: cover; /* Phóng to ảnh để bao phủ toàn bộ màn hình */
-    background-position: center; /* Căn giữa ảnh */
-    background-repeat: no-repeat; /* Không lặp lại ảnh */
-    background-attachment: fixed; /* Giữ ảnh cố định khi cuộn */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .login-container {
@@ -18,14 +16,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 80vh; /* Chiều cao tối thiểu 80% của viewport */
-    min-width: 400px; /* Chiều rộng tối thiểu 400px */
-    max-width: 400px; /* Giới hạn chiều rộng tối đa */
-    background-color:rgba(242, 230, 230, 0.8); /* Màu nền */
+    min-height: 80vh;
+    min-width: 400px;
+    max-width: 400px;
+    background-color: rgba(242, 230, 230, 0.4);
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
     border-radius: 8px;
-    transform: translateX(300px); /* Di chuyển sang phải 50px */
+
+    /* Chỉnh để giữ được ở trung tâm kể cả khi thu nhỏ */
+    position: relative; 
+    left: -300px; /* Điều chỉnh khoảng lệch */
+}
+
+@media screen and (max-width: 600px) {
+    /* Khi kích thước màn hình nhỏ hơn, bỏ đi vị trí dịch chuyển */
+    .login-container {
+        left: 0;
+    }
 }
 
 /* Đảm bảo body không thể nhỏ hơn kích thước container */
@@ -74,13 +82,28 @@ body {
     align-items: center
 }
 
-.login-button {
+.login-button button {
     text-align: center; /* Đặt button ở giữa */
     margin: 20px 0;
+    padding: 10px 20px; /* Khoảng cách trong của nút */
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    width: 40vh;
 }
 .link-group a {
     text-decoration: none;
     font-size: 13px;
+}
+.link-button {
+    background: none; /* Loại bỏ nền */
+    border: none;
+    color: #39308a;
 }
 .link-group p {
     display: inline-block;
@@ -88,19 +111,63 @@ body {
 
 .alternative {
     text-align: center; /* Đặt phần Or và logo ở giữa */
-    margin: 20px 0;
+    width: 50%;
+    margin-bottom: 20px;
 }
 
 .or {
-    margin-bottom: 10px; /* Khoảng cách giữa chữ Or và logo */
+    margin-bottom: 20px; /* Khoảng cách giữa chữ Or và logo */
+}
+.social-logos {
+    display: flex; /* Chuyển div thành một container flex */
+    justify-content: space-between;
 }
 
 .social-logos img {
-    width: 30px; /* Đặt kích thước logo */
-    margin: 0 10px; /* Khoảng cách giữa các logo */
+    width: 30px;
+}
+.social-logos img:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+    border-radius: 50%;
 }
 
 .footer {
     text-align: center; /* Đặt footer ở giữa */
-    margin-top: 20px;
+    margin-top: 0px;
+}
+
+
+
+/* Modal*/
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Đặt z-index cao để hiện trên các thành phần khác */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
 }

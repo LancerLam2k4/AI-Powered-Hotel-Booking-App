@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('avatar')->nullable();
             $table->enum('role', ['traveler', 'staff', 'admin', 'hotel_owner']);
+            $table->string('reset_token')->nullable();
+            $table->timestamp('token_expires_at')->nullable();
             $table->timestamps();
         });
     }
