@@ -1,0 +1,15 @@
+/* src/components/Traveler/TravelerLayout.css */
+.traveler-layout {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f6f8;
+  }
+  
+  .traveler-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+  }
+  

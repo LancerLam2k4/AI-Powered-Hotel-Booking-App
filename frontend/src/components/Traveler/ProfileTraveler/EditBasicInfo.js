@@ -41,7 +41,7 @@ const EditBasicInfo = ({ onClose }) => {
                     <input type="file" accept="image/*" onChange={handleImageChange} />
                 </div>
 
-                <label className="label-name"> Name</label>
+                <label className="label-name-editBasicInfo"> Name</label>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
                 <label className="label-email">Email</label>
