@@ -71,7 +71,7 @@ const RegisterTraveler = () => {
             });
             alert('Email verified and registration successful!');
             setIsModalOpen(false);
-            window.location.href = '/login'; // Chuyển hướng về trang login
+            window.location.href = '/'; // Chuyển hướng về trang login
         } catch (error) {
             console.error(error);
             alert(error.response?.data?.message || 'Verification failed. Please check the code.');
@@ -143,7 +143,7 @@ const RegisterTraveler = () => {
                         </div>
                         <div className='button-container'>
                             <button type="submit">Submit</button>
-                            <button type="button" onClick={() => window.location.href='/login'}>Return</button>
+                            <button type="button" onClick={() => window.location.href='/'}>Return</button>
                         </div>
                     </form>
                 </div>

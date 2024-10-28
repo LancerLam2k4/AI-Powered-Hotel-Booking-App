@@ -1,8 +1,9 @@
 import React from 'react';
+import "./HomePageTraveler.css"
 
 const TravelerDashboard = () => {
     return (
-        <div>
+        <div className='HomePage-bg'>
             <h1>Hello</h1>
         </div>
     );
