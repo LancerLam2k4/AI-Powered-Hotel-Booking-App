@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -33,7 +34,7 @@ const AdminDashboard = () => {
 
   // Add, Edit, Delete functionality placeholders
   const handleAddRoom = () => {
-    // Implement add room logic here
+    navigate('/add-room');
   };
 
   const handleEditRoom = (roomId) => {
