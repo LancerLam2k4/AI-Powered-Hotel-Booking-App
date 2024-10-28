@@ -128,7 +128,6 @@ label {
 .table th:nth-child(8){
     max-width: 54px;
 }
-
 .table th:nth-child(1){
     max-width: 60px;
 }
@@ -204,29 +203,29 @@ label {
     transition: transform 0.2s;
 }
 
-.table-buttons .edit-room-icon:hover {
+.table-buttons .edit-icon:hover {
     transform: scale(1.1);
 }
 
-.table-buttons .delete-room-icon {
+.table-buttons .delete-icon {
     margin-left: 5px;
 }
 
-.table-buttons .delete-room-icon:hover {
+.table-buttons .delete-icon:hover {
     transform: scale(1.1);
 }
 
-img.add-room-icon {
+img.add-icon {
     width: 30px;
     height: 30px;
 }
 
-img.add-room-icon:hover {
+img.add-icon:hover {
     transform: scale(1.1);
 }
 
 /* Footer */
-.footer-adminDashboard {
+.footer {
     text-align: center;
     padding: 10px;
     background-color: lightgrey;
@@ -235,4 +234,3 @@ img.add-room-icon:hover {
     width: 100%;
     font-size: 16px;
 }
-
