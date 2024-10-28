@@ -1,4 +1,3 @@
-// AddRoom.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -7,13 +6,44 @@ import './AddRoom.css';
 const AddRoom = () => {
   const [roomData, setRoomData] = useState({
     room_id: '',
+    name: '',
     type: '',
     price: '',
-    amenities: '',
-    availability: false,
+    description: '',
+    status: 'available', // Default status
+    reviews: [], // Assuming reviews will be an array of objects later
     mainPhoto: null,
     subPhotos: [],
   });
+
+  const navigate = useNavigate(); // For navigation after successful submission
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    
+    // Append all fields to FormData
+    for (const key in roomData) {
+      if (Array.isArray(roomData[key])) {
+        roomData[key].forEach((file) => formData.append(key, file));
+      } else {
+        formData.append(key, roomData[key]);
+      }
+    }
+
+    try {
+      await axios.post('http://localhost:8000/api/add-room', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('Room added successfully!');
+      navigate('/rooms'); // Redirect to rooms page after successful submission
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add room. Please try again.');
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,37 +101,46 @@ const AddRoom = () => {
     e.preventDefault(); // Prevent default to allow drop
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(roomData);
-  };
-
   return (
     <div className="add-room-page">
       <div className="add-room-box">
         <h2>Add Room</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="form-group">
-              <label>Room Number:</label>
-              <input type="text" name="room_id" value={roomData.room_id} onChange={handleChange} required />
+        <div className="form-row">
+            <div className="form-group left">
+            <label>Room Number:</label>
+            <input type="text" name="room_id" value={roomData.room_id} onChange={handleChange} required />
             </div>
-            <div className="form-group">
-              <label>Price:</label>
-              <input type="text" name="price" value={roomData.price} onChange={handleChange} step="0.01" required />
+            <div className="form-group right">
+            <label>Name:</label>
+            <input type="text" name="name" value={roomData.name} onChange={handleChange} required />
             </div>
-          </div>
-          
-          <div className="form-row">
-            <div className="form-group">
-              <label>Room Type:</label>
-              <input type="text" name="type" value={roomData.type} onChange={handleChange} required />
+        </div>
+        
+        <div className="form-row">
+            <div className="form-group left">
+            <label>Price:</label>
+            <input type="text" name="price" value={roomData.price} onChange={handleChange} step="0.01" required />
             </div>
-            <div className="form-group">
-              <label>Amenities:</label>
-              <input type="text" name="amenities" value={roomData.amenities} onChange={handleChange} required />
+            <div className="form-group right">
+            <label>Room Type:</label>
+            <input type="text" name="type" value={roomData.type} onChange={handleChange} required />
             </div>
-          </div>
+        </div>
+
+        <div className="form-row">
+            <div className="form-group left">
+            <label>Description:</label>
+            <input type="text" name="description" value={roomData.description} onChange={handleChange} required />
+            </div>
+            <div className="form-group right">
+            <label>Status:</label>
+            <select name="status" value={roomData.status} onChange={handleChange}>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+            </select>
+            </div>
+        </div>
 
           <div className="image-section">
             <label>Main Image</label>

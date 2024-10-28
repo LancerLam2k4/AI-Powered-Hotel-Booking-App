@@ -109,7 +109,7 @@ const AdminDashboard = () => {
                 <th>Room type</th>
                 <th>Price</th>
                 <th>Availability</th>
-                <th>Amenities</th>
+                <th>Description</th>
                 <th>Rating</th>
                 <th>Image</th>
                 <th><button onClick={handleAddRoom} className="add-room-btn">ADD ROOM</button></th>
@@ -121,8 +121,8 @@ const AdminDashboard = () => {
                   <td>{room.room_id}</td>
                   <td>{room.type}</td>
                   <td>${room.price}</td>
-                  <td>{room.availability ? 'Available' : 'Not Available'}</td>
-                  <td>{room.amenities}</td>
+                  <td>{room.status ? 'Available' : 'Not Available'}</td>
+                  <td>{room.description}</td>
                   <td>{renderStars(room.rating)}</td>
                   <td><img src={room.image_url} alt="Room" width="100" height="80" /></td>
                   <td>
@@ -139,7 +139,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="footer-admin-dashboard">
         Developed by Group 5
       </footer>
     </div>
