@@ -11,6 +11,8 @@ import ResetPassword from "./components/Authentication/ResetPassword";
 import TravelerProfile from "../src/components/Traveler/ProfileTraveler/HomeProfile";
 import EditBasicInfo from "./components/Traveler/ProfileTraveler/EditBasicInfo";
 import TravelerLayout from './components/Traveler/TravelerLayout';
+import AddRoom from './components/Admin/AddRoom.js';
+
 const App = () => {
   return (
     <Router>
