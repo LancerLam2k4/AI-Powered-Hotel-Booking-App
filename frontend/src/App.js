@@ -8,7 +8,11 @@ import StaffDashboard from './components/Staff/StaffDashboard'; // Dashboard Sta
 import HotelOwnerDashboard from './components/HotelOwner/HotelOwnerDashboard'; // Dashboard Hotel Owner
 import ForgotPassword from './components/Authentication/ForgotPassword';
 import ResetPassword from './components/Authentication/ResetPassword';
-
+// import TravelerProfile from'../src/components/Traveler/ProfileTraveler/HomeProfile';
+import EditBasicInfo from './components/Traveler/ProfileTraveler/EditBasicInfo';
+import EditAdvancedInfo from './components/Traveler/ProfileTraveler/EditAdvancedInfo';
+import NewID from './components/Traveler/ProfileTraveler/NewID';
+import History from './components/Traveler/ProfileTraveler/History';
 const App = () => {
     return (
         <Router>
@@ -21,6 +25,11 @@ const App = () => {
                 <Route path="/hotel-owner-dashboard" element={<HotelOwnerDashboard />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/traveler-profile" element={<TravelerProfile />} />
+                <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
+                <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
+                <Route path="/new-ID" element={<NewID />} />
+                <Route path="/history" element={<History />} />
             </Routes>
         </Router>
     );
