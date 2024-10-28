@@ -8,7 +8,8 @@ Route::post('/check-email', [AuthController::class, 'checkEmailAndSendCode']);
 Route::post('/verify-code', [AuthController::class, 'verifyCode']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/reset-password', [AuthController::class, 'resetPassword']);
-Route::post('/chatbot', [ChatController::class, 'getChatResponse']);
+Route::post('/chat', [ChatController::class, 'getChatResponse']);
+
 
 
 
