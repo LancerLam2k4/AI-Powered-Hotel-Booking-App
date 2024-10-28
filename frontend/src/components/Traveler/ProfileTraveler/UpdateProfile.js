@@ -26,7 +26,6 @@ const UpdateProfile = ({ onClose }) => {
             reader.readAsDataURL(file);
         }
     };
-
     return (
         <div className='updateprofile page'>
             <div className="modal-content">
@@ -41,23 +40,23 @@ const UpdateProfile = ({ onClose }) => {
                     <input type="file" accept="image/*" onChange={handleImageChange} />
                 </div>
 
-                <label className="label-name"> Name</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <label className="update-name"> Name</label>
+                <input type="updated-name" value={name} onChange={(e) => setName(e.target.value)} />
 
-                <label className="label-email">Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label className="update-email">Email</label>
+                <input type="updated-email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                <label className="label-phone">Phone</label>
-                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                <label className="update-phone">Phone</label>
+                <input type="updated-phone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
 
-                <label className="label-address">Address</label>
-                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+                <label className="update-address">Address</label>
+                <input type="updated-address" value={address} onChange={(e) => setAddress(e.target.value)} />
 
-                <label className="label-hobby">Hobby</label>
-                <input type="text" value={hobby} onChange={(e) => setHobby(e.target.value)} />
+                <label className="update-hobby">Hobby</label>
+                <input type="updated-hobby" value={hobby} onChange={(e) => setHobby(e.target.value)} />
 
-                <button className='update'>Update</button>
-                <button className='close'>Close</button>
+                <button className='update-profile-button'>Update</button>
+                <button className='update-profile-close'>Close</button>
         </div>
         </div>
         

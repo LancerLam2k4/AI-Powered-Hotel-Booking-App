@@ -33,6 +33,7 @@
     margin-bottom: 20px;
   }
   
+  
   .profile-preview {
     width: 120px; /* Adjust size of the profile image */
     height: 120px; /* Maintain aspect ratio */
@@ -52,18 +53,17 @@
     color: #aaa; /* Placeholder text color */
     font-weight: bold;
     margin-bottom: 20px; /* Space below the placeholder */
-    /* Remove the border-radius or set it to 0 */
+    
     border-radius: 0; /* Ensures the shape is square */
   }
   
-  .label-name,.label-email,.label-phone,.label-address,.label-hobby{
+  .update-name,.update-email,.update-phone,.update-address,.update-hobby{
     font-weight: bold;
     margin-top: 10px; /* Space above labels */
     margin-right: 85%; /* Indent labels from the left */
   }
   
-  input[type="text"],
-  input[type="email"] {
+  input[type="updated-name"],input[type="updated-email"],input[type="updated-phone"],input[type="updated-address"],input[type="updated-hobby"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -72,7 +72,7 @@
     box-sizing: border-box;
   }
   
-  button.update {
+  .update-profile-button {
     background-color: #007bff; 
     color: white;
     border: none;
@@ -84,11 +84,11 @@
     margin-top: 15px; /* Space above button */
   }
   
-  button.update:hover {
+  .update-profile-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
   }
   
-  button.close {
+  .update-profile-close {
     background-color: #ccc; 
     color: white;
     border: none;
@@ -100,7 +100,7 @@
     margin-top: 10px; /* Space above button */
   }
   
-  button.close:hover {
+  .update-profile-close {
     background-color: #999; /* Darker grey on hover */
   }
   .modal-content input {
@@ -110,4 +110,4 @@
     border-radius: 4px;
     border: 1px solid #ddd;
 }
-  
+
