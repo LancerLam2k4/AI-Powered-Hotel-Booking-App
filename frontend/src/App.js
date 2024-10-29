@@ -10,8 +10,8 @@ import ForgotPassword from "./components/Authentication/ForgotPassword";
 import ResetPassword from "./components/Authentication/ResetPassword";
 import TravelerProfile from "../src/components/Traveler/ProfileTraveler/HomeProfile";
 import EditBasicInfo from "./components/Traveler/ProfileTraveler/EditBasicInfo";
-import TravelerLayout from './components/Traveler/TravelerLayout';
-import AddRoom from './components/Admin/AddRoom.js';
+import TravelerLayout from "./components/Traveler/TravelerLayout";
+import AddRoom from "./components/Admin/AddRoom.js";
 
 const App = () => {
   return (
@@ -23,12 +23,10 @@ const App = () => {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
-        <Route
-          path="/hotel-owner-dashboard"
-          element={<HotelOwnerDashboard />}
-        />
+        <Route path="/hotel-owner-dashboard"element={<HotelOwnerDashboard />}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/add-room" element={<AddRoom/>}/>
         <Route element={<TravelerLayout />}>
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
