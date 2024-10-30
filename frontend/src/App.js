@@ -12,6 +12,13 @@ import TravelerProfile from "../src/components/Traveler/ProfileTraveler/HomeProf
 import EditBasicInfo from "./components/Traveler/ProfileTraveler/EditBasicInfo";
 import TravelerLayout from "./components/Traveler/TravelerLayout";
 import AddRoom from "./components/Admin/AddRoom.js";
+import EditPersonalID from "./components/Traveler/ProfileTraveler/EditPersonalID.js";
+import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvancedInfo";
+import History from "./components/Traveler/ProfileTraveler/History";
+import Feedback from "./components/Traveler/ProfileTraveler/Feedback";
+import AboutUs from "./components/Traveler/ProfileTraveler/AboutUs";
+
+
 
 const App = () => {
   return (
@@ -30,6 +37,11 @@ const App = () => {
         <Route element={<TravelerLayout />}>
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
+          <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
+          <Route path="/edit-personal-ID" element={<EditPersonalID />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/feed-back" element={<Feedback />} />
+          <Route path="/about-us" element={<AboutUs />} />
         </Route>
       </Routes>
     </Router>
