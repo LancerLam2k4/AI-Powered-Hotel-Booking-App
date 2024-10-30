@@ -76,7 +76,7 @@ h1 {
 }
 
 /* Form container */
-.form-container {
+.form-container-register {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -86,18 +86,18 @@ h1 {
 
 
 /* Nhóm form */
-.form-group {
+.form-group-register {
     display: flex;
     flex-direction: column; /* Đặt các phần tử theo chiều dọc */
     margin: 10px 0;
 }
 
-.form-group label {
+.form-group-register .label-register {
     font-size: 1rem;
     margin-bottom: 5px; /* Khoảng cách giữa label và input */
 }
 
-.form-group input {
+.form-group-register .input-register {
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ddd;

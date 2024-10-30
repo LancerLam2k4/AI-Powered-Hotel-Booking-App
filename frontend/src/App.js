@@ -12,6 +12,9 @@ import TravelerProfile from "../src/components/Traveler/ProfileTraveler/HomeProf
 import EditBasicInfo from "./components/Traveler/ProfileTraveler/EditBasicInfo";
 import TravelerLayout from "./components/Traveler/TravelerLayout";
 import AddRoom from "./components/Admin/AddRoom.js";
+import Booking from "./components/Traveler/Booking/Booking.js";
+import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvancedInfo.js";
+import Feedback from "./components/Traveler/Feedback/Feedback.js";
 
 const App = () => {
   return (
@@ -30,6 +33,9 @@ const App = () => {
         <Route element={<TravelerLayout />}>
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
+          <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
+          <Route path="/booking" element={<Booking />} />
+          <Route path="/feedback" element={<Feedback />} />
         </Route>
       </Routes>
     </Router>

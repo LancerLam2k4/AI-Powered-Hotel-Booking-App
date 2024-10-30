@@ -86,11 +86,12 @@ const RegisterTraveler = () => {
                 <div className='image-container'>
                     <img className='img-register' src='img-register.png' alt='img-register' />
                 </div>
-                <div className='form-container'>
+                <div className='form-container-register'>
                     <form onSubmit={handleRegister}>
-                        <div className='form-group'>
-                            <label>Username :</label>
+                        <div className='form-group-register'>
+                            <label className='label-register'>Username :</label>
                             <input
+                            className='input-register'
                                 type="text"
                                 placeholder="Enter Your Username"
                                 value={username}
@@ -98,9 +99,10 @@ const RegisterTraveler = () => {
                                 required
                             />
                         </div>
-                        <div className='form-group'>
-                            <label>Email :</label>
+                        <div className='form-group-register'>
+                            <label className='label-register'>Email :</label>
                             <input
+                            className='input-register'
                                 type="email"
                                 placeholder="Enter Your Email"
                                 value={email}
@@ -108,9 +110,10 @@ const RegisterTraveler = () => {
                                 required
                             />
                         </div>
-                        <div className='form-group'>
-                            <label>Person ID :</label>
+                        <div className='form-group-register'>
+                            <label className='label-register'>Person ID :</label>
                             <input
+                            className='input-register'
                                 type="text"
                                 placeholder="Enter Your Person ID"
                                 value={personId}
@@ -119,9 +122,10 @@ const RegisterTraveler = () => {
                                 required
                             />
                         </div>
-                        <div className='form-group'>
-                            <label>Password :</label>
+                        <div className='form-group-register'>
+                            <label className='label-register'>Password :</label>
                             <input
+                            className='input-register'
                                 type="password"
                                 placeholder="Enter Your Password"
                                 value={password}
@@ -130,9 +134,10 @@ const RegisterTraveler = () => {
                                 required
                             />
                         </div>
-                        <div className='form-group'>
-                            <label>Confirm Password :</label>
+                        <div className='form-group-register'>
+                            <label className='label-register'>Confirm Password :</label>
                             <input
+                                className='input-register'
                                 type="password"
                                 placeholder="Re-enter Your Password"
                                 value={passwordConfirmation}
