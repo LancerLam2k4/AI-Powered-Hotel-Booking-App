@@ -18,10 +18,9 @@ class Room extends Model
         'reviews',
     ];
 
-    // Hàm để lấy đường dẫn hình ảnh từ file JSON
     public function getImages()
     {
-        $jsonFilePath = storage_path('app/public/rooms.json');
+        $jsonFilePath = storage_path('app/public/Rooms.json');
         if (file_exists($jsonFilePath)) {
             $data = json_decode(file_get_contents($jsonFilePath), true);
             foreach ($data as $room) {

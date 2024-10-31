@@ -14,7 +14,7 @@ import TravelerLayout from "./components/Traveler/TravelerLayout";
 import AddRoom from "./components/Admin/AddRoom.js";
 import Booking from "./components/Traveler/Booking/Booking.js";
 import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvancedInfo.js";
-import Feedback from "./components/Traveler/Feedback/Feedback.js";
+import Feedback from "./components/Traveler/Feedback-AboutUs/Feedback"
 
 const App = () => {
   return (
