@@ -32,8 +32,8 @@ const App = () => {
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
         </Route>
+        <Route path="/room-detail" element={<RoomDetail/>}/>
       </Routes>
-      <Route path="/room-detail" element={<RoomDetail/>}/>
     </Router>
   );
 };
