@@ -12,6 +12,7 @@ import TravelerProfile from "../src/components/Traveler/ProfileTraveler/HomeProf
 import EditBasicInfo from "./components/Traveler/ProfileTraveler/EditBasicInfo";
 import TravelerLayout from "./components/Traveler/TravelerLayout";
 import AddRoom from "./components/Admin/AddRoom.js";
+import RoomDetail from "./components/Admin/RoomDetail.js";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
         </Route>
       </Routes>
+      <Route path="/room-detail" element={<RoomDetail/>}/>
     </Router>
   );
 };
