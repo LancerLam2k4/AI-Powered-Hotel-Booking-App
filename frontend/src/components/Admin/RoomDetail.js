@@ -1,55 +1,69 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './RoomDetail.css';
 
 const RoomDetail = () => {
-  const [mainImage, setMainImage] = useState("room.png");
+  const [mainImage, setMainImage] = useState('room.png');
+
+  const handleImageClick = (imageSrc) => {
+    setMainImage(imageSrc);
+  };
+
+  const handleBooking = async () => {
+    const roomData = {
+      // chua biet
+    };
+
+    try {
+      const response = await axios.post('https://your-api-url.com/api/booking', roomData);
+      console.log('Booking successful:', response.data);
+    } catch (error) {
+      console.error('Error booking the room:', error);
+    }
+  };
 
   return (
-    <>
-      <header id="header-room-detail">
-        <a href="#">
-          <img src="./img/logo.png" className="logo-room-detail" alt="Logo" />
-        </a>
+    <div>
+      <header className="header-room-detail">
+        <a href="#"><img src="logo.png" className="logo-room-detail" alt="Logo" /></a>
       </header>
+
       <section id="roomdetails-room-detail" className="section-p1-room-detail">
         <div className="single-room-image-room-detail">
           <img src={mainImage} alt="Room" width="100%" id="mainImg-room-detail" />
 
           <div className="small-img-group-room-detail">
-            <div className="small-img-col-room-detail" onClick={() => setMainImage("room.png")}>
-              <img src="sub-room-1.png" className="small-img-room-detail" alt="Room 1" />
-            </div>
-            <div className="small-img-col-room-detail" onClick={() => setMainImage("sub-room-2.png")}>
-              <img src="sub-room-2.png" className="small-img-room-detail" alt="Room 2" />
-            </div>
-            <div className="small-img-col-room-detail" onClick={() => setMainImage("sub-room-3.png")}>
-              <img src="sub-room-3.png" className="small-img-room-detail" alt="Room 3" />
-            </div>
-            <div className="small-img-col-room-detail" onClick={() => setMainImage("sub-room-4.png")}>
-              <img src="sub-room-4.png" className="small-img-room-detail" alt="Room 4" />
-            </div>
+            {['sub-room-1.png', 'sub-room-2.png', 'sub-room-3.png', 'sub-room-4.png'].map((imgSrc, index) => (
+              <div key={index} className="small-img-col-room-detail" onClick={() => handleImageClick(imgSrc)}>
+                <img src={imgSrc} className="small-img-room-detail" width="100%" alt="Room" />
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="single-room-details-room-detail">
-          <h2>Hotel / Room</h2>
+          <h6 className="breadcrumbs-room-detail">Hotel / Room</h6>
           <h4>Deluxe King Room</h4>
-          <h3>$200 per night</h3>
+          <h2>$200 per night</h2>
+
           <select>
             <option value="">Select View</option>
             <option value="garden">Garden View</option>
             <option value="ocean">Ocean View</option>
             <option value="city">City View</option>
           </select>
-          <input type="number" min="1" value="1" />
-          <button>Book Now</button>
+
+          <input type="number" min="1" defaultValue="1" />
+
+          <button onClick={handleBooking}>Book Now</button>
+
           <h4>Room Details</h4>
           <span>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, mollitia? Dolorum nostrum odio ipsam ullam...
+            This Deluxe King Room offers a luxurious experience with scenic views. Enjoy a relaxing stay with top-notch amenities and an elegant design that ensures comfort and style.
           </span>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

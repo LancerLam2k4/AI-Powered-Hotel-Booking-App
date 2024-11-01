@@ -1,92 +1,117 @@
-/* Header */
-#header-room-detail {
+/* Header styling */
+.header-room-detail {
     width: 100%;
     height: 60px;
-    background-color: #f8f8f8;
+    background-color: #f0f0f0;
     display: flex;
     align-items: center;
     padding: 0 20px;
-  }
-  
-  .logo-room-detail {
+    border-bottom: 1px solid #ddd;
+}
+
+.header-room-detail .logo-room-detail {
     height: 40px;
-    cursor: pointer;
-  }
-  
-  /* Room Detail Layout */
-  #roomdetails-room-detail {
+    margin-left: 10px;
+}
+
+/* Room details section */
+#roomdetails-room-detail {
     display: flex;
     margin-top: 20px;
     padding: 20px;
-  }
-  
-  .single-room-image-room-detail {
+}
+
+/* Main image container */
+.single-room-image-room-detail {
     width: 40%;
     margin-right: 50px;
-  }
-  
-  .small-img-group-room-detail {
+}
+
+.main-img-room-detail {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Small images row below the main image */
+.small-img-group-room-detail {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .small-img-col-room-detail {
+}
+
+.small-img-col-room-detail {
     flex-basis: 24%;
     cursor: pointer;
+    border: 1px solid #ddd;
+    padding: 2px;
+    border-radius: 4px;
     transition: transform 0.2s;
-  }
-  
-  .small-img-col-room-detail:hover {
+}
+
+.small-img-col-room-detail:hover {
     transform: scale(1.05);
-  }
-  
-  /* Details Section */
-  .single-room-details-room-detail {
+}
+
+.small-img-room-detail {
+    width: 100%;
+}
+
+/* Room details styling */
+.single-room-details-room-detail {
     width: 50%;
     padding-top: 20px;
     text-align: justify;
-  }
-  
-  .single-room-details-room-detail h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .single-room-details-room-detail h4 {
+}
+
+.breadcrumbs-room-detail {
+    font-size: 18px;
+    color: #555;
+    font-weight: bold;
+}
+
+.single-room-details-room-detail h4 {
+    font-size: 28px;
+    margin: 10px 0;
+}
+
+.single-room-details-room-detail h2 {
     font-size: 24px;
-    padding: 10px 0 5px 0;
-  }
-  
-  .single-room-details-room-detail h3 {
-    font-size: 20px;
     color: #088178;
     margin-bottom: 20px;
-  }
-  
-  .single-room-details-room-detail select {
+}
+
+.single-room-details-room-detail select {
     display: block;
-    padding: 5px 10px;
+    padding: 8px;
     margin-bottom: 10px;
-  }
-  
-  .single-room-details-room-detail input {
-    width: 50px;
-    height: 47px;
-    padding-left: 10px;
+    font-size: 16px;
+}
+
+.single-room-details-room-detail input {
+    width: 60px;
+    height: 40px;
+    padding-left: 8px;
     font-size: 16px;
     margin-right: 10px;
-  }
-  
-  .single-room-details-room-detail button {
+}
+
+.single-room-details-room-detail button {
     color: white;
     background: #088178;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-  }
-  
-  .single-room-details-room-detail span {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.single-room-details-room-detail button:hover {
+    background-color: #066a5f;
+}
+
+.single-room-details-room-detail span {
+    display: block;
+    margin-top: 20px;
     line-height: 1.6;
-  }
-  
+    color: #333;
+}
