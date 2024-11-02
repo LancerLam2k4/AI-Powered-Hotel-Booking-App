@@ -29,7 +29,7 @@ const EditBasicInfo = ({ onClose }) => {
 
     return (
         <div className='updateprofile page'>
-            <div className="modal-content-editBasicInfo">
+            <div className="modal-content">
                 <h2>Update Profile</h2>
                 {/* Profile Picture Upload */}
                 <div className="profile-picture-upload">
@@ -41,23 +41,23 @@ const EditBasicInfo = ({ onClose }) => {
                     <input type="file" accept="image/*" onChange={handleImageChange} />
                 </div>
 
-                <label className="name-editBasicInfo"> Name</label>
-                <input type="editinfo-name" value={name} onChange={(e) => setName(e.target.value)} />
+                <label className="label-name-editBasicInfo"> Name</label>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-                <label className="email-editBasicInfo">Email</label>
-                <input type="editinfo-email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label className="label-email">Email</label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                <label className="phone-editBasicInfo">Phone</label>
-                <input type="editinfo-phone" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                <label className="label-phone">Phone</label>
+                <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
 
-                <label className="address-editBasicInfo">Address</label>
-                <input type="editinfo-address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                <label className="label-address">Address</label>
+                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
 
-                <label className="hobby-editBasicInfo">Hobby</label>
-                <input type="editinfo-hobby" value={hobby} onChange={(e) => setHobby(e.target.value)} />
+                <label className="label-hobby">Hobby</label>
+                <input type="text" value={hobby} onChange={(e) => setHobby(e.target.value)} />
 
-                <button className='update-editBasicInfo'>Update</button>
-                <button className='close-editBasicInfo'>Close</button>
+                <button className='update'>Update</button>
+                <button className='close'>Close</button>
         </div>
         </div>
         

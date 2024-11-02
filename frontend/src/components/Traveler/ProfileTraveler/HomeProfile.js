@@ -24,37 +24,41 @@ const HomeProfile = () => {
 
     return (
       <div className='home-profile'>
-        <div className="home-profile-container">
+        <div className="profile-container">
             {/* Profile Picture */}
-            <div className="home-profile-picture">
+            <div className="profile-picture">
                 <img src="profile-placeholder.png" alt="Profile" />
             </div>
 
             {/* User Information */}
-            <div className="profile-user-info">
+            <div className="user-info">
                 <h2>{name}</h2>
-                <div className="profile-email-field">
+                <div className="info-field">
+                    <label>ID:</label>
+                    <p>{id}</p>
+                </div>
+                <div className="info-field">
                     <label>Email:</label>
                     <p>{email}</p>
                 </div>
-                <div className="profile-number-field">
+                <div className="info-field">
                     <label>PhoneNumber:</label>
                     <p>Some text</p>
                 </div>
-                <div className="profile-address-field">
+                <div className="info-field">
                     <label>Address:</label>
                     <p>Some text</p>
                 </div>
-                <div className="profile-hobby-field">
+                <div className="info-field">
                     <label>Hobby:</label>
                     <p>Some text</p>
                 </div>
-                <button className="home-edit-button1">Update</button>
+                <button className="edit-button1">Update</button>
             </div>
 
             {/* Password and Person ID with Edit Options */}
-            <div className="profile-password-section">
-                <div className="password-profile-field">
+            <div className="password-section">
+                <div className="info-field">
                     <label>Password:</label>
                     {isEditing.password ? (
                         <input
@@ -65,12 +69,12 @@ const HomeProfile = () => {
                     ) : (
                         <p>{password}</p>
                     )}
-                    <button className="password-edit-button2" onClick={handleEditPassword}>
+                    <button className="edit-button2" onClick={handleEditPassword}>
                         {isEditing.password ? 'Save' : 'Edit'}
                     </button>
                 </div>
 
-                <div className="personid-profile-field">
+                <div className="info-field">
                     <label>Person ID:</label>
                     {isEditing.personId ? (
                         <input
@@ -81,7 +85,7 @@ const HomeProfile = () => {
                     ) : (
                         <p>{personId}</p>
                     )}
-                    <button className="personid-edit-button3" onClick={handleEditPersonId}>
+                    <button className="edit-button3" onClick={handleEditPersonId}>
                         {isEditing.personId ? 'Save' : 'Edit'}
                     </button>
                 </div>
@@ -90,7 +94,7 @@ const HomeProfile = () => {
             <div className="history-section">
                 <h3>History</h3>
                 <p>{history}</p>
-                <button className="history-read-more-button">Read More</button>
+                <button className="read-more-button">Read More</button>
             </div>
         </div>
       </div>
