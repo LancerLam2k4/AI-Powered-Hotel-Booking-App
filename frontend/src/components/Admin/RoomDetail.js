@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import axios from 'axios';
 import './RoomDetail.css';
 
@@ -9,16 +9,30 @@ const RoomDetail = () => {
     setMainImage(imageSrc);
   };
 
-  const handleBooking = async () => {
-    const roomData = {
-      // chua biet
+  // Fetch room details from the database
+  useEffect(() => {
+    const fetchRoomDetails = async () => {
+      try {
+        const response = await axios.get(`/api/rooms/${roomId}`);
+        setRoomDetails(response.data.room);
+      } catch (error) {
+        console.error('Error fetching room details:', error);
+      }
     };
+    fetchRoomDetails();
+  }, [roomId]);
 
+  const handleBooking = async () => {
     try {
-      const response = await axios.post('https://your-api-url.com/api/booking', roomData);
+      const formData = new FormData();
+      formData.append('roomId', roomDetails.id);
+      formData.append('quantity', bookingQuantity);
+      formData.append('selectedView', selectedView);
+
+      const response = await axios.post('/api/bookings', formData);
       console.log('Booking successful:', response.data);
     } catch (error) {
-      console.error('Error booking the room:', error);
+      console.error('Error making booking:', error);
     }
   };
 
