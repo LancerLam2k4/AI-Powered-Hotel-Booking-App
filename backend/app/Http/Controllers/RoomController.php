@@ -16,6 +16,8 @@ class RoomController extends Controller
             'type' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'required|string',
+            'province' => 'required|string',
+            'district' => 'required|string',
             'reviews' => 'integer|min:0',
         ]);
 
@@ -30,12 +32,16 @@ class RoomController extends Controller
         $room = Room::create($validatedRoomData);
 
         // Lưu hình ảnh vào Storage
-        $mainImagePath = $this->storeImage($request->file('main_image'), 'main_image', $room->id);
+        $mainImagePath = $this->storeImage($request->file('main_image'), 'images');
         $additionalImagesPaths = [];
 
+        // Lưu ảnh bổ sung nếu nó khác với ảnh chính
         if (isset($validatedImageData['additional_images'])) {
             foreach ($validatedImageData['additional_images'] as $image) {
-                $additionalImagesPaths[] = $this->storeImage($image, 'additional_images', $room->id);
+                $additionalImagePath = $this->storeImage($image, 'images');
+                if ($additionalImagePath) {
+                    $additionalImagesPaths[] = $additionalImagePath;
+                }
             }
         }
 
@@ -45,16 +51,29 @@ class RoomController extends Controller
         return response()->json(['message' => 'Room created successfully!', 'room' => $room], 201);
     }
 
-    protected function storeImage($image, $type, $roomId)
+    protected function storeImage($image, $directory)
     {
-        // Tạo tên file duy nhất
-        $filename = time() . '_' . $roomId . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-        
-        // Lưu hình ảnh vào Storage
-        $path = Storage::putFileAs("public/Images/$type", $image, $filename);
+        // Sử dụng disk public để lưu hình ảnh
+        $storagePath = "images"; // Chỉ định thư mục lưu trữ
 
-        // Trả về đường dẫn tương đối
-        return Storage::url($path);
+        // Tạo tên file duy nhất
+        $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+        // Kiểm tra nếu ảnh đã tồn tại
+        if (Storage::disk('public')->exists("{$storagePath}/{$filename}")) {
+            return "storage/{$storagePath}/{$filename}"; // Trả về đường dẫn nếu ảnh đã tồn tại
+        }
+
+        // Lưu ảnh vào thư mục xác định
+        $path = Storage::disk('public')->putFileAs($storagePath, $image, $filename);
+
+        // Kiểm tra nếu ảnh được lưu thành công
+        if (!$path) {
+            throw new \Exception("Failed to save image: $filename");
+        }
+
+        // Trả về đường dẫn phù hợp cho JSON
+        return "storage/{$storagePath}/{$filename}";
     }
 
     protected function saveImagesToJsonFile($roomId, $mainImagePath, $additionalImagesPaths)
@@ -64,23 +83,22 @@ class RoomController extends Controller
         // Đường dẫn đến file JSON
         $jsonFilePath = storage_path('app/public/Rooms.json');
 
-        // Kiểm tra xem file đã tồn tại chưa
+        // Đọc dữ liệu hiện tại nếu file JSON đã tồn tại
         if (file_exists($jsonFilePath)) {
             $data = json_decode(file_get_contents($jsonFilePath), true);
         }
 
-        // Tạo mảng mới với thông tin cần thiết
+        // Thêm thông tin phòng mới với ảnh vào mảng dữ liệu
         $newEntry = [
-            'id' => $roomId,
+            'roomId' => $roomId,
             'main_image' => $mainImagePath,
             'additional_images' => $additionalImagesPaths,
         ];
 
-        // Thêm mảng mới vào dữ liệu
+        // Thêm mảng mới vào dữ liệu hiện có
         $data[] = $newEntry;
 
-        // Lưu dữ liệu vào file JSON
+        // Ghi dữ liệu mới vào file JSON
         file_put_contents($jsonFilePath, json_encode($data, JSON_PRETTY_PRINT));
     }
 }
-
