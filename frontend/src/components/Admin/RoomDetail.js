@@ -29,7 +29,7 @@ const RoomDetail = () => {
       formData.append('quantity', bookingQuantity);
       formData.append('selectedView', selectedView);
 
-      const response = await axios.post('/api/bookings', formData);
+      const response = await axios.post('http://localhost:8000/api/bookings', formData);
       console.log('Booking successful:', response.data);
     } catch (error) {
       console.error('Error making booking:', error);
