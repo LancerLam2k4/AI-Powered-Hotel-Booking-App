@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import provinces from '../provinces.json'; // JSON chứa danh sách tỉnh và huyện
 import './AddRoom.css';
 
 const AddRoom = () => {
@@ -11,36 +11,10 @@ const AddRoom = () => {
     description: '',
     main_image: null,
     additional_images: [],
+    province: '',
+    district: '',
   });
-
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-
-    // Append all fields to FormData
-    for (const key in roomData) {
-      if (Array.isArray(roomData[key])) {
-        roomData[key].forEach((file) => formData.append(`${key}[]`, file)); // Gửi với định dạng mảng
-      } else {
-        formData.append(key, roomData[key]);
-      }
-    }
-
-    try {
-      await axios.post('http://localhost:8000/api/add-room', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('Room added successfully!');
-      navigate('/rooms');
-    } catch (error) {
-      console.error(error.response ? error.response.data : error);
-      alert('Failed to add room. Please try again.');
-    }
-  };
+  const [districts, setDistricts] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,6 +22,16 @@ const AddRoom = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleProvinceChange = (e) => {
+    const selectedProvince = e.target.value;
+    setRoomData((prevData) => ({
+      ...prevData,
+      province: selectedProvince,
+      district: '', // Xóa giá trị huyện khi đổi tỉnh
+    }));
+    setDistricts(provinces[selectedProvince] || []);
   };
 
   const handleMainPhotoChange = (e) => {
@@ -73,6 +57,33 @@ const AddRoom = () => {
       updatedPhotos.splice(index, 1);
       return { ...prevData, additional_images: updatedPhotos };
     });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    // Append all fields to FormData
+    for (const key in roomData) {
+      if (Array.isArray(roomData[key])) {
+        roomData[key].forEach((file) => formData.append(`${key}[]`, file)); // Gửi với định dạng mảng
+      } else {
+        formData.append(key, roomData[key]);
+      }
+    }
+
+    try {
+      await axios.post('http://localhost:8000/api/add-room', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('Room added successfully!');
+      // Redirect to rooms page or another page
+    } catch (error) {
+      console.error(error.response ? error.response.data : error);
+      alert('Failed to add room. Please try again.');
+    }
   };
 
   return (
@@ -102,6 +113,30 @@ const AddRoom = () => {
             </div>
           </div>
 
+          {/* Thêm trường chọn Tỉnh và Huyện */}
+          <div className="form-row">
+            <div className="form-group">
+              <label>Province:</label>
+              <select name="province" value={roomData.province} onChange={handleProvinceChange} required>
+                <option value="">Select Province</option>
+                {Object.keys(provinces).map((province) => (
+                  <option key={province} value={province}>{province}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>District:</label>
+              <select name="district" value={roomData.district} onChange={handleChange} required>
+                <option value="">Select District</option>
+                {districts.map((district) => (
+                  <option key={district} value={district}>{district}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Thêm phần ảnh */}
           <div className="image-section">
             <label>Main Image</label>
             <div className="main-image-container">

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('price');
             $table->string('description');
             $table->string('status')->default('Sẵn sàng'); // Mặc định là 'Sẵn sàng'
+            $table->string('province')->nullable();
+            $table->string('district')->nullable();
             $table->string('reviews')->nullable();
             $table->timestamps();
         });
