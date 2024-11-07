@@ -15,6 +15,8 @@ class Room extends Model
         'price',
         'description',
         'status',
+        'province',
+        'district',
         'reviews',
     ];
 

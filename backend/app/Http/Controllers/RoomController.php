@@ -16,6 +16,8 @@ class RoomController extends Controller
             'type' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'required|string',
+            'province' => 'required|string',
+            'district' => 'required|string',
             'reviews' => 'integer|min:0',
         ]);
 

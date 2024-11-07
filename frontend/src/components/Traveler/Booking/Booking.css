@@ -1,6 +1,7 @@
 .booking-container {
     width: 100%;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .banner-slider-booking {
@@ -28,16 +29,37 @@
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    align-items: center;
+}
+
+.filters-booking select, .filters-booking input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 150px;
+}
+
+.search-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .room-list-booking {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
+    justify-content: center;
 }
 
 .room-item-booking {
-    flex: 1 1 30%; /* Đảm bảo mỗi phòng chiếm 30% chiều rộng */
+    flex: 1 1 30%;
+    max-width: 30%;
+    height: 250px;
     box-sizing: border-box;
     padding: 10px;
     background-color: #f7f7f7;

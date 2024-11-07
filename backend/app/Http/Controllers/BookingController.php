@@ -43,19 +43,6 @@ class BookingController extends Controller
                 'main_image' => $roomData ? url($roomData['main_image']) : null,
                 'additional_images' => $roomData ? array_map(fn($image) => url($image), $roomData['additional_images']) : [],
             ];
-
-            // Log room data for debugging
-            // \Log::info("Room added to list: ", [
-            //     'roomId' => $room->roomId,
-            //     'name' => $room->name,
-            //     'type' => $room->type,
-            //     'price' => $room->price,
-            //     'description' => $room->description,
-            //     'status' => $room->status,
-            //     'reviews' => $room->reviews,
-            //     'main_image' => $roomData ? $roomData['main_image'] : null,
-            //     'additional_images' => $roomData ? $roomData['additional_images'] : [],
-            // ]);
         }
 
         return response()->json($roomList);
