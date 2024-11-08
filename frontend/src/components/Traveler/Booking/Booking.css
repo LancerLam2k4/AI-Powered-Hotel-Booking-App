@@ -1,24 +1,24 @@
 .booking-container {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .banner-slider-booking {
-    width: 100%;
-    height: 300px;
-    overflow: hidden;
     position: relative;
+    height: 300px;
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 .banner-slide-booking {
-    width: 100%;
-    height: 100%;
     background-size: cover;
     background-position: center;
     position: absolute;
+    width: 100%;
+    height: 100%;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .banner-slide-booking.active {
@@ -27,61 +27,66 @@
 
 .filters-booking {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    align-items: center;
+    justify-content: space-around;
+    margin: 20px 0;
+    flex-wrap: wrap;
 }
 
-.filters-booking select, .filters-booking input {
+.filters-booking select {
     padding: 8px;
+    border-radius: 5px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 150px;
+}
+
+.amenities-checkboxes {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-height: 150px;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+
+.amenities-checkboxes label {
+    margin-bottom: 5px;
 }
 
 .search-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 .room-list-booking {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
 }
 
 .room-item-booking {
-    flex: 1 1 30%;
-    max-width: 30%;
-    height: 250px;
-    box-sizing: border-box;
-    padding: 10px;
-    background-color: #f7f7f7;
+    width: 200px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    text-align: center;
+    overflow: hidden;
+    padding: 10px;
 }
 
 .room-item-booking img {
     width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
+    height: auto;
     cursor: pointer;
 }
 
 .pagination-booking {
     margin-top: 20px;
-    display: flex;
-    justify-content: center;
 }
 
 .pagination-booking button {
-    margin: 0 5px;
     padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
 }

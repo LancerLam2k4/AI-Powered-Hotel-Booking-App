@@ -7,31 +7,65 @@ use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    // Method to list rooms
-    public function listRooms()
+    public function listRooms(Request $request)
     {
-        // Get room records from the database
-        $rooms = Room::orderBy('updated_at', 'desc')->get();
+        // Nhận các tham số lọc từ request
+        $price = $request->input('price');
+        $type = $request->input('type');
+        $province = $request->input('province');
+        $district = $request->input('district');
+        $amenities = $request->input('amenities');
 
-        // Load JSON data from Rooms.json
+        // Truy vấn cơ sở dữ liệu với các bộ lọc
+        $roomsQuery = Room::query();
+
+        if ($price) {
+            // Tùy chỉnh giá trị để phù hợp với yêu cầu của bạn
+            switch ($price) {
+                case 'Below 1 million VND':
+                    $roomsQuery->where('price', '<', 1000000);
+                    break;
+                case '1-3 million VND':
+                    $roomsQuery->whereBetween('price', [1000000, 3000000]);
+                    break;
+                case '3-5 million VND':
+                    $roomsQuery->whereBetween('price', [3000000, 5000000]);
+                    break;
+                case 'Above 5 million VND':
+                    $roomsQuery->where('price', '>', 5000000);
+                    break;
+                default:
+                    break;
+            }
+        }
+        if ($type) {
+            $roomsQuery->where('type', $type);
+        }
+        if ($province) {
+            $roomsQuery->where('province', 'LIKE', "%$province%");
+        }
+        if ($district) {
+            $roomsQuery->where('district', 'LIKE', "%$district%");
+        }
+        if ($amenities) {
+            $roomsQuery->whereHas('amenities', function ($query) use ($amenities) {
+                $query->where('name', $amenities);
+            });
+        }
+
+        $rooms = $roomsQuery->orderBy('updated_at', 'desc')->get();
+
         $roomsJson = json_decode(file_get_contents(storage_path('app/public/Rooms.json')), true);
 
-        // Error handling if JSON fails to load
         if ($roomsJson === null) {
             \Log::error("Failed to decode JSON or JSON file is empty.");
             return response()->json(["error" => "Unable to read room data."], 500);
-        } else {
-            \Log::info("Data from JSON: ", $roomsJson);
         }
 
-        // Preparing response data
         $roomList = [];
-
         foreach ($rooms as $room) {
-            // Find matching data in the JSON using `roomId` (now matches JSON)
             $roomData = collect($roomsJson)->firstWhere('roomId', $room->roomId);
-
-            // Prepare room data for frontend
+            $location = $room->province . ', ' . $room->district;
             $roomList[] = [
                 'roomId' => $room->roomId,
                 'name' => $room->name,
@@ -39,6 +73,7 @@ class BookingController extends Controller
                 'price' => $room->price,
                 'description' => $room->description,
                 'status' => $room->status,
+                'location' => $location,
                 'reviews' => $room->reviews,
                 'main_image' => $roomData ? url($roomData['main_image']) : null,
                 'additional_images' => $roomData ? array_map(fn($image) => url($image), $roomData['additional_images']) : [],
