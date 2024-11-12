@@ -26,42 +26,42 @@ const EditAdvancedInfo = () => {
 
   return (
     <div className="edit-info-container">
+      <h2>Edit advanced information</h2>
       <form onSubmit={handleSubmit}>
-        <h2>Edit advanced information</h2>
-        <div className="edit-info-form-group">
-          <label htmlFor="currentPassword" className="edit-info-label">Old password:</label>
+        <div className="form-group-advanced-advanced">
+          <label htmlFor="currentPassword">Old password:</label>
           <input
+          className="input-edit-advanced"
             type="password"
             id="currentPassword"
-            className="edit-info-input"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             required
           />
         </div>
-        <div className="edit-info-form-group">
-          <label htmlFor="newPassword" className="edit-info-label">New Password:</label>
+        <div className="form-group-advanced">
+          <label htmlFor="newPassword">New Password:</label>
           <input
+          className="input-edit-advanced"
             type="password"
             id="newPassword"
-            className="edit-info-input"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             required
           />
         </div>
-        <div className="edit-info-form-group">
-          <label htmlFor="confirmPassword" className="edit-info-label">Confirm new password:</label>
+        <div className="form-group-advanced-advanced">
+          <label htmlFor="confirmPassword">Confirm new password:</label>
           <input
+          className="input-edit-advanced"
             type="password"
             id="confirmPassword"
-            className="edit-info-input"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit" className="edit-info-submit-btn">Update</button>
+        <button type="submit" className="submit-btn">Update</button>
       </form>
     </div>
   );
