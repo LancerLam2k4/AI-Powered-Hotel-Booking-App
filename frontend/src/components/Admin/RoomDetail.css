@@ -1,0 +1,118 @@
+/* Header styling */
+.header-room-detail {
+    width: 100%;
+    height: 60px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-room-detail .logo-room-detail {
+    height: 40px;
+    margin-left: 10px;
+}
+
+/* Room details section */
+#roomdetails-room-detail {
+    display: flex;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+/* Main image container */
+.single-room-image-room-detail {
+    width: 40%;
+    margin-right: 50px;
+}
+
+.main-img-room-detail {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Small images row below the main image */
+.small-img-group-room-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-img-col-room-detail {
+    flex-basis: 24%;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    padding: 2px;
+    border-radius: 4px;
+    transition: transform 0.2s;
+}
+
+.small-img-col-room-detail:hover {
+    transform: scale(1.05);
+}
+
+.small-img-room-detail {
+    width: 100%;
+}
+
+/* Room details styling */
+.single-room-details-room-detail {
+    width: 50%;
+    padding-top: 20px;
+    text-align: justify;
+}
+
+.breadcrumbs-room-detail {
+    font-size: 18px;
+    color: #555;
+    font-weight: bold;
+}
+
+.single-room-details-room-detail h4 {
+    font-size: 28px;
+    margin: 10px 0;
+}
+
+.single-room-details-room-detail h2 {
+    font-size: 24px;
+    color: #088178;
+    margin-bottom: 20px;
+    margin-right: 580px;
+}
+
+.single-room-details-room-detail select {
+    display: block;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.single-room-details-room-detail input {
+    width: 60px;
+    height: 40px;
+    padding-left: 8px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.single-room-details-room-detail button {
+    color: white;
+    background: #088178;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.single-room-details-room-detail button:hover {
+    background-color: #066a5f;
+}
+
+.single-room-details-room-detail span {
+    display: block;
+    margin-top: 20px;
+    line-height: 1.6;
+    color: #333;
+}
