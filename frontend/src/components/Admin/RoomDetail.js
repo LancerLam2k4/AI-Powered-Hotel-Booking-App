@@ -4,14 +4,26 @@ import './RoomDetail.css';
 
 const RoomDetail = () => {
   const [mainImage, setMainImage] = useState('room.png');
+  const [roomDetails, setRoomDetails] = useState(null);
+  const [bookingQuantity, setBookingQuantity] = useState(1);
+  const [roomId, setRoomId] = useState(null);
 
   const handleImageClick = (imageSrc) => {
     setMainImage(imageSrc);
   };
 
+  // Get roomId from URL params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    setRoomId(id);
+  }, []);
+
   // Fetch room details from the database
   useEffect(() => {
     const fetchRoomDetails = async () => {
+      if (!roomId) return;
+      
       try {
         const response = await axios.get(`/api/rooms/${roomId}`);
         setRoomDetails(response.data.room);
@@ -23,11 +35,12 @@ const RoomDetail = () => {
   }, [roomId]);
 
   const handleBooking = async () => {
+    if (!roomDetails) return;
+    
     try {
       const formData = new FormData();
       formData.append('roomId', roomDetails.id);
       formData.append('quantity', bookingQuantity);
-      formData.append('selectedView', selectedView);
 
       const response = await axios.post('http://localhost:8000/api/bookings', formData);
       console.log('Booking successful:', response.data);
@@ -60,14 +73,12 @@ const RoomDetail = () => {
           <h4>Deluxe King Room</h4>
           <h2>$200 per night</h2>
 
-          <select>
-            <option value="">Select View</option>
-            <option value="garden">Garden View</option>
-            <option value="ocean">Ocean View</option>
-            <option value="city">City View</option>
-          </select>
-
-          <input type="number" min="1" defaultValue="1" />
+          <input 
+            type="number" 
+            min="1" 
+            value={bookingQuantity}
+            onChange={(e) => setBookingQuantity(parseInt(e.target.value))}
+          />
 
           <button onClick={handleBooking}>Book Now</button>
 
