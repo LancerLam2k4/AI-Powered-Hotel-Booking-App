@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rooms', function (Blueprint $table) {
+           
             $table->id('roomId'); // Tạo trường ID tự động tăng
             $table->string('name');
             $table->string('type');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('district')->nullable();
             $table->string('reviews')->nullable();
             $table->timestamps();
+
         });
     }
 

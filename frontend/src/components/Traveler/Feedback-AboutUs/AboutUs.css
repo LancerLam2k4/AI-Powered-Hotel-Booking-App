@@ -1,0 +1,206 @@
+.about-us-container {
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Thay đổi phông chữ */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Phần 1 với banner ảnh */
+.banner-section {
+  background-image: url('C:/Users/84782/Downloads/AI-Powered-Hotel-Booking-App/frontend/public/Hình-nền-đẹp-chất-lượng-cao-cho-PC-scaled-2048x1152.jpg');
+  background-size: cover;
+  color: #fff;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.welcome-text h1 {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.welcome-text p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+/* Phần 2 - About Hotel */
+.about-hotel-section {
+  background-color: #f8f8f8;
+  color: #333;
+  padding: 40px 20px;
+}
+
+.about-hotel {
+  display: flex;
+  padding: 20px;
+}
+
+.about-hotel-left,
+.about-hotel-right {
+  width: 50%;
+}
+
+.about-hotel-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.about-hotel-left h2 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.about-hotel-left p {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+.about-hotel-right {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Chiều cao cố định cho khung ảnh */
+  overflow: hidden; /* Ẩn phần ảnh bị che khuất */
+  display: flex; /* Để căn chỉnh ảnh dễ dàng */
+  justify-content: center;
+  align-items: center;
+}
+.image-container {
+  width: 100%; /* Đặt chiều rộng khung chứa */
+  max-width: 500px; /* Giới hạn chiều rộng tối đa của khung bao ảnh */
+  max-height: 400px; /* Giới hạn chiều cao tối đa của khung bao ảnh */
+  overflow: hidden; /* Ẩn phần ảnh bị vượt quá khung */
+}
+.image-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-1 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ảnh 1 ở lớp dưới */
+}
+
+.image-2 {
+  width: 70%; /* Kích thước ảnh 2 nhỏ hơn */
+  height: auto;
+  object-fit: cover;
+  position: absolute;
+  top: 20px; /* Lệch lên một chút */
+  left: 20px; /* Lệch sang phải một chút */
+  z-index: 2; /* Ảnh 2 ở lớp trên */
+  clip-path: inset(0); /* Ẩn phần ảnh không cần thiết */
+}
+
+
+
+
+/* Section 3 and 4 - Team Members */
+.team-section {
+  background-color: #f5f5f5;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.team-members {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.team-members2 {
+  display: flex;
+  justify-content: center;
+  gap: 300px;
+}
+
+.member {
+  text-align: center;
+}
+
+.member img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.member p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Section 5 - Company Logos */
+.logos-section {
+  background-color: #e0e0e0;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.logos {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.logos img {
+  width: 100px;
+  height: auto;
+}
+
+/* Footer Styles 
+.footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: auto; /* Pushes the footer to the bottom 
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  flex: 1;
+  margin: 10px;
+  min-width: 200px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section a {
+  font-size: 14px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #aaa;
+}
+*/
