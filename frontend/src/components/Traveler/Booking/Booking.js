@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import provincesData from '../../provinces.json';
 import './Booking.css';
-
+import ChatbotComponent from "../AI/BookingChatbox"
 function Booking() {
     const [rooms, setRooms] = useState([]);
     const [filters, setFilters] = useState({ price: '', type: '', amenities: [] });
@@ -203,6 +203,7 @@ function Booking() {
                     Next
                 </button>
             </div>
+            <ChatbotComponent />
         </div>
     );
 }

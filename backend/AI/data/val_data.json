@@ -1,0 +1,13 @@
+[
+    {
+      "context": "Phòng Luxury có các tiện ích như hồ bơi, view đẹp, gần biển, giá 5 triệu VND.",
+      "question": "Phòng Luxury có những tiện ích gì?",
+      "answer": "hồ bơi, view đẹp, gần biển"
+    },
+    {
+      "context": "Phòng Standard có không gian rộng và giường đôi, giá 2 triệu VND.",
+      "question": "Phòng Standard có những tiện ích gì?",
+      "answer": "không gian rộng và giường đôi"
+    }
+  ]
+  
