@@ -7,11 +7,9 @@ import './TravelerLayout.css';
 const TravelerLayout = () => {
   return (
     <div className="traveler-layout">
-      {/* Khung chứa các trang con của Traveler */}
       <div className="traveler-content">
-        <Outlet /> {/* Render nội dung của các trang con (Profile, Booking...) */}
+        <Outlet/> 
       </div>
-      {/* Icon ChatboxButton luôn hiển thị trong layout */}
       <ChatboxButton />
     </div>
   );

@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from 'react';
 import axios from 'axios';
-import './RoomDetail.css';
+import './BookingDetail.css';
 
 const RoomDetail = () => {
   const [mainImage, setMainImage] = useState('room.png');

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "hale-wind-439905-c8",
+  "private_key_id": "09932069972d48b32472e3c0d1fc4771fc75b79a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDHhwcqFPPPZzGE\nMqxlyIKPgwNGAdeX54QyZwmAqcxLPQd3WeoLjH2HgKKtc/bfKohnL+KzOAZMS7eL\nQjDyaZWgY7AA45qfDIaEUQ9wKf1wohJUCTZNvHfx1ccfV018eAra4l5gJ/dv4Uxc\n+pNldBKeeDn/dUndBhSPoS26UHxfXouAJ+z032Tf8eTaRtJrfhYAVrPwFjqycHSU\n17z0vAQu3FaZbqMa+XFI4SNUfJdOT6+OXlhg2BSfpcVboAPQAyPLFCeTiLj3Acc/\nIbvYzFdGBJtXbwJPlvPgtMmZBIGF40dYy9qFY3Wx/NKenNV7eLqVmT93IrHBUXaA\nnQvnZwsbAgMBAAECggEAJhzSTwUCj2cIS9a8HJMg8VXWvbwjWPZVx6Tr6UJF7kdB\nklg//yW+YrA9IsHIcdd3h7JbbN1yQoeiDz09CUkG1kTEfV78jY4Acezj9IpoyWeD\n9b5uu4mZJb4uk3uDJxftBuN/oIFx39Ka2hXZKuNxnQidF4Fpcwkyyz6/89tk7nhT\ncqPbxxvDHnOqmhvu/o2h70LSpBiS8R30lKveGeOcMwQoY0HIXMymmAp4Qq6o/PgR\nGa9JuDKhLNfVE6QYuhVIP7pRpYF84JH+eNQ0XspnkJ1+Zsfflx7qBQa+c2WlIGvZ\nmZ8N1Hnqn21I73Jta09X6dgMs1NuzOE7M8KYkSs9WQKBgQD8Te1FxtHAzOrwuQS3\npA9HYjgnsZZtdhKy68/6DrxtE8DhX6vmpOx2xMrBfP9PazIUdPBLrpZKf35KTvTY\nIE6ZgdPsIOElxXE/wpGxJLditl3tzE2iYFATy35TeJpgFu7DBZg+Ga21MlQk3coR\ncC42K8/WRiw4fvDSIgoxKZt2MwKBgQDKczOubhShTIvi0uTkgXYjedtPpJxOz8e+\nUGw0cLmeo5d6L7oDDUvyC71MB2zYkP+lRJdhZj+YA5sydrUKVEOZh/1DDGxya/Yf\nZqron8JptQBW5HBf7LCbmRE2dBfKDOOQSedvzxxwMh2KouNAQtudH3aEWd6oSYtj\n+845O/QfeQKBgQDtX/e7bVpM1b646qnIiR8i3wLMPaW0qKDhG0GaFyEqUqpmoBdg\nMYyUFYRZVFv0gXslifvGiKS3xImyKeTsLkEk5ePXxftuCPwKq+lcy5mJ0uA+abgk\n7A6LASqCJ/a+LvVGIM5iptAqqQZHhS+nBm9D4iZxh6X1JWE3onUKWgX8xwKBgB4N\nxhFR9CwR0f5lMmedtG0FzQHgvPeSLuPYyodqaJPdU0JnTWTgl3KiPYLI42au99SP\n/y0NYcluV57BMpUK91IWdwl6EatWzZ3RvvNzrAfHP/qmROxolbszmPONfm6XRT0J\nS5s0ktMxDWOkVLoYcsO7hPuW38/5wwCfw/iJJu95AoGBAO7BDRWD/C7RR/W6d/Xr\n3EyD6AysoD0FG3B2UCmXhJ9wviGuGcKFA4GEvr6BsJOzcFHKDuNMV/HcsfMmSSDM\nsocKLn/00o5PrmDGH73dvy9YW8QoSRV20n9e0f9HZt70mn6EmYXmzDSxuizbL3CR\n1n2AOhvBb4T/7qEKh/cDKcQg\n-----END PRIVATE KEY-----\n",
+  "client_email": "dialogflow-service-account@hale-wind-439905-c8.iam.gserviceaccount.com",
+  "client_id": "111822820756746082083",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-service-account%40hale-wind-439905-c8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
