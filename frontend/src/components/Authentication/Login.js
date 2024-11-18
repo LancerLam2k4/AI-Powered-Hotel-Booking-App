@@ -30,7 +30,11 @@ const Login = () => {
       const role = response.data.user.role;
       setUserRole(role);
 
-      // Chuyển hướng đến dashboard tương ứng dựa vào role
+      // Store user_id in local storage
+      const userId = response.data.user.user_id;
+      localStorage.setItem('userId', userId);
+
+      // Redirect to the appropriate dashboard based on role
       switch (role) {
         case "admin":
           navigate("/admin-dashboard");
@@ -48,7 +52,7 @@ const Login = () => {
           break;
       }
 
-      // Kiểm tra và hiển thị ChatboxButton nếu role là "traveler"
+      // Display ChatboxButton if role is "traveler"
       if (role === "traveler") {
         console.log("User is a traveler, displaying ChatboxButton");
       }
