@@ -1,41 +1,39 @@
 /* src/components/Traveler/TravelerLayout.css */
 .traveler-layout {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f4f6f8;
-    
-  }
-  
-  .traveler-content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #ffffff;
-  }
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f6f8;
+}
 
-  /* Header.css */
+.traveler-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+/* Header.css */
 .header-container {
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: space-between;
+  align-items: center;
   padding: 12px 40px;
-  background-color: #87CEFA;
+  background-color: #87cefa;
   color: gray;
-  
+
   width: 100vw;
 }
 
 .logo-container {
-  margin-right: 35%; 
-  
+  margin-right: 35%;
 }
 
 .logo-container .logo1 {
-  width: 150px; 
+  width: 150px;
   margin-left: 200px;
   color: #000;
 }
@@ -53,7 +51,7 @@
 }
 
 .nav-links ul li {
-  margin: 0 30px; 
+  margin: 0 30px;
 }
 
 .nav-links ul li a {
@@ -62,7 +60,6 @@
   font-size: 16px;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: bold;
-
 }
 
 .nav-links ul li a:hover {
@@ -76,8 +73,8 @@
   line-height: 24px;
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-weight: 400;
-  letter-spacing: .08em;
-  transition: .33s all ease;
+  letter-spacing: 0.08em;
+  transition: 0.33s all ease;
   white-space: normal;
   text-transform: uppercase;
   cursor: pointer;
@@ -85,17 +82,144 @@
   margin-left: 50px;
   color: #000;
   background-color: transparent;
-  border:none;
+  border: none;
   gap: 8px; /* Khoảng cách giữa icon và text */
   margin-left: -200px;
-
 }
 
 .booking-button:hover {
   color: #c19b76;
-	background-color: transparent;
-	border-color: #000;
+  background-color: transparent;
+  border-color: #000;
+}
+/* Footer */
+/* General Footer Styling */
+.footer-booking {
+  background: linear-gradient(135deg, #2c3e50); /* Gradient background */
+  color: #f5f5f5;
+  padding: 40px 20px;
+  font-family: "Arial", sans-serif;
+  width: 100%;
+}
+.footer-logo-desc img {
+  width: 50%;
+}
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
 }
 
+/* Section Styling */
+.footer-logo-desc,
+.footer-links,
+.footer-contact,
+.footer-social {
+  flex: 1;
+  min-width: 200px;
+}
 
-  
+.footer-logo-desc h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+.footer-logo-desc p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #ddd;
+}
+
+.footer-links h4,
+.footer-contact h4,
+.footer-social h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #ffcc00;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #f5f5f5;
+}
+
+.footer-contact p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.footer-contact a {
+  color: #ffcc00;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-contact a:hover {
+  color: #fff;
+}
+
+.footer-social .social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-social .social-icons a {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background: #444;
+  color: #f5f5f5;
+  font-size: 18px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  transition: background 0.3s, color 0.3s;
+}
+
+.footer-social .social-icons a:hover {
+  background: #ffcc00;
+  color: #2c3e50;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 12px;
+  color: #bbb;
+  border-top: 1px solid #444;
+  padding-top: 10px;
+}
+
+.footer-bottom a {
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.footer-bottom a:hover {
+  color: #f5f5f5;
+}

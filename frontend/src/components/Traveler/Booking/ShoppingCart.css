@@ -1,0 +1,196 @@
+/* General Layout */
+.cart-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 40px auto;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+/* Left Side - Cart Content */
+.cart-content {
+  flex: 2;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart-title {
+  font-size: 24px;
+  margin: 0;
+  color: black;
+}
+
+.cart-items-count {
+  font-size: 14px;
+  color: #888;
+}
+
+.cart-items {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures equal spacing */
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+  width: 100%; /* Make sure it takes full width */
+}
+
+.item-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Align items vertically */
+}
+
+.item-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.item-description {
+  font-size: 14px;
+  color: #666;
+}
+
+.item-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1; /* Allow it to grow and take space */
+  justify-content: space-between; /* Ensure even spacing between controls */
+}
+
+.quantity-btn {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1px 10px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.quantity-input {
+  width: 80px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 4px;
+  flex: 1; /* Allow it to take equal space */
+}
+
+.item-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  flex: 1; /* Allow it to take equal space */
+  text-align: center; /* Center the price */
+  display: flex;
+  align-items: center; /* Align price and icon */
+  gap: 10px;
+}
+
+.remove-cart {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.remove-cart:hover {
+  color: #ff1a1a;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+  color: #000;
+}
+
+/* Right Side - Cart Summary */
+.cart-summary {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #d3d3d3;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cart-summary h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.summary-code {
+  margin: 20px 0;
+}
+
+.summary-code label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  margin-left: unset;
+  font-weight: bold;
+}
+
+.summary-code input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 10px 20px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkout-btn:hover {
+  background: #555;
+}

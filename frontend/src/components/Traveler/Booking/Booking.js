@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import provincesData from '../../provinces.json';
 import './Booking.css';
+import { useNavigate } from 'react-router-dom';
 
 function Booking() {
     const [rooms, setRooms] = useState([]);
@@ -11,6 +12,8 @@ function Booking() {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
+
 
     const banners = [
         'banner-booking-1.jpg',
@@ -20,14 +23,6 @@ function Booking() {
     const prices = ['Below 1 million VND', '1-3 million VND', '3-5 million VND', 'Above 5 million VND'];
     const types = ['Single Room', 'Double Room', 'Suite', 'Apartment'];
     const amenities = ['WiFi', 'Air Conditioning', 'Swimming Pool', 'Gym','Đầy Đủ Tiện Nghi'];
-
-    // Slide banner every 3 seconds
-    useEffect(() => {
-        const slideInterval = setInterval(() => {
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % banners.length);
-        }, 3000);
-        return () => clearInterval(slideInterval);
-    }, [banners.length]);
 
     // Fetch rooms whenever page or filters change
     useEffect(() => {
@@ -86,51 +81,65 @@ function Booking() {
         }));
     };
     // Handle pagination
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
+    const handlePageChange = (pageNumber) => {
+        if (pageNumber < 1 || pageNumber > Math.ceil(rooms.length / roomsPerPage)) return;
+        setCurrentPage(pageNumber);
     };
-    const handleAmenitiesChange = (e) => {
-        const { value } = e.target;
-        setFilters(prevFilters => {
-            const updatedAmenities = prevFilters.amenities.includes(value)
-                ? prevFilters.amenities.filter(amenity => amenity !== value)
-                : [...prevFilters.amenities, value];
+    const renderPageNumbers = () => {
+        const pageCount = Math.ceil(rooms.length / roomsPerPage);
+        const pageNumbers = [];
     
-            if (value === 'Đầy Đủ Tiện Nghi') {
-                return {
-                    ...prevFilters,
-                    amenities: [value]
-                };
-            }
+        // Xây dựng các số trang, có thể cần phải giới hạn số trang hiển thị
+        for (let i = 1; i <= pageCount; i++) {
+            pageNumbers.push(
+                <button
+                    key={i}
+                    className={`page-number ${i === currentPage ? 'active' : ''}`}
+                    onClick={() => handlePageChange(i)}
+                >
+                    {i}
+                </button>
+            );
+        }
     
-            if (updatedAmenities.includes('Đầy Đủ Tiện Nghi')) {
-                return {
-                    ...prevFilters,
-                    amenities: updatedAmenities.filter(amenity => amenity !== 'Đầy Đủ Tiện Nghi')
-                };
-            }
+        return pageNumbers;
+    }
     
-            return {
-                ...prevFilters,
-                amenities: updatedAmenities
-            };
-        });
-    };
+    const handleImageClick = () => {
+        navigate('/room-detail');
+      };
     
+    const roomsPerPage = 2;
 
-    const roomsPerPage = 12;
 
     return (
-        <div className="booking-container">
-            <div className="banner-slider-booking">
-                {banners.map((image, index) => (
-                    <div
-                        key={index}
-                        className={`banner-slide-booking ${index === currentSlide ? 'active' : ''}`}
-                        style={{ backgroundImage: `url(${image})` }}
-                    ></div>
-                ))}
-            </div>
+            <div className="booking-container">
+                    <header className="header-container">
+        <div className="header-container">
+        <div className="logo-container">
+            <img src="logo3.png" alt="Logo1" className="logo1" />
+        </div>
+
+        <div className="nav-links">
+            <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Services</a></li>
+            <li><a href="">Contact</a></li>
+            </ul>
+        </div>
+        <button className="booking-button">
+        <span className="material-icons">shopping_cart</span> 
+        </button>
+        </div>
+        </header>
+            {/* Replace the slider with a single image and overlay text */}
+            <div className="banner-image-booking">
+    <div className="banner-text-overlay">
+        <h1>Rooms & Suites</h1>
+        <p>Find the best rooms at the best prices</p>
+    </div>
+</div>
 
             <div className="filters-booking">
                 <select name="price" onChange={handleFilterChange}>
@@ -163,47 +172,113 @@ function Booking() {
                             ))}
                         </select>
                     )}
-                </div>
-
-                <select name="amenities" onChange={handleFilterChange}>
-                    <option value="">Select Amenities</option>
-                    {amenities.map((amenity, index) => (
-                        <option key={index} value={amenity}>{amenity}</option>
-                    ))}
-                </select>
+                </div>           
             </div>
 
             <div className="room-list-booking">
-                {isLoading ? (
-                    <p>Loading rooms...</p>
-                ) : (
-                    rooms.slice((currentPage - 1) * roomsPerPage, currentPage * roomsPerPage).map((room) => (
-                        <div key={room.roomId} className="room-item-booking">
-                            <img
-                                src={room.main_image || 'default_image.jpg'}
-                                alt={room.name}
-                                className="room-image-booking"
-                            />
-                            <div className="room-details-booking">
-                                <h3>{room.name}</h3>
-                                <p>{room.location}</p>
-                                <p>{room.price}</p>
-                                <p>{room.type}</p>
-                            </div>
-                        </div>
-                    ))
-                )}
-            </div>
+    {isLoading ? (
+        <p>Loading rooms...</p>
+    ) : (
+        rooms.slice((currentPage - 1) * roomsPerPage, currentPage * roomsPerPage).map((room) => (
+            <div key={room.roomId} className="room-item-booking">
+                <div className="room-image" >
+                    <img
+                        src={room.main_image || 'default_image.jpg'}
+                        alt={room.name}
+                        className="room-image-booking"
+                    />
+                </div>
+                <div className="room-details">
+                    <h2>{room.name}</h2>
+                    <p>Enjoy our classic suites with all the elegance and comfort that its interior has...</p>
+                    <div className="price-section">
+                    <span className="price-label">Prices start at:</span>
+                    <span className="price-value price-highlight">{new Intl.NumberFormat('vi-VN', {currency: 'VND' }).format(room.price)} vnđ</span>
 
+                    <span className="price-unit">/per night</span>
+                    </div>
+                    <ul className="room-info">
+                        <li>Location: {room.rocation || ''}</li>
+                        <li>Size: {room.size || '35m²'}</li>
+                        <li>Category: {room.type || 'Single'}</li>
+                    </ul>
+                    <button className="book-now"onClick={handleImageClick}>More Detail!</button>
+                </div>
+            </div>
+        ))
+    )}
+    </div>
             <div className="pagination-booking">
-                <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                    Previous
-                </button>
-                <button onClick={() => handlePageChange(currentPage + 1)} disabled={rooms.length <= currentPage * roomsPerPage}>
-                    Next
-                </button>
+            <button 
+        onClick={() => handlePageChange(currentPage - 1)} 
+        disabled={currentPage === 1}>
+        Previous
+    </button>
+
+    {/* Hiển thị số trang */}
+    {renderPageNumbers()}
+
+    <button 
+        onClick={() => handlePageChange(currentPage + 1)} 
+        disabled={currentPage === Math.ceil(rooms.length / roomsPerPage)}>
+        Next
+    </button>
+            </div>
+                    {/* Footer */}
+                    <footer className="footer-booking">
+            <div className="footer-container">
+                
+                <div className="footer-logo-desc">
+                   <img src="logo3.png" alt="Logo1" className="logo1" />
+                    <p>
+                        A boutique experience in Indianapolis with luxurious rooms, exemplary service, and a prime location.
+                    </p>
+                </div>
+
+            
+                <div className="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                
+                <div className="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p>410 S Missouri St, Indianapolis, IN</p>
+                    <p>Phone: +3(123) 789-5789</p>
+                    <p>Email: <a href="mailto:info@modernhotel.com">info@modernhotel.com</a></p>
+                </div>
+
+                
+                <div className="footer-social">
+                    <h4>Follow Us</h4>
+                    <div className="social-icons">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-instagram"></i>
+                </a>
+                <a href="https://google.com" target="_blank" rel="noopener noreferrer">
+                    <i className="fab fa-google"></i>
+                </a>
+            
             </div>
         </div>
+    </div>
+
+    
+    <div className="footer-bottom">
+        <p>&copy; 2024 Modern Hotel. All Rights Reserved. <a href="#">Privacy Policy</a></p>
+    </div>
+</footer>
+        </div>
+        
     );
 }
 
