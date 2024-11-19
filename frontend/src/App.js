@@ -14,10 +14,8 @@ import TravelerLayout from "./components/Traveler/TravelerLayout";
 import AddRoom from "./components/Admin/AddRoom.js";
 import BookingDetail from "./components/Traveler/Booking/BookingDetail.js";
 import Booking from "./components/Traveler/Booking/Booking.js";
-import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
-import ShoppingCart from "./components/Traveler/Booking/ShoppingCart.js"
 import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvancedInfo.js";
-import Feedback from "./components/Traveler/Feedback-AboutUs/Feedback"
+import Feedback from "./components/Traveler/Feedback/Feedback.js";
 
 const App = () => {
   return (
