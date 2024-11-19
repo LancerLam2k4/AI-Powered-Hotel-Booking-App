@@ -3,6 +3,76 @@
         "roomId": 1,
         "name": "Phòng 1",
         "type": "Single Room",
+        "price": 150000,
+        "description": "Phòng có WiFi, điều hòa, hồ bơi, và gym, đầy đủ tiện nghi.",
+        "status": "Sẵn sàng",
+        "province": "Hà Nội",
+        "district": "Quận Hoàn Kiếm",
+        "reviewsCore": 3.0,
+        "created_at": "2024-11-11 02:18:00",
+        "updated_at": "2024-11-11 02:18:00",
+        "main_image": "storage\/images\/1731291480_67316958831ff.png",
+        "additional_images": [
+            "storage/images/room1_1.png",
+            "storage/images/room1_2.png"
+        ]
+    },
+    {
+        "roomId": 2,
+        "name": "Phòng 2",
+        "type": "Single Room",
+        "price": 2500000,
+        "description": "Phòng có WiFi, điều hòa, hồ bơi, và gym, đầy đủ tiện nghi.",
+        "status": "Sẵn sàng",
+        "province": "Hà Nội",
+        "district": "Quận Hoàn Kiếm",
+        "reviewsCore": 4.7,
+        "created_at": "2024-11-11 02:18:00",
+        "updated_at": "2024-11-11 02:18:00",
+        "main_image": "storage/images/room1_main.png",
+        "additional_images": [
+            "storage/images/room1_1.png",
+            "storage/images/room1_2.png"
+        ]
+    },
+    {
+        "roomId": 3,
+        "name": "Phòng 3",
+        "type": "Single Room",
+        "price": 1500000,
+        "description": "Phòng có WiFi, điều hòa, hồ bơi, và gym, đầy đủ tiện nghi.",
+        "status": "Sẵn sàng",
+        "province": "Hà Nội",
+        "district": "Quận Hoàn Kiếm",
+        "reviewsCore": 4.5,
+        "created_at": "2024-11-11 02:18:00",
+        "updated_at": "2024-11-11 02:18:00",
+        "main_image": "storage/images/room1_main.png",
+        "additional_images": [
+            "storage/images/room1_1.png",
+            "storage/images/room1_2.png"
+        ]
+    },{
+        "roomId": 4,
+        "name": "Phòng 4",
+        "type": "Single Room",
+        "price": 1500000,
+        "description": "Phòng có WiFi, điều hòa, hồ bơi, và gym, đầy đủ tiện nghi.",
+        "status": "Sẵn sàng",
+        "province": "Hà Nội",
+        "district": "Quận Hoàn Kiếm",
+        "reviewsCore": 4.5,
+        "created_at": "2024-11-11 02:18:00",
+        "updated_at": "2024-11-11 02:18:00",
+        "main_image": "storage/images/room1_main.png",
+        "additional_images": [
+            "storage/images/room1_1.png",
+            "storage/images/room1_2.png"
+        ]
+    },{
+        "roomId": 5,
+        "name": "Phòng 5",
+        "type": "Single Room",
         "price": 1500000,
         "description": "Phòng có WiFi, điều hòa, hồ bơi, và gym, đầy đủ tiện nghi.",
         "status": "Sẵn sàng",

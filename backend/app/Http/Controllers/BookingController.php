@@ -82,4 +82,24 @@ class BookingController extends Controller
 
         return response()->json($roomList);
     }
+    public function showDetail(Request $request)
+    {
+        $room = Room::findOrFail($request->room);
+        $roomsJson = json_decode(file_get_contents(storage_path('app/public/Rooms.json')), true);
+        $roomData = collect($roomsJson)->firstWhere('roomId', $room->roomId);
+        $location = $room->province . ', ' . $room->district;
+            $roomList[] = [
+                'roomId' => $room->roomId,
+                'name' => $room->name,
+                'type' => $room->type,
+                'price' => $room->price,
+                'description' => $room->description,
+                'status' => $room->status,
+                'location' => $location,
+                'reviews' => $room->reviews,
+                'main_image' => $roomData ? url($roomData['main_image']) : null,
+                'additional_images' => $roomData ? array_map(fn($image) => url($image), $roomData['additional_images']) : [],
+            ];
+            return response()->json($roomList);
+    }
 }

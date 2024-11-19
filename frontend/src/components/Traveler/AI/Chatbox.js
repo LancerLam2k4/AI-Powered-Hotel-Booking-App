@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext} from "react";
 import axios from "axios";
 import "./Chatbox.css";
-
-const Chatbox = ({ onClose }) => {
+import { ChatContext } from "./ChatContext"
+const Chatbox = ({ onClose, onRoomSelected }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-
-  // Gửi lời chào khi mở Chatbox lần đầu
+  const { rooms,setRooms } = useContext(ChatContext);
   useEffect(() => {
     if (messages.length === 0) {
       const greeting = {
@@ -24,19 +23,38 @@ const Chatbox = ({ onClose }) => {
       setInputMessage("");
 
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat`, {
-          message: inputMessage,
+        const response = await axios.post(`http://localhost:5000/ask`, {
+          question: inputMessage,
         });
-        const aiMessage = { sender: "ai", text: response.data.message };
-        setMessages((prevMessages) => [...prevMessages, aiMessage]);
-        sessionStorage.setItem("chatHistory", JSON.stringify([...messages, userMessage, aiMessage]));
+
+        const responseData = response.data;
+        console.log(responseData)
+        if (responseData.rooms) {
+          // Nếu phản hồi có thông tin phòng
+          const aiMessage = { sender: "ai", text: responseData.answer };
+          setMessages((prevMessages) => [...prevMessages, aiMessage]);
+          setRooms(responseData.rooms);
+          console.log("Rooms tại Chatbox:", responseData.rooms);
+          if (onRoomSelected) {
+            onRoomSelected(responseData.rooms);
+          }
+        } else {
+          // Câu trả lời thông thường
+          const aiMessage = { sender: "ai", text: responseData.answer || responseData.error };
+          setMessages((prevMessages) => [...prevMessages, aiMessage]);
+        }
+
+        sessionStorage.setItem("chatHistory", JSON.stringify([...messages, userMessage]));
       } catch (error) {
         console.error("Error sending message:", error);
+        const errorMessage = {
+          sender: "ai",
+          text: "Xin lỗi, tôi không thể trả lời ngay bây giờ. Hãy thử lại sau!",
+        };
+        setMessages((prevMessages) => [...prevMessages, errorMessage]);
       }
     }
   };
-
-  // Khôi phục cuộc trò chuyện khi mở lại Chatbox
   useEffect(() => {
     const storedMessages = sessionStorage.getItem("chatHistory");
     if (storedMessages) {
@@ -44,11 +62,10 @@ const Chatbox = ({ onClose }) => {
     }
   }, []);
 
-  // Đóng hộp thoại và xóa dữ liệu cuộc trò chuyện
   const handleClose = () => {
     onClose();
     setMessages([]);
-    sessionStorage.removeItem("chatHistory"); // Xóa dữ liệu trong sessionStorage
+    sessionStorage.removeItem("chatHistory");
   };
 
   return (
