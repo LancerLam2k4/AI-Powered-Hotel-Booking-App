@@ -1,6 +1,7 @@
 import torch
 from transformers import PhobertTokenizer, BertForQuestionAnswering
 from torch.utils.data import Dataset, DataLoader
+import random
 import json
 from tqdm import tqdm
 
@@ -17,10 +18,12 @@ class QuestionAnsweringDataset(Dataset):
 
     def __getitem__(self, idx):
         item = self.data[idx]
-        question = item['question']
-        answer = item['answer']
+        
+        # Randomly select one question and one answer from the list
+        question = random.choice(item['question'])
+        answer = random.choice(item['answer'])
 
-        # Ensure both the question and answer are tokenized properly and the sequence length doesn't exceed the model's max length (512 tokens)
+        # Tokenize the question and answer
         encoding = self.tokenizer(
             question,
             answer,
@@ -31,7 +34,7 @@ class QuestionAnsweringDataset(Dataset):
             return_token_type_ids=True
         )
 
-        # Get answer's start and end positions in the tokenized text
+        # Encode the answer and find its position in the input sequence
         answer_tokens = self.tokenizer.encode(answer, add_special_tokens=False)
         input_ids = encoding['input_ids'].flatten().tolist()
 
@@ -57,7 +60,7 @@ def train_model():
     # Move model to the correct device (GPU or CPU)
     model.to(device)
      
-    # Load training data from JSON file
+    # Load training data
     with open('data/train_data.json', 'r', encoding='utf-8') as f:
         train_data = json.load(f)
 

@@ -1,5 +1,5 @@
 // src/components/Traveler/TravelerLayout.js
-import React from 'react';
+import React , { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import ChatboxButton from './AI/ChatboxButton';
 import './TravelerLayout.css';

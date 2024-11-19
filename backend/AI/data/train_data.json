@@ -1,11 +1,7 @@
 [
     {
-      "question": "Cách sử dụng Python?",
-      "answer": "Để sử dụng Python, bạn cần cài đặt từ trang web chính thức. Sau khi cài đặt, bạn có thể chạy các tập lệnh Python bằng lệnh 'python script_name.py'."
-    },
-    {
-      "question": "Học máy là gì?",
-      "answer": "Học máy là một nhánh của Trí tuệ nhân tạo (AI) cho phép các ứng dụng phần mềm trở nên chính xác hơn trong việc dự đoán kết quả mà không cần được lập trình rõ ràng."
-    }
+      "question": ["Cách sử dụng Python?","Python sử dụng như thế nào?"],
+      "answer": ["Để sử dụng Python, bạn cần cài đặt từ trang web chính thức. Sau khi cài đặt, bạn có thể chạy các tập lệnh Python bằng lệnh 'python script_name.py'.","Test"]
+    }  
 ]
   
