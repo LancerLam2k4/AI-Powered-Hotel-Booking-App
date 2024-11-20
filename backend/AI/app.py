@@ -37,7 +37,6 @@ def get_current_user_id(file_path):
         return None
 
 @app.route('/ask', methods=['POST'])
-@app.route('/ask', methods=['POST'])
 def ask_question():
     # Lấy dữ liệu từ yêu cầu POST
     data = request.get_json()

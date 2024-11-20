@@ -15,7 +15,12 @@ Route::post('/chat', [ChatController::class, 'getChatResponse']);
 
 //Booking Traveler
 Route::get('/bookings', [BookingController::class, 'listRooms']);
-
+Route::post('/room_Details', [BookingController::class, 'room_Details']);
+Route::get('/showDetail', [BookingController::class, 'showDetail']);
+Route::post('/reserve-room', [BookingController::class, 'reserveRoom']);
+Route::get('/booking-Room/{roomId}', [BookingController::class, 'bookingRoom']);
+Route::post('/bookRoom', [BookingController::class, 'bookRoom']);
+Route::post('/bookingDetails', [BookingController::class, 'bookingDetails']);
 
 //Admin function
 Route::post('/add-room',[RoomController::class,'store']);

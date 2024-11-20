@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class BookingController extends Controller
 {
@@ -82,24 +84,82 @@ class BookingController extends Controller
 
         return response()->json($roomList);
     }
-    public function showDetail(Request $request)
-    {
-        $room = Room::findOrFail($request->room);
-        $roomsJson = json_decode(file_get_contents(storage_path('app/public/Rooms.json')), true);
-        $roomData = collect($roomsJson)->firstWhere('roomId', $room->roomId);
-        $location = $room->province . ', ' . $room->district;
-            $roomList[] = [
-                'roomId' => $room->roomId,
-                'name' => $room->name,
-                'type' => $room->type,
-                'price' => $room->price,
-                'description' => $room->description,
-                'status' => $room->status,
-                'location' => $location,
-                'reviews' => $room->reviews,
-                'main_image' => $roomData ? url($roomData['main_image']) : null,
-                'additional_images' => $roomData ? array_map(fn($image) => url($image), $roomData['additional_images']) : [],
-            ];
-            return response()->json($roomList);
+
+    public function bookingDetails(){
+        $rooms = Room::all();
+        return response()->json([
+            'rooms' => $rooms,
+        ]);
     }
+
+    public function bookingRoom($roomId){
+        $roomInfor = Room::where('roomId', $roomId)->first();
+        // \Log::error($roomInfor);
+        return response()->json($roomInfor);
+    }
+
+    public function showDetail(Request $request){
+        $roomsJson = json_decode(file_get_contents(storage_path('app/public/Rooms.json')), true);
+        $roomData = collect($roomsJson)->firstWhere('roomId', (int)$request->roomId);
+        if (!$roomData) {
+            return response()->json(['message' => 'Room not found in JSON'], 404);
+        }
+        $room = Room::where('roomId', (int)$request->roomId)->first();
+        if (!$room) {
+            return response()->json(['message' => 'Room not found in database'], 404);
+        }
+        return response()->json([
+            'roomId' => $roomData['roomId'],
+            'name' => $room->name, 
+            'price' => $room->price, 
+            'description' => $room->description,
+            'main_image' => url($roomData['main_image']), 
+            'additional_images' => array_map(fn($image) => url($image), $roomData['additional_images']),
+        ]);
+    }
+
+    public function reserveRoom(Request $request){
+        $validatedData = $request->validate([
+            'firstName' => 'required|string',
+            'lastName' => 'required|string',
+            'email' => 'required|email',
+            'arrivalDate' => 'required|date',
+            'departureDate' => 'required|date',
+        ]);
+        $room = Room::where('roomId', $request->roomId)->first(); 
+        $users = User::where('email', $request->email)->first();
+        $bookingData = [
+            'room_id' => $room->roomId,  
+            'room_name' => $room->name,  
+            'price' => $room->price,     
+            'user_name' => $request->firstName . ' ' . $request->lastName,
+            'email' => $request->email,
+            'arrival_date' => $request->arrivalDate,
+            'departure_date' => $request->departureDate,
+            'total_days' => $request->totalDays,
+            'total' => $request->totalPrice
+        ];
+
+        $historyGuest = [
+            'user_id' => $users->user_id,
+            'room_id' => $room->roomId,
+            'name' => $request->firstName . ' ' . $request->lastName,
+            'room_name' => $room->name,
+            'arrival_date' => $request->arrivalDate,
+            'departure_date' => $request->departureDate,
+            'total' => $request->totalPrice
+        ];
+
+        $filePath = storage_path('app/public/bookings.json');
+        $existingData = file_exists($filePath) ? json_decode(file_get_contents($filePath), true) : [];
+        $existingData[] = $bookingData;
+        file_put_contents($filePath, json_encode($existingData, JSON_PRETTY_PRINT));
+
+        $historyFilePath = storage_path('app/public/historyGuest.json');
+        $existingHistoryData = file_exists($historyFilePath) ? json_decode(file_get_contents($historyFilePath),true):[];
+        $existingHistoryData[] = $historyGuest;
+        file_put_contents($historyFilePath, json_encode($existingHistoryData, JSON_PRETTY_PRINT));
+        return response()->json(['success' => 'Reservation saved successfully']);
+    }
+
 }
