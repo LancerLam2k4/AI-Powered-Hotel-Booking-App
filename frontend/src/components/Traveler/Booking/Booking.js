@@ -135,9 +135,10 @@ function Booking() {
       };
     });
   };
-  const handleImageClick = () => {
-    navigate("/room-detail");
-  };
+  const handleImageClick = (room) => {
+    console.log(room);
+        navigate(`/bookingDetail/${room}`);
+    };
 
   const roomsPerPage = 5;
 
@@ -206,7 +207,7 @@ function Booking() {
                   <li>Location: {room.district+","+ room.province || ""}</li>
                   <li>Category: {room.type || "Single"}</li>
                 </ul>
-                <button className="book-now-for-you" onClick={handleImageClick}>
+                <button className="book-now-for-you" onClick={(id)=> handleImageClick(room.roomId)}>
                   More Detail!
                 </button>
               </div>
@@ -301,11 +302,11 @@ function Booking() {
                     <span className="price-unit">/per night</span>
                   </div>
                   <ul className="room-info">
-                    <li>Location: {room.rocation || ""}</li>
+                    <li>Location: {room.location|| ""}</li>
                     <li>Size: {room.size || "35m²"}</li>
                     <li>Category: {room.type || "Single"}</li>
                   </ul>
-                  <button className="book-now" onClick={handleImageClick}>
+                  <button className="book-now"  onClick={(id)=> handleImageClick(room.roomId)}>
                     More Detail!
                   </button>
                 </div>

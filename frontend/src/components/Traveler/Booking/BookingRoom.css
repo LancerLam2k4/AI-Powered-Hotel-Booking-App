@@ -1,0 +1,256 @@
+* {
+    font-family: "League Spartan", sans-serif;
+  }
+  .bookingroom-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    max-width: 750px; 
+    width: 100%;
+    margin: 0 auto; 
+  
+    }
+    
+    .bookingroom-description-slider-container {
+      
+      align-items: flex-start; 
+      gap: 20px; 
+      flex-direction: column;
+      
+    }
+    
+    .bookingroom-description {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box; 
+      margin-bottom: 20px; 
+    }
+    .bookingroom-description h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #333; 
+    }
+    
+    .bookingroom-description p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #666; 
+    }
+    .bookingroom-room-info {
+      width: 100%;
+      padding: 15px;
+      box-sizing: border-box;
+      margin-top: -50px; 
+  }
+  
+  .bookingroom-room-info p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #666; 
+  }
+   
+    .bookingroom-main-slider {
+      flex: 1; 
+      max-width: 750px; 
+      height: 600px; 
+      overflow: hidden; 
+      position: relative; 
+      
+  }
+  
+  .bookingroom-main-slider-item {
+      height: 100%; 
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+  }
+  
+  .bookingroom-main-image {
+      max-width: 100%; 
+      max-height: 100%; 
+      object-fit: cover; 
+  }
+  .bookingroom-additional-images {
+      display: flex; /* Use flexbox for alignment */
+      justify-content: center; /* Center the images */
+      margin-top: -95px; /* Space above the additional images */
+  }
+  
+  .bookingroom-additional-image {
+      width: 50%; 
+      max-width: 200px; 
+      height: auto; 
+      margin: 0 5px; 
+      flex: 1; 
+  }
+    
+    /* Reservation form */
+    .bookingroom-reservation-section {
+      max-width: 700px; /* Keep the max width for the section */
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative; /* Positioning context for absolute elements */
+    }
+    
+    .bookingroom-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .bookingroom-subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+    
+    /* Adjusted the form container */
+    .bookingroom-reservation-form-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-left: -20px; /* Shift to the left */
+    }
+    
+    .bookingroom-form-row {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .bookingroom-reservation-form-label {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      color: #555;
+    }
+    
+    .bookingroom-reservation-form-input,
+    .bookingroom-reservation-form-textarea {
+      margin-top: 5px;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .bookingroom-reservation-form-textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    
+    /* New styles for the total price box */
+    .bookingroom-total-price-container {
+      position: absolute; /* Position it relative to the parent */
+      right: 20px; /* Adjust the distance from the right */
+      top: 20px; /* Adjust the distance from the top */
+      background-color: #f9f9f9; /* Background for visibility */
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .bookingroom-reservation-form-button {
+      max-width: 200px;     /* Set a maximum width for the button */
+      margin: 15px auto;    /* Center the button and add vertical spacing */
+      padding: 10px;
+      font-size: 16px;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      justify-content: center;
+    }
+    
+    .bookingroom-reservation-form-button:hover {
+      background-color: #0056b3;
+    }
+    
+    
+      /* New styles for the total price box */
+      .bookingroom-total-price-container {
+        position: absolute; /* Position it relative to the parent */
+        right: 20px; /* Adjust the distance from the right */
+        top: 20px; /* Adjust the distance from the top */
+        background-color: #f9f9f9; /* Background for visibility */
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .bookingroom-total-price {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    
+    .bookingroom-details {
+      display: flex;                
+      flex-direction: column;        
+      align-items: center;           
+      margin: -75px auto;            
+      padding: 20px;
+      max-width: 600px;  
+      margin-bottom: -20px;           
+    }
+    
+    .bookingroom-details h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #333; 
+      align-self: flex-start;
+    }
+    
+    .bookingroom-details ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;  
+      font-size: 16px;                
+    }
+    
+    .bookingroom-details li {
+      position: relative; /* Positioning context for the checkmark */
+      padding-left: 30px; /* Add space for the checkmark */
+    }
+    
+    .bookingroom-details li::before {
+      content: '\2713'; /* Unicode for checkmark */
+      position: absolute;
+      left: 0; 
+      font-weight: bold; 
+      color: green; 
+      font-size: 1.2em; 
+    }
+    .booking-separator {
+      height: 2px;                     
+      background-color: rgba(169, 169, 169, 0.5); 
+      margin: 20px auto;               
+      width: 100%;                     
+      border-radius: 0.1px;                 
+      margin-bottom: 50px;
+    }
+    .countdown-message {
+      color: green;
+      font-weight: bold;
+      font-size: 1.2rem; /* Tăng kích thước chữ */
+      text-align: center; /* Canh giữa */
+      margin: 20px 0; /* Thêm khoảng cách trên và dưới */
+      animation: fadeIn 0.5s ease-in-out; /* Hiệu ứng xuất hiện mượt */
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }

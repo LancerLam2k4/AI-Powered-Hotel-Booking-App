@@ -443,7 +443,7 @@ body{
 
 .room-for-you-item-booking {
     display: inline-flex;
-    width: calc(30% - 20px); /* Chia đều thành 3 cột */
+    width: calc(25% - 20px); /* Chia đều thành 3 cột */
     height: 408px;
     margin-right: 20px;
     box-sizing: border-box;
