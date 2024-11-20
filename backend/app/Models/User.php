@@ -33,7 +33,7 @@ class User extends Authenticatable
     // Định nghĩa các mối quan hệ
     public function traveler()
     {
-        return $this->hasOne(Traveler::class);
+        return $this->hasOne(Traveler::class, 'user_id', 'user_id');
     }
 
     public function staff()

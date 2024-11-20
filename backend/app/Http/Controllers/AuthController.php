@@ -96,6 +96,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
+            
+            // Save user_id to currentID.json
+            $data = ['user_id' => $user->user_id];
+            file_put_contents(base_path('currentID.json'), json_encode($data, JSON_PRETTY_PRINT));
+
             return response()->json(['message' => 'Login successful', 'user' => $user], 200);
         }
 

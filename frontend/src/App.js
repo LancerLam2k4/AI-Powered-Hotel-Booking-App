@@ -37,6 +37,7 @@ const App = () => {
         <Route path="/room-detail" element={<BookingDetail/>}/>
         <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
           <Route path="/feedback" element={<Feedback />} />
+          <Route path="/edit-basic-info" element={<EditBasicInfo />} />
       </Routes>
   );
 };
