@@ -182,19 +182,18 @@ function Booking() {
         {rooms && rooms.length > 0 ? (
           <ul>
             {rooms.map((room, index) => (
-              <div key={room.roomId} className="room-item-booking">
-              <div className="room-image">
+              <div key={room.roomId} className="room-for-you-item-booking">
+              <div className="room-for-you-image">
                 <img
                   src={'http://localhost:8000/'+room.main_image || "default_image.jpg"}
                   alt={room.name}
-                  className="room-image-booking"
+                  className="room-for-you-image-booking"
                 />
               </div>
-              <div className="room-details">
+              <div className="room-for-you-details">
                 <h2>{room.name}</h2>
                 <p>
-                  Enjoy our classic suites with all the elegance and comfort
-                  that its interior has...
+                  {room.description}
                 </p>
                 <div className="price-section">
                   <span className="price-label">Prices start at</span>
@@ -203,12 +202,11 @@ function Booking() {
                   </span>
                   <span className="price-unit">/per night</span>
                 </div>
-                <ul className="room-info">
-                  <li>Location: {room.rocation || ""}</li>
-                  <li>Size: {room.size || "35m²"}</li>
+                <ul className="room-for-you-info">
+                  <li>Location: {room.district+","+ room.province || ""}</li>
                   <li>Category: {room.type || "Single"}</li>
                 </ul>
-                <button className="book-now" onClick={handleImageClick}>
+                <button className="book-now-for-you" onClick={handleImageClick}>
                   More Detail!
                 </button>
               </div>
@@ -218,6 +216,7 @@ function Booking() {
         ) : (
           <p>Không có phòng nào được gợi ý!</p>
         )}
+        <div class="scroll-right"> &gt; </div>
       </div>
 
 
