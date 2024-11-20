@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import provincesData from '../../provinces.json';
 import './Booking.css';
 
@@ -89,47 +90,66 @@ function Booking() {
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
-    const handleAmenitiesChange = (e) => {
-        const { value } = e.target;
-        setFilters(prevFilters => {
-            const updatedAmenities = prevFilters.amenities.includes(value)
-                ? prevFilters.amenities.filter(amenity => amenity !== value)
-                : [...prevFilters.amenities, value];
+    // const handleAmenitiesChange = (e) => {
+    //     const { value } = e.target;
+    //     setFilters(prevFilters => {
+    //         const updatedAmenities = prevFilters.amenities.includes(value)
+    //             ? prevFilters.amenities.filter(amenity => amenity !== value)
+    //             : [...prevFilters.amenities, value];
     
-            if (value === 'Đầy Đủ Tiện Nghi') {
-                return {
-                    ...prevFilters,
-                    amenities: [value]
-                };
-            }
+    //         if (value === 'Đầy Đủ Tiện Nghi') {
+    //             return {
+    //                 ...prevFilters,
+    //                 amenities: [value]
+    //             };
+    //         }
     
-            if (updatedAmenities.includes('Đầy Đủ Tiện Nghi')) {
-                return {
-                    ...prevFilters,
-                    amenities: updatedAmenities.filter(amenity => amenity !== 'Đầy Đủ Tiện Nghi')
-                };
-            }
+    //         if (updatedAmenities.includes('Đầy Đủ Tiện Nghi')) {
+    //             return {
+    //                 ...prevFilters,
+    //                 amenities: updatedAmenities.filter(amenity => amenity !== 'Đầy Đủ Tiện Nghi')
+    //             };
+    //         }
     
-            return {
-                ...prevFilters,
-                amenities: updatedAmenities
-            };
-        });
+    //         return {
+    //             ...prevFilters,
+    //             amenities: updatedAmenities
+    //         };
+    //     });
+    // };
+
+    const roomsPerPage = 1;
+    const navigate = useNavigate();
+    const handleImageClick = (room) => {
+        navigate(`/bookingDetail/${room}`);
     };
-    
-
-    const roomsPerPage = 12;
-
+      
     return (
         <div className="booking-container">
-            <div className="banner-slider-booking">
-                {banners.map((image, index) => (
-                    <div
-                        key={index}
-                        className={`banner-slide-booking ${index === currentSlide ? 'active' : ''}`}
-                        style={{ backgroundImage: `url(${image})` }}
-                    ></div>
-                ))}
+            <header className="header-container">
+            <div className="header-container">
+                <div className="logo-container">
+                    <img src="logo3.png" alt="Logo1" className="logo1" />
+                </div>
+                <div className="nav-links">
+                    <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Contact</a></li>
+                    </ul>
+                </div>
+                <button className="booking-button">
+                    <span className="material-icons">shopping_cart</span> 
+                </button>
+            </div>
+            </header>
+                {/* Replace the slider with a single image and overlay text */}
+            <div className="banner-image-booking">
+                <div className="banner-text-overlay">
+                    <h1>Rooms & Suites</h1>
+                    <p>Find the best rooms at the best prices</p>
+                </div>
             </div>
 
             <div className="filters-booking">
@@ -163,38 +183,42 @@ function Booking() {
                             ))}
                         </select>
                     )}
-                </div>
-
-                <select name="amenities" onChange={handleFilterChange}>
-                    <option value="">Select Amenities</option>
-                    {amenities.map((amenity, index) => (
-                        <option key={index} value={amenity}>{amenity}</option>
-                    ))}
-                </select>
+                </div>           
             </div>
 
             <div className="room-list-booking">
                 {isLoading ? (
                     <p>Loading rooms...</p>
                 ) : (
-                    rooms.slice((currentPage - 1) * roomsPerPage, currentPage * roomsPerPage).map((room) => (
-                        <div key={room.roomId} className="room-item-booking">
+                rooms.slice((currentPage - 1) * roomsPerPage, currentPage * roomsPerPage).map((room) => (
+                    <div key={room.roomId} className="room-item-booking">
+                        <div className="room-image" >
                             <img
                                 src={room.main_image || 'default_image.jpg'}
                                 alt={room.name}
                                 className="room-image-booking"
                             />
-                            <div className="room-details-booking">
-                                <h3>{room.name}</h3>
-                                <p>{room.location}</p>
-                                <p>{room.price}</p>
-                                <p>{room.type}</p>
-                            </div>
                         </div>
+                        <div className="room-details">
+                            <h2>{room.name}</h2>
+                            <p>Enjoy our classic suites with all the elegance and comfort that its interior has...</p>
+                            <div className="price-section">
+                            <span className="price-label">Prices start at</span>
+                            <span className="price-value price-highlight">{room.price}</span>
+                            <span className="price-unit">/per night</span>
+                            </div>
+                            <ul className="room-info">
+                                <li>Location: {room.rocation || ''}</li>
+                                <li>Size: {room.size || '35m²'}</li>
+                                <li>Category: {room.type || 'Single'}</li>
+                            </ul>
+                            <button className="book-now"onClick={() => handleImageClick(room.roomId)}
+                            >More Detail!</button>
+                        </div>
+                    </div>
                     ))
                 )}
             </div>
-
             <div className="pagination-booking">
                 <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
                     Previous
@@ -203,6 +227,36 @@ function Booking() {
                     Next
                 </button>
             </div>
+                    {/* Footer */}
+                    <footer className="footer-booking">
+                <div className="footer-content">
+                    <div className="footer-section about">
+                        <h3>About Us</h3>
+                        <p>Your go-to platform for convenient and affordable room bookings.</p>
+                    </div>
+                    <div className="footer-section links">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#home">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div className="footer-section social">
+                        <h3>Follow Us</h3>
+                        <div className="social-icons">
+                            <a href="#"><i className="fab fa-facebook-f"></i></a>
+                            <a href="#"><i className="fab fa-twitter"></i></a>
+                            <a href="#"><i className="fab fa-instagram"></i></a>
+                            <a href="#"><i className="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div className="footer-bottom">
+                    <p>&copy; 2024 BudgetWise Solutions | All rights reserved.</p>
+                </div>
+            </footer>
         </div>
     );
 }
