@@ -163,8 +163,11 @@ class BookingController extends Controller
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> cebaffa6cdbda2ebc25d51cf009933a0820161c2
 =======
 >>>>>>> cebaffa6cdbda2ebc25d51cf009933a0820161c2
 }

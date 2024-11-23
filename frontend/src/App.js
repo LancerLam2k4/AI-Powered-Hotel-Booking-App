@@ -21,6 +21,7 @@ import Feedback from "./components/Traveler/Feedback-AboutUs/Feedback"
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
 =======
 >>>>>>> 63f7b7723030ba5c027ba1d333e4bddf75569dcb
@@ -30,6 +31,9 @@ import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
 >>>>>>> 63f7b7723030ba5c027ba1d333e4bddf75569dcb
 =======
 >>>>>>> 63f7b7723030ba5c027ba1d333e4bddf75569dcb
+=======
+import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
+>>>>>>> cebaffa6cdbda2ebc25d51cf009933a0820161c2
 =======
 import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
 >>>>>>> cebaffa6cdbda2ebc25d51cf009933a0820161c2
