@@ -162,6 +162,9 @@ class BookingController extends Controller
         return response()->json(['success' => 'Reservation saved successfully']);
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> cebaffa6cdbda2ebc25d51cf009933a0820161c2
 }
