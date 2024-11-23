@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Chatbox.css";
+import { ChatContext } from "./ChatContext";
 
-const Chatbox = ({ onClose }) => {
+const Chatbox = ({ onClose, onRoomSelected }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const { rooms, setRooms } = useContext(ChatContext);
 
-  // Gửi lời chào khi mở Chatbox lần đầu
+  // Khôi phục lịch sử từ sessionStorage khi tải trang
   useEffect(() => {
-    if (messages.length === 0) {
+    const storedMessages = sessionStorage.getItem("chatHistory");
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages));
+    } else {
       const greeting = {
         sender: "ai",
         text: "Chào bạn! Tôi là quản gia Lily. Liệu tôi có thể giúp gì cho trải nghiệm của bạn tại đây không?",
@@ -17,38 +22,63 @@ const Chatbox = ({ onClose }) => {
     }
   }, []);
 
+  // Hàm lưu trữ lịch sử chat vào sessionStorage
+  const saveChatHistory = (newMessages) => {
+    sessionStorage.setItem("chatHistory", JSON.stringify(newMessages));
+  };
+
   const handleSendMessage = async () => {
     if (inputMessage.trim() !== "") {
       const userMessage = { sender: "user", text: inputMessage };
-      setMessages([...messages, userMessage]);
+      const updatedMessages = [...messages, userMessage];
+      setMessages(updatedMessages);
+      saveChatHistory(updatedMessages); // Lưu lịch sử ngay khi người dùng gửi tin nhắn
       setInputMessage("");
 
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/chat`, {
-          message: inputMessage,
+        const response = await axios.post(`http://localhost:5000/ask`, {
+          question: inputMessage,
         });
-        const aiMessage = { sender: "ai", text: response.data.message };
-        setMessages((prevMessages) => [...prevMessages, aiMessage]);
-        sessionStorage.setItem("chatHistory", JSON.stringify([...messages, userMessage, aiMessage]));
+
+        const responseData = response.data;
+        console.log(responseData);
+
+        if (responseData.rooms) {
+          // Nếu phản hồi có thông tin phòng
+          const aiMessage = { sender: "ai", text: responseData.answer };
+          const newMessages = [...updatedMessages, aiMessage];
+          setMessages(newMessages);
+          saveChatHistory(newMessages); // Lưu lịch sử chat bao gồm cả phản hồi của AI
+          setRooms(responseData.rooms);
+          console.log("Rooms tại Chatbox:", responseData.rooms);
+
+          if (onRoomSelected) {
+            onRoomSelected(responseData.rooms);
+          }
+        } else {
+          // Câu trả lời thông thường
+          const aiMessage = { sender: "ai", text: responseData.answer || responseData.error };
+          const newMessages = [...updatedMessages, aiMessage];
+          setMessages(newMessages);
+          saveChatHistory(newMessages); // Lưu lịch sử chat bao gồm cả phản hồi của AI
+        }
       } catch (error) {
         console.error("Error sending message:", error);
+        const errorMessage = {
+          sender: "ai",
+          text: "Xin lỗi, tôi không thể trả lời ngay bây giờ. Hãy thử lại sau!",
+        };
+        const newMessages = [...updatedMessages, errorMessage];
+        setMessages(newMessages);
+        saveChatHistory(newMessages); // Lưu lịch sử chat ngay cả khi xảy ra lỗi
       }
     }
   };
 
-  // Khôi phục cuộc trò chuyện khi mở lại Chatbox
-  useEffect(() => {
-    const storedMessages = sessionStorage.getItem("chatHistory");
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
-    }
-  }, []);
-
-  // Đóng hộp thoại và xóa dữ liệu cuộc trò chuyện
   const handleClose = () => {
     onClose();
     setMessages([]);
-    sessionStorage.removeItem("chatHistory"); // Xóa dữ liệu trong sessionStorage
+    sessionStorage.removeItem("chatHistory");
   };
 
   return (

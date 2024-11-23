@@ -16,10 +16,12 @@ import BookingDetail from "./components/Traveler/Booking/BookingDetail.js";
 import Booking from "./components/Traveler/Booking/Booking.js";
 import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvancedInfo.js";
 import Feedback from "./components/Traveler/Feedback-AboutUs/Feedback"
-
+<<<<<<< HEAD
+import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
+=======
+>>>>>>> 63f7b7723030ba5c027ba1d333e4bddf75569dcb
 const App = () => {
   return (
-    <Router>
       <Routes>
         <Route path="/register" element={<RegisterTraveler />} />{" "}
         {/* Chỉ định trang đầu tiên */}
@@ -35,13 +37,13 @@ const App = () => {
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
           <Route path="/booking" element={<Booking />} />
-        </Route>
-        <Route path="/room-detail" element={<BookingDetail/>}/>
+        </Route>  
+        <Route path="/bookingDetail/:roomId" element={<BookingDetail/>}/>
+        <Route path="/bookingRoom/:roomId" element={<BookingRoom />} />
         <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/edit-basic-info" element={<EditBasicInfo />} />
       </Routes>
-    </Router>
   );
 };
 

@@ -134,20 +134,20 @@ function BookingRoom() {
       const response = await axios.post('http://localhost:8000/api/reserve-room', reservationData);
       console.log(response.data);
       // alert('Reservation successful!');
-    //   // Reset form hoặc redirect khi cần thiết
-    //   setMessage("Reservation successful! Redirecting in");
-    // let countdownTime = 5;
-    // setCountdown(countdownTime);
+      // Reset form hoặc redirect khi cần thiết
+      setMessage("Reservation successful! Redirecting in");
+    let countdownTime = 5;
+    setCountdown(countdownTime);
 
-    // const timer = setInterval(() => {
-    //   countdownTime -= 1;
-    //   setCountdown(countdownTime);
+    const timer = setInterval(() => {
+      countdownTime -= 1;
+      setCountdown(countdownTime);
 
-    //   if (countdownTime === 0) {
-    //     clearInterval(timer);
-    //     window.location.href = "/booking"; // Chuyển hướng sau khi đếm ngược xong
-    //   }
-    // }, 1000); 
+      if (countdownTime === 0) {
+        clearInterval(timer);
+        window.location.href = "/booking"; // Chuyển hướng sau khi đếm ngược xong
+      }
+    }, 1000); 
     } catch (err) {
       setError('There was an error with your reservation.');
       console.error(err);
