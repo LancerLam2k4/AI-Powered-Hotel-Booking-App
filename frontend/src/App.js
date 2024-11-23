@@ -18,7 +18,10 @@ import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvanced
 import Feedback from "./components/Traveler/Feedback-AboutUs/Feedback"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
+=======
+>>>>>>> 63f7b7723030ba5c027ba1d333e4bddf75569dcb
 =======
 >>>>>>> 63f7b7723030ba5c027ba1d333e4bddf75569dcb
 =======
