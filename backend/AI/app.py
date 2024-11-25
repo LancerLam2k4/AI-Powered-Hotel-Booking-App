@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from transformers import BertTokenizer, BertForQuestionAnswering
+from fuzzywuzzy import fuzz
 import torch
 import json
 import random
@@ -95,167 +96,233 @@ def query_room_info(user_info, question):
     import re
 
     # Rẻ nhất
-    if "rẻ nhất" in question.lower():
-        cheapest_room = min(available_rooms, key=lambda r: r.get('price', float('inf')), default=None)
-        if cheapest_room:
-            return {
-                "answer": f"Phòng có giá rẻ nhất là phòng số {cheapest_room['roomId']} với giá {cheapest_room['price']} VND.",
-                "rooms": [cheapest_room]
-            }
-        return {"answer": "Không tìm thấy phòng nào."}
+    if "giá" in question.lower() or "rẻ" in question.lower() or "đắt" in question.lower():
+        if "rẻ nhất" in question.lower():
+            cheapest_room = min(available_rooms, key=lambda r: r.get('price', float('inf')), default=None)
+            if cheapest_room:
+                return {
+                    "answer": f"Phòng có giá rẻ nhất là phòng số {cheapest_room['roomId']} với giá {cheapest_room['price']} VND.",
+                    "rooms": [cheapest_room]
+                }
+            return {"answer": "Không tìm thấy phòng nào."}
 
-    # Đắt nhất
-    if "đắt nhất" in question.lower():
-        most_expensive_room = max(available_rooms, key=lambda r: r.get('price', float('-inf')), default=None)
-        if most_expensive_room:
-            return {
-                "answer": f"Phòng có giá đắt nhất là phòng số {most_expensive_room['roomId']} với giá {most_expensive_room['price']} VND.",
-                "rooms": [most_expensive_room]
-            }
-        return {"answer": "Không tìm thấy phòng nào."}
+        # Đắt nhất
+        if "đắt nhất" in question.lower():
+            most_expensive_room = max(available_rooms, key=lambda r: r.get('price', float('-inf')), default=None)
+            if most_expensive_room:
+                return {
+                    "answer": f"Phòng có giá đắt nhất là phòng số {most_expensive_room['roomId']} với giá {most_expensive_room['price']} VND.",
+                    "rooms": [most_expensive_room]
+                }
+            return {"answer": "Không tìm thấy phòng nào."}
 
-    # Giá khoảng A và B
-    price_range_match = re.search(r'giá khoảng (\d+)[^\d]+(\d+)', question.lower())
-    if price_range_match:
-        min_price = int(price_range_match.group(1))
-        max_price = int(price_range_match.group(2))
-        rooms_in_range = [
-            room for room in available_rooms
-            if min_price <= room.get('price', 0) <= max_price
-        ]
-        if rooms_in_range:
-            return {
-                "answer": f"Các phòng có giá trong khoảng {min_price} đến {max_price} VND:",
-                "rooms": rooms_in_range
-            }
-        return {"answer": f"Không có phòng nào trong khoảng giá từ {min_price} đến {max_price} VND."}
+        # Giá khoảng A và B
+        price_range_match = re.search(r'giá khoảng (\d+)[^\d]+(\d+)', question.lower())
+        if price_range_match:
+            min_price = int(price_range_match.group(1))
+            max_price = int(price_range_match.group(2))
+            rooms_in_range = [
+                room for room in available_rooms
+                if min_price <= room.get('price', 0) <= max_price
+            ]
+            if rooms_in_range:
+                return {
+                    "answer": f"Các phòng có giá trong khoảng {min_price} đến {max_price} VND:",
+                    "rooms": rooms_in_range
+                }
+            return {"answer": f"Không có phòng nào trong khoảng giá từ {min_price} đến {max_price} VND."}
 
-    # Giá chính xác
-    exact_price_match = re.search(r'giá khoảng (\d+)', question.lower())
-    if exact_price_match:
-        exact_price = int(exact_price_match.group(1))
-        # Tính toán giá chênh lệch 10%
-        tolerance = exact_price * 0.1  # 10% of exact_price
-        min_price = exact_price - tolerance
-        max_price = exact_price + tolerance
-        rooms_in_range = [
-            room for room in available_rooms
-            if min_price <= room.get('price', 0) <= max_price
-        ]
-        if rooms_in_range:
-            return {
-                "answer": f"Các phòng có giá khoảng {exact_price} VND (+- 10%):",
-                "rooms": rooms_in_range
-            }
-        return {"answer": f"Không có phòng nào trong khoảng giá {exact_price} VND."}
-    # Giá dưới A
-    below_price_match = re.search(r'giá dưới (\d+)', question.lower())
-    if below_price_match:
-        max_price = int(below_price_match.group(1))
-        rooms_below_price = [
-            room for room in available_rooms
-            if room.get('price', float('inf')) <= max_price
-        ]
-        if rooms_below_price:
-            return {
-                "answer": f"Các phòng có giá dưới {max_price} VND:",
-                "rooms": rooms_below_price
-            }
-        return {"answer": f"Không có phòng nào có giá dưới {max_price} VND."}
+        # Giá chính xác
+        exact_price_match = re.search(r'giá khoảng (\d+)', question.lower())
+        if exact_price_match:
+            exact_price = int(exact_price_match.group(1))
+            # Tính toán giá chênh lệch 10%
+            tolerance = exact_price * 0.1  # 10% of exact_price
+            min_price = exact_price - tolerance
+            max_price = exact_price + tolerance
+            rooms_in_range = [
+                room for room in available_rooms
+                if min_price <= room.get('price', 0) <= max_price
+            ]
+            if rooms_in_range:
+                return {
+                    "answer": f"Các phòng có giá khoảng {exact_price} VND (+- 10%):",
+                    "rooms": rooms_in_range
+                }
+            return {"answer": f"Không có phòng nào trong khoảng giá {exact_price} VND."}
+        # Giá dưới A
+        below_price_match = re.search(r'giá dưới (\d+)', question.lower())
+        if below_price_match:
+            max_price = int(below_price_match.group(1))
+            rooms_below_price = [
+                room for room in available_rooms
+                if room.get('price', float('inf')) <= max_price
+            ]
+            if rooms_below_price:
+                return {
+                    "answer": f"Các phòng có giá dưới {max_price} VND:",
+                    "rooms": rooms_below_price
+                }
+            return {"answer": f"Không có phòng nào có giá dưới {max_price} VND."}
 
-    # Giá trên A
-    above_price_match = re.search(r'giá trên (\d+)', question.lower())
-    if above_price_match:
-        min_price = int(above_price_match.group(1))
-        rooms_above_price = [
-            room for room in available_rooms
-            if room.get('price', 0) >= min_price
-        ]
-        if rooms_above_price:
-            return {
-                "answer": f"Các phòng có giá trên {min_price} VND:",
-                "rooms": rooms_above_price
-            }
-        return {"answer": f"Không có phòng nào có giá trên {min_price} VND."}
+        # Giá trên A
+        above_price_match = re.search(r'giá trên (\d+)', question.lower())
+        if above_price_match:
+            min_price = int(above_price_match.group(1))
+            rooms_above_price = [
+                room for room in available_rooms
+                if room.get('price', 0) >= min_price
+            ]
+            if rooms_above_price:
+                return {
+                    "answer": f"Các phòng có giá trên {min_price} VND:",
+                    "rooms": rooms_above_price
+                }
+            return {"answer": f"Không có phòng nào có giá trên {min_price} VND."}
+        return {"error": "Xin lỗi tôi không rõ vấn đề bạn đang đề cập .Hãy thử lại sau!"}
+    room_type_mapping = {
+        "single room": ["single room", "phòng đơn"],
+        "double room": ["double room", "phòng đôi"],
+        "suite": ["suite", "phòng hạng sang"],
+        "apartment": ["apartment", "căn hộ"]
+    }
+    if "loại" in question.lower() or any(
+        keyword in question.lower() for keywords in room_type_mapping.values() for keyword in keywords):
+        requested_types = []
+        for standard_type, keywords in room_type_mapping.items():
+            if any(keyword in question.lower() for keyword in keywords):
+                requested_types.append(standard_type.lower())
+        if requested_types:
+            # Lọc các phòng phù hợp
+            matching_rooms = [
+                room for room in available_rooms
+                if room.get('type', '').lower() in requested_types
+            ]
+            if matching_rooms:
+                return {
+                    "answer": f"Các phòng thuộc loại {', '.join(requested_types)}:",
+                    "rooms": matching_rooms
+                }
+            return {"answer": f"Không có phòng nào thuộc loại {', '.join(requested_types)}."}
+        return {"error": "Bạn muốn tìm loại phòng nào? Vui lòng cung cấp thêm thông tin."}
 
-    # Loại phòng
-    room_type_match = re.search(r'loại phòng\s*:\s*\[([^\]]+)\]', question.lower())
-    if room_type_match:
-        requested_types = [type.strip().lower() for type in room_type_match.group(1).split(',')]
-        matching_rooms = [
-            room for room in available_rooms
-            if room.get('type', '').lower() in requested_types
-        ]
-        if matching_rooms:
-            return {
-                "answer": f"Các phòng thuộc loại {', '.join(requested_types)}:",
-                "rooms": matching_rooms
-            }
-        return {"answer": f"Không có phòng nào thuộc loại {', '.join(requested_types)}."}
+    if any(keyword in question.lower() for keyword in ["tại", "ở", "vị trí"]):
+    # Xử lý tìm kiếm thông tin vị trí
+        # Xử lý tìm kiếm thông tin vị trí
+        location_keywords = ["tại", "ở", "vị trí"]
+        user_location = None
 
-    # Địa điểm
-    location_match = re.search(r'(tại|ở|vị trí)\s*:\s*(.+)', question.lower())
-    if location_match:
-        location = location_match.group(2).strip().lower()
-        rooms_in_location = [
-            room for room in available_rooms
-            if location in room.get('location', '').lower()
-        ]
-        if rooms_in_location:
-            return {
-                "answer": f"Các phòng tại vị trí {location}:",
-                "rooms": rooms_in_location
-            }
-        return {"answer": f"Không có phòng nào tại vị trí {location}."}
+        # Lấy thông tin vị trí từ câu hỏi
+        for keyword in location_keywords:
+            if keyword in question.lower():
+                # Lấy nội dung sau từ khóa, bỏ qua chính từ khóa
+                location_match = re.search(fr'{keyword}\s+(.+)', question.lower())
+                if location_match:
+                    user_location = location_match.group(1).strip().lower()
+                    break
 
-    # Điểm đánh giá: khoảng A-B
-    rating_range_match = re.search(r'điểm đánh giá\s*:\s*khoảng\s*(\d+)-(\d+)', question.lower())
-    if rating_range_match:
-        min_rating = int(rating_range_match.group(1))
-        max_rating = int(rating_range_match.group(2))
-        rooms_in_rating_range = [
-            room for room in available_rooms
-            if min_rating <= room.get('rating', 0) <= max_rating
-        ]
-        if rooms_in_rating_range:
-            return {
-                "answer": f"Các phòng có điểm đánh giá trong khoảng {min_rating}-{max_rating}:",
-                "rooms": rooms_in_rating_range
-            }
-        return {"answer": f"Không có phòng nào có điểm đánh giá trong khoảng {min_rating}-{max_rating}."}
+        if user_location:
+            matching_rooms = []
+            threshold = 70  # Ngưỡng độ tương đồng
 
-    # Điểm đánh giá: trên A
-    above_rating_match = re.search(r'điểm đánh giá\s*:\s*trên\s*(\d+)', question.lower())
-    if above_rating_match:
-        min_rating = int(above_rating_match.group(1))
-        rooms_above_rating = [
-            room for room in available_rooms
-            if room.get('rating', 0) >= min_rating
-        ]
-        if rooms_above_rating:
-            return {
-                "answer": f"Các phòng có điểm đánh giá trên {min_rating}:",
-                "rooms": rooms_above_rating
-            }
-        return {"answer": f"Không có phòng nào có điểm đánh giá trên {min_rating}."}
+            # Lọc phòng dựa trên vị trí
+            for room in available_rooms:
+                # So khớp với tỉnh và quận của phòng
+                province_similarity = fuzz.ratio(user_location, room['province'].lower())
+                district_similarity = fuzz.ratio(user_location, room['district'].lower())
 
-    # Điểm đánh giá: dưới A
-    below_rating_match = re.search(r'điểm đánh giá\s*:\s*dưới\s*(\d+)', question.lower())
-    if below_rating_match:
-        max_rating = int(below_rating_match.group(1))
-        rooms_below_rating = [
-            room for room in available_rooms
-            if room.get('rating', float('inf')) <= max_rating
-        ]
-        if rooms_below_rating:
-            return {
-                "answer": f"Các phòng có điểm đánh giá dưới {max_rating}:",
-                "rooms": rooms_below_rating
-            }
-        return {"answer": f"Không có phòng nào có điểm đánh giá dưới {max_rating}."}
+                # Chỉ thêm phòng nếu độ tương đồng đạt ngưỡng
+                if province_similarity >= threshold or district_similarity >= threshold:
+                    matching_rooms.append(room)
 
-    # Nếu không khớp bất kỳ trường hợp nào
-    return {"error": "Câu hỏi không có trong dữ liệu huấn luyện hoặc không có thông tin liên quan."}
+            if matching_rooms:
+                return {
+                    "answer": f"Các phòng phù hợp với vị trí '{user_location}':",
+                    "rooms": matching_rooms
+                }
+            else:
+                return {"answer": f"Không tìm thấy phòng nào phù hợp với vị trí '{user_location}'."}
+        else:
+            # Không xác định được vị trí từ câu hỏi
+            return {"error": "Vui lòng cung cấp thông tin cụ thể về vị trí (ví dụ: tại Hà Nội, ở Quận 1)."}
+
+    if "điểm" in question.lower() or "đánh giá" in question.lower():
+    # Điểm cao nhất
+        if "cao nhất" in question.lower():
+            highest_review = max(
+                available_rooms,
+                key=lambda r: r.get('reviewsCore', float('-inf')),
+                default=None
+            )
+            if highest_review:
+                return {
+                    "answer": f"Phòng có điểm đánh giá cao nhất là phòng số {highest_review['roomId']} với điểm số {highest_review['reviewsCore']}.",
+                    "rooms": [highest_review]
+                }
+            return {"answer": "Không tìm thấy phòng nào có điểm đánh giá."}
+
+        # Điểm thấp nhất
+        if "thấp nhất" in question.lower():
+            lowest_review = min(
+                available_rooms,
+                key=lambda r: r.get('reviewsCore', float('inf')),
+                default=None
+            )
+            if lowest_review:
+                return {
+                    "answer": f"Phòng có điểm đánh giá thấp nhất là phòng số {lowest_review['roomId']} với điểm số {lowest_review['reviewsCore']}.",
+                    "rooms": [lowest_review]
+                }
+            return {"answer": "Không tìm thấy phòng nào có điểm đánh giá."}
+
+        # Điểm trong khoảng
+        review_range_match = re.search(r'điểm khoảng (\d+)[^\d]+(\d+)', question.lower())
+        if review_range_match:
+            min_score = float(review_range_match.group(1))
+            max_score = float(review_range_match.group(2))
+            rooms_in_range = [
+                room for room in available_rooms
+                if min_score <= room.get('reviewsCore', 0) <= max_score
+            ]
+            if rooms_in_range:
+                return {
+                    "answer": f"Các phòng có điểm đánh giá trong khoảng {min_score} đến {max_score}:",
+                    "rooms": rooms_in_range
+                }
+            return {"answer": f"Không có phòng nào có điểm đánh giá trong khoảng từ {min_score} đến {max_score}."}
+
+        # Điểm trên A
+        above_score_match = re.search(r'điểm trên (\d+(\.\d+)?)', question.lower())  # Hỗ trợ cả số thập phân
+        if above_score_match:
+            min_score = float(above_score_match.group(1))
+            rooms_above_score = [
+                room for room in available_rooms
+                if room.get('reviewsCore', 0) > min_score
+            ]
+            if rooms_above_score:
+                return {
+                    "answer": f"Các phòng có điểm đánh giá trên {min_score}:",
+                    "rooms": rooms_above_score
+                }
+            return {"answer": f"Không có phòng nào có điểm đánh giá trên {min_score}."}
+
+        # Điểm dưới A
+        below_score_match = re.search(r'điểm dưới (\d+(\.\d+)?)', question.lower())
+        if below_score_match:
+            max_score = float(below_score_match.group(1))
+            rooms_below_score = [
+                room for room in available_rooms
+                if room.get('reviewsCore', float('inf')) <= max_score
+            ]
+            if rooms_below_score:
+                return {
+                    "answer": f"Các phòng có điểm đánh giá dưới {max_score}:",
+                    "rooms": rooms_below_score
+                }
+            return {"answer": f"Không có phòng nào có điểm đánh giá dưới {max_score}."}
+
+    return {"error": "Xin lỗi, tôi không rõ vấn đề bạn đang đề cập. Hãy thử lại sau!"}
+
 def suggest_room_info(user_info):
     """
     Đề xuất phòng dựa trên lịch sử truy cập, phòng đã đặt, và sở thích người dùng.
