@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom'; // Thêm Router
+import { ChatProvider } from "./components/Traveler/AI/ChatContext";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router> {/* Bọc toàn bộ ứng dụng trong Router */}
+      <ChatProvider> {/* ChatProvider nằm trong Router */}
+        <App />
+      </ChatProvider>
+    </Router>
   </React.StrictMode>
 );
 

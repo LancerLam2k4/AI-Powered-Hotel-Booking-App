@@ -65,7 +65,6 @@ const RoomDetail = () => {
 
   const handleBooking = (roomId) => {
     navigate(`/bookingRoom/${roomId}`);
-    console.log(room);
   };
   return (
     <div>

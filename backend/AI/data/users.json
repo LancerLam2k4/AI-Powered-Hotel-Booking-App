@@ -1,0 +1,21 @@
+[
+    {
+        "user_id": 1,
+        "preferences": "Thích phòng có hồ bơi, gần biển và có view đẹp.",
+        "access": [2],
+        "booking": []
+        
+    },
+    {
+        "user_id": 2,
+        "preferences": "Ưa thích phòng có phòng gym và bữa sáng miễn phí.",
+        "access": [1],
+        "booking": []
+    },
+    {
+        "user_id": 3,
+        "preferences": null,
+        "access": [],
+        "booking": []
+    }
+]
