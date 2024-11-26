@@ -7,12 +7,13 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editingRoom, setEditingRoom] = useState(null);
 
   // Fetch rooms data from the backend
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/rooms'); // Adjust API route
+        const response = await axios.post('http://localhost:8000/api/bookingDetails'); // Adjust API route
         setRooms(response.data);
       } catch (error) {
         console.error('Failed to fetch rooms:', error);
@@ -37,13 +38,25 @@ const AdminDashboard = () => {
     navigate('/add-room');
   };
 
-  const handleEditRoom = (roomId) => {
-    // Implement edit room logic here
+  const handleEditRoom = (room) => {
+    setEditingRoom(room);
+    navigate('/edit-room', { state: { room } });
   };
 
-  const handleDeleteRoom = (roomId) => {
+  const handleDeleteRoom = async (roomId) => {
     if (window.confirm('Are you sure you want to delete this room?')) {
-      // Implement delete logic here
+      try {
+        const response = await axios.delete(`http://localhost:8000/api/rooms/${roomId}`);
+        
+        if (response.data.message) {
+          // Update the local state to remove the deleted room
+          setRooms(prevRooms => prevRooms.filter(room => room.roomId !== roomId));
+          alert('Room deleted successfully');
+        }
+      } catch (error) {
+        console.error('Failed to delete room:', error);
+        alert('Failed to delete room: ' + (error.response?.data?.error || error.message));
+      }
     }
   };
 
@@ -116,24 +129,54 @@ const AdminDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {rooms.map((room) => (
-                <tr key={room.room_id}>
-                  <td>{room.room_id}</td>
-                  <td>{room.type}</td>
-                  <td>${room.price}</td>
-                  <td>{room.status ? 'Available' : 'Not Available'}</td>
-                  <td>{room.description}</td>
-                  <td>{renderStars(room.rating)}</td>
-                  <td><img src={room.image_url} alt="Room" width="100" height="80" /></td>
-                  <td>
-                    <div className="table-buttons">
-                      <img src="editbtn.png" alt="Edit" className="edit-icon" onClick={() => handleEditRoom(room.room_id)} />
-                      <img src="deletebtn.png" alt="Delete" className="delete-icon" onClick={() => handleDeleteRoom(room.room_id)} />
-                    </div>
-                  </td>
+              {Array.isArray(rooms) && rooms.length > 0 ? (
+                rooms.map((room, index) => (
+                  <tr key={room.roomId || index}>
+                    <td>{room.name}</td>
+                    <td>{room.type}</td>
+                    <td>${room.price}</td>
+                    <td>{room.status ? 'Available' : 'Not Available'}</td>
+                    <td>{room.description || 'No description'}</td>
+                    <td>{room.rating}</td>
+                    <td>
+                      {room.main_image ? (
+                        <img
+                          src={`http://localhost:8000/${room.main_image}`}
+                          alt="Room"
+                          width="100"
+                          height="80"
+                        />
+                      ) : (
+                        'No image'
+                      )}
+                    </td>
+                    <td>
+                      <div className="table-buttons">
+                        <img
+                          src="editbtn.png"
+                          alt="Edit"
+                          className="edit-icon"
+                          onClick={() => handleEditRoom(room)}
+                          style={{ cursor: 'pointer' }}
+                        />
+                        <img
+                          src="deletebtn.png"
+                          alt="Delete"
+                          className="delete-icon"
+                          onClick={() => handleDeleteRoom(room.roomId)}
+                          style={{ cursor: 'pointer' }}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8">No rooms available</td>
                 </tr>
-              ))}
+              )}
             </tbody>
+
           </table>
         </div>
       </div>

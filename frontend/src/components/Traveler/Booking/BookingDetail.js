@@ -28,7 +28,7 @@ const RoomDetail = () => {
   //     if (!roomId) return;
       
   //     try {
-  //       const response = await axios.get(/api/rooms/${roomId});
+  //       const response = await axios.get(`/api/rooms/${roomId}`);
   //       setRoomDetails(response.data.room);
   //     } catch (error) {
   //       console.error('Error fetching room details:', error);
