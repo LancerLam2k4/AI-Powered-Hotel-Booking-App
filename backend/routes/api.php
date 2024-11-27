@@ -25,6 +25,12 @@ Route::post('/bookingDetails', [BookingController::class, 'bookingDetails']);
 //Admin function
 Route::post('/add-room',[RoomController::class,'store']);
 
+//Edit Delete Room
+Route::delete('/rooms/{roomId}', [RoomController::class, 'destroy']);
+Route::put('/rooms/{roomId}', [RoomController::class, 'update']);
+Route::post('/rooms/{roomId}/remove-image', [RoomController::class, 'removeImage']);
+Route::post('/rooms/{roomId}/update-images', [RoomController::class, 'updateImages']);
+
 // Profile
 Route::get('/profile/{userId}', [ProfileController::class, 'getProfileById']);
 Route::put('/profile', [ProfileController::class, 'updateProfile']);
@@ -33,16 +39,41 @@ Route::post('/profile/basic-info', [ProfileController::class, 'updateBasicInfo']
 
 Route::get('/getCurrentUserId', function() {
     try {
-        $jsonContent = file_get_contents(base_path('currentID.json'));
+        $jsonPath = base_path('currentID.json');
+        
+        // If file doesn't exist or is empty, create it with default values
+        if (!file_exists($jsonPath) || empty(file_get_contents($jsonPath))) {
+            $defaultData = [
+                'user_id' => null,
+                'phone_number' => 'Not set',
+                'address' => 'Not set',
+                'name' => '',
+                'hobby' => 'Not set'
+            ];
+            file_put_contents($jsonPath, json_encode($defaultData, JSON_PRETTY_PRINT));
+        }
+        
+        $jsonContent = file_get_contents($jsonPath);
         $data = json_decode($jsonContent, true);
         
         if (!$data || !isset($data['user_id'])) {
             return response()->json(['error' => 'No user ID found'], 404);
         }
         
+        // Ensure all required fields exist
+        $data = array_merge([
+            'phone_number' => 'Not set',
+            'address' => 'Not set',
+            'name' => '',
+            'hobby' => 'Not set'
+        ], $data);
+        
+        // Save the complete data back to file
+        file_put_contents($jsonPath, json_encode($data, JSON_PRETTY_PRINT));
+        
         return response()->json($data);
     } catch (\Exception $e) {
-        return response()->json(['error' => 'Error reading user ID'], 500);
+        return response()->json(['error' => 'Error reading user ID: ' . $e->getMessage()], 500);
     }
 });
 

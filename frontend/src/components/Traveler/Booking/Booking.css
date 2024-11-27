@@ -13,7 +13,7 @@ body{
     position: relative;
     width: 100vw; /* Full viewport width */
     height: 50vh; /* Full viewport height */
-    background-image: url('D:\GitHub\AI-Powered-Hotel-Booking-App\frontend\public\banner-booking-2.jpg'); /* Use the path to your image */
+    background-image: url('D:\AI-Powered-Hotel-Booking-App\frontend\public\banner-booking-2.jpg'); /* Use the path to your image */
     background-size: cover; /* Ensure the image covers the whole area */
     background-position: center; /* Center the image */
     background-repeat: no-repeat;
@@ -318,6 +318,105 @@ body{
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hiệu ứng hover cho nút điều hướng */
+.pagination-booking button:hover:not([disabled]) {
+    background-color: #357ab8;
+    box-shadow: 0px 6px 12px rgba(53, 122, 184, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Hiệu ứng focus cho nút điều hướng */
+.pagination-booking button:focus:not([disabled]) {
+    background-color: #2a5c87;
+    box-shadow: 0px 4px 15px rgba(42, 92, 135, 0.4);
+    outline: none;
+}
+
+/* Phong cách cho nút khi bị disabled */
+.pagination-booking button[disabled] {
+    color: #ffffff;
+    background-color: #b3b3b3;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+/* Footer */
+.footer-booking {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 20px;
+    width: 100vw; /* Full viewport width */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.footer-section p, .footer-section a, .footer-bottom p {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #ff6600;
+}
+
+.footer-section.links ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-section.links li {
+    margin-bottom: 8px;
+}
+
+.footer-section.social .social-icons a {
+    color: #ccc;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.footer-section.social .social-icons a:hover {
+    color: #ff6600;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 /* Hiệu ứng hover cho nút điều hướng */

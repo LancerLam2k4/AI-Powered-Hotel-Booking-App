@@ -97,11 +97,29 @@ class AuthController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
             
-            // Save user_id to currentID.json
-            $data = ['user_id' => $user->user_id];
-            file_put_contents(base_path('currentID.json'), json_encode($data, JSON_PRETTY_PRINT));
+            // Read existing data from currentID.json if it exists
+            $jsonPath = base_path('currentID.json');
+            $existingData = [];
+            if (file_exists($jsonPath)) {
+                $existingData = json_decode(file_get_contents($jsonPath), true) ?? [];
+            }
 
-            return response()->json(['message' => 'Login successful', 'user' => $user], 200);
+            // Prepare new data while preserving existing values
+            $data = [
+                'user_id' => $user->user_id,
+                'phone_number' => $existingData['phone_number'] ?? 'Not set',
+                'address' => $existingData['address'] ?? 'Not set',
+                'name' => $user->username,
+                'hobby' => $user->traveler ? $user->traveler->preferences : ($existingData['hobby'] ?? 'Not set')
+            ];
+
+            // Write to currentID.json with proper formatting
+            file_put_contents($jsonPath, json_encode($data, JSON_PRETTY_PRINT));
+
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => $user
+            ], 200);
         }
 
         return response()->json(['message' => 'Invalid credentials'], 401);

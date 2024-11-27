@@ -61,7 +61,7 @@ class RoomController extends Controller
 
         // Kiểm tra nếu ảnh đã tồn tại
         if (Storage::disk('public')->exists("{$storagePath}/{$filename}")) {
-            return "storage/{$storagePath}/{$filename}"; // Trả về đường dẫn nếu ảnh đã tồn tại
+            return "storage/{$storagePath}/{$filename}"; // Trả về đường dẫn nu ảnh đã tồn tại
         }
 
         // Lưu ảnh vào thư mục xác định
@@ -100,5 +100,199 @@ class RoomController extends Controller
 
         // Ghi dữ liệu mới vào file JSON
         file_put_contents($jsonFilePath, json_encode($data, JSON_PRETTY_PRINT));
+    }
+    
+    public function destroy($roomId)
+    {
+        try {
+            \Log::info('Delete request received for room: ' . $roomId);
+            
+            // Find the room
+            $room = Room::find($roomId);
+            if (!$room) {
+                return response()->json(['message' => 'Room not found'], 404);
+            }
+
+            // Delete images from storage if they exist
+            $jsonPath = storage_path('app/public/Rooms.json');
+            if (file_exists($jsonPath)) {
+                $roomsData = json_decode(file_get_contents($jsonPath), true) ?? [];
+                
+                // Find and remove room from JSON
+                $roomsData = array_filter($roomsData, function($room) use ($roomId) {
+                    return $room['roomId'] != $roomId;
+                });
+
+                // Save updated JSON
+                file_put_contents($jsonPath, json_encode(array_values($roomsData), JSON_PRETTY_PRINT));
+            }
+
+            // Delete the room from database
+            $room->delete();
+
+            return response()->json(['message' => 'Room deleted successfully']);
+
+        } catch (\Exception $e) {
+            \Log::error('Error deleting room: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error deleting room',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function update(Request $request, $roomId)
+    {
+        try {
+            \Log::info('Update request received for room ' . $roomId . ':', $request->all());
+            
+            // Find the room
+            $room = Room::findOrFail($roomId);
+
+            // Validate room details
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'type' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0',
+                'description' => 'required|string',
+                'province' => 'required|string',
+                'district' => 'required|string',
+                'status' => 'required'
+            ]);
+
+            // Update room in database
+            $room->update($validatedData);
+
+            return response()->json([
+                'message' => 'Room updated successfully',
+                'room' => $room
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Error updating room: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error updating room',
+                'error' => $e->getMessage()
+            ], 422);
+        }
+    }
+
+    // Add new method for handling image updates
+    public function updateImages(Request $request, $roomId)
+    {
+        try {
+            // Find the room first to ensure it exists
+            $room = Room::findOrFail($roomId);
+            
+            // Handle image updates
+            if ($request->hasFile('main_image') || $request->hasFile('additional_images') || $request->has('removed_images')) {
+                $jsonPath = storage_path('app/public/Rooms.json');
+                $roomsData = file_exists($jsonPath) ? json_decode(file_get_contents($jsonPath), true) : [];
+
+                foreach ($roomsData as &$jsonRoom) {
+                    if ($jsonRoom['roomId'] == $roomId) {
+                        // Update main image if provided
+                        if ($request->hasFile('main_image')) {
+                            if (isset($jsonRoom['main_image'])) {
+                                Storage::disk('public')->delete(str_replace('storage/', '', $jsonRoom['main_image']));
+                            }
+                            $mainImagePath = $this->storeImage($request->file('main_image'), 'images');
+                            $jsonRoom['main_image'] = $mainImagePath;
+                        }
+
+                        // Handle additional images
+                        $newAdditionalImages = [];
+
+                        // Keep existing images that weren't removed
+                        if (isset($jsonRoom['additional_images'])) {
+                            $removedImages = json_decode($request->input('removed_images', '[]'), true);
+                            foreach ($jsonRoom['additional_images'] as $existingImage) {
+                                if (!in_array($existingImage, $removedImages)) {
+                                    $newAdditionalImages[] = $existingImage;
+                                } else {
+                                    Storage::disk('public')->delete(str_replace('storage/', '', $existingImage));
+                                }
+                            }
+                        }
+
+                        // Add new additional images
+                        if ($request->hasFile('additional_images')) {
+                            foreach ($request->file('additional_images') as $newImage) {
+                                $path = $this->storeImage($newImage, 'images');
+                                $newAdditionalImages[] = $path;
+                            }
+                        }
+
+                        $jsonRoom['additional_images'] = $newAdditionalImages;
+                        break;
+                    }
+                }
+
+                file_put_contents($jsonPath, json_encode(array_values($roomsData), JSON_PRETTY_PRINT));
+
+                return response()->json([
+                    'message' => 'Images updated successfully',
+                    'room' => $room,
+                    'images' => [
+                        'main_image' => $jsonRoom['main_image'] ?? null,
+                        'additional_images' => $jsonRoom['additional_images'] ?? []
+                    ]
+                ]);
+            }
+
+            return response()->json([
+                'message' => 'No image updates required',
+                'room' => $room
+            ]);
+
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'message' => 'Room not found',
+                'error' => $e->getMessage()
+            ], 404);
+        } catch (\Exception $e) {
+            \Log::error('Error updating images: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error updating images',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    // Add new method to handle removing individual images
+    public function removeImage(Request $request, $roomId)
+    {
+        try {
+            $index = $request->input('index');
+            
+            // Get JSON data
+            $jsonPath = storage_path('app/public/Rooms.json');
+            $roomsData = json_decode(file_get_contents($jsonPath), true);
+            
+            // Find room and get image path
+            $removedImage = null;
+            foreach ($roomsData as &$jsonRoom) {
+                if ($jsonRoom['roomId'] == $roomId) {
+                    // Just get the image path but don't remove it yet
+                    $removedImage = $jsonRoom['additional_images'][$index];
+                    // Remove from array temporarily
+                    array_splice($jsonRoom['additional_images'], $index, 1);
+                    break;
+                }
+            }
+            
+            // Don't save changes to JSON file yet, just return updated array
+            return response()->json([
+                'message' => 'Image removed temporarily',
+                'images' => $jsonRoom['additional_images'],
+                'removedImage' => $removedImage
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Error removing image: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Error removing image',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

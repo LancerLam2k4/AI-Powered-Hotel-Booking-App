@@ -86,10 +86,36 @@ class BookingController extends Controller
     }
 
     public function bookingDetails(){
-        $rooms = Room::all();
-        return response()->json([
-            'rooms' => $rooms,
-        ]);
+        try {
+            // 1. Lấy dữ liệu từ database
+            $rooms = Room::all();
+    
+            // 2. Đọc file JSON chứa ảnh
+            $jsonFilePath = storage_path('app/public/Rooms.json'); // Đường dẫn tới file JSON
+            $imagesData = [];
+            if (file_exists($jsonFilePath)) {
+                $jsonContent = file_get_contents($jsonFilePath);
+                $imagesData = json_decode($jsonContent, true);
+            }
+    
+            // 3. Kết hợp dữ liệu từ database với JSON
+            $roomsWithImages = $rooms->map(function ($room) use ($imagesData) {
+                // Tìm dữ liệu ảnh từ JSON dựa trên roomId
+                $roomImages = collect($imagesData)->firstWhere('roomId', $room->roomId);
+                $room->main_image = $roomImages['main_image'] ?? null;
+                $room->additional_images = $roomImages['additional_images'] ?? [];
+                return $room;
+            });
+    
+            // 4. Trả về JSON response
+            return response()->json($roomsWithImages);
+        } catch (\Exception $e) {
+            // Xử lý lỗi nếu có
+            return response()->json([
+                'error' => 'Failed to fetch data',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function bookingRoom($roomId){
