@@ -119,16 +119,26 @@ class ProfileController extends Controller
             $jsonContent = file_get_contents($jsonPath);
             $data = json_decode($jsonContent, true);
 
-            // Add the new fields to the existing data
-            $data['phone_number'] = $request->phone_number;
-            $data['address'] = $request->address;
-            $data['hobby'] = $request->hobby;
-            $data['name'] = $request->name;
+            // Update only if new values are provided
+            if ($request->phone_number) {
+                $data['phone_number'] = $request->phone_number;
+            }
+            if ($request->address) {
+                $data['address'] = $request->address;
+            }
+            if ($request->hobby) {
+                $data['hobby'] = $request->hobby;
+            }
+            if ($request->name) {
+                $data['name'] = $request->name;
+            }
             
-            // Save back to currentID.json
-            file_put_contents($jsonPath, json_encode($data, JSON_PRETTY_PRINT));
+            // Ensure the file is writable and save with proper formatting
+            if (!file_put_contents($jsonPath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
+                throw new \Exception('Failed to write to currentID.json');
+            }
 
-            // Update email in database
+            // Update email in database if provided
             if ($request->email) {
                 $user = User::find($data['user_id']);
                 if ($user) {
@@ -138,10 +148,12 @@ class ProfileController extends Controller
             }
 
             // Update preferences in travelers table
-            $traveler = Traveler::where('user_id', $data['user_id'])->first();
-            if ($traveler) {
-                $traveler->preferences = $request->hobby;
-                $traveler->save();
+            if ($request->hobby) {
+                $traveler = Traveler::where('user_id', $data['user_id'])->first();
+                if ($traveler) {
+                    $traveler->preferences = $request->hobby;
+                    $traveler->save();
+                }
             }
 
             return response()->json([
