@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import provincesData from '../../provinces.json';
-import './Booking.css';
+import React, { useEffect, useState,useContext} from "react";
+import axios from "axios";
+import provincesData from "../../provinces.json";
+import "./Booking.css";
+import { useNavigate,useOutletContext } from "react-router-dom";
+import { ChatContext } from "../AI/ChatContext";
 
 function Booking() {
   const [roomslist, setRoomsList] = useState([]);
   const { rooms,setRooms} = useContext(ChatContext); // Lấy roomsForyou từ ChatContext
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (rooms && rooms.length > 0) {
       setRooms(rooms);  // Cập nhật roomsList khi rooms được cập nhật
@@ -26,6 +25,7 @@ function Booking() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const banners = [
     "banner-booking-1.jpg",

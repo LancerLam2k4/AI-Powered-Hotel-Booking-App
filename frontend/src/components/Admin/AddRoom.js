@@ -98,13 +98,7 @@ const AddRoom = () => {
             </div>
             <div className="form-group right">
               <label>Room Type:</label>
-              <select name="type" value={roomData.type} onChange={handleChange} required>
-                <option value="" disabled>Select room type</option>
-                <option value="Deluxe">Deluxe</option>
-                <option value="Standard">Standard</option>
-                <option value="Suite">Suite</option>
-                <option value="Family">Family</option>
-              </select>
+              <input type="text" name="type" value={roomData.type} onChange={handleChange} required />
             </div>
           </div>
 
