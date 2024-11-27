@@ -211,7 +211,7 @@ function Booking() {
                   </ul>
                   <button
                     className="book-now-for-you"
-                    onClick={() => handleImageClick(room.roomId)}
+                    onClick={(id) => handleImageClick(room.roomId)}
                   >
                     More Detail!
                   </button>
