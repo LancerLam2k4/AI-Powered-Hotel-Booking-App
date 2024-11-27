@@ -1,20 +1,20 @@
-import React, { useEffect, useState,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import provincesData from "../../provinces.json";
 import "./Booking.css";
-import { useNavigate,useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { ChatContext } from "../AI/ChatContext";
 
 function Booking() {
   const [roomslist, setRoomsList] = useState([]);
-  const { rooms,setRooms} = useContext(ChatContext); // Lấy roomsForyou từ ChatContext
+  const { rooms, setRooms } = useContext(ChatContext); // Lấy roomsForyou từ ChatContext
   useEffect(() => {
     if (rooms && rooms.length > 0) {
-      setRooms(rooms);  // Cập nhật roomsList khi rooms được cập nhật
+      setRooms(rooms); // Cập nhật roomsList khi rooms được cập nhật
       console.log("Rooms have been updated in Booking:", rooms);
     }
   }, [rooms]); // Đặt roomsForyou vào dependencies để theo dõi sự thay đổi
-  
+
   const [filters, setFilters] = useState({
     price: "",
     type: "",
@@ -137,8 +137,8 @@ function Booking() {
   };
   const handleImageClick = (room) => {
     console.log(room);
-        navigate(`/bookingDetail/${room}`);
-    };
+    navigate(`/bookingDetail/${room}`);
+  };
 
   const roomsPerPage = 5;
 
@@ -178,49 +178,50 @@ function Booking() {
           <p>Find the best rooms at the best prices</p>
         </div>
       </div>
-      <div className="room-for-you">
-        <h2>Room For You</h2>
-        {rooms && rooms.length > 0 ? (
+      {rooms && rooms.length > 0 && (
+        <div className="room-for-you">
+          <h2>Room For You</h2>
           <ul>
             {rooms.map((room, index) => (
               <div key={room.roomId} className="room-for-you-item-booking">
-              <div className="room-for-you-image">
-                <img
-                  src={'http://localhost:8000/'+room.main_image || "default_image.jpg"}
-                  alt={room.name}
-                  className="room-for-you-image-booking"
-                />
-              </div>
-              <div className="room-for-you-details">
-                <h2>{room.name}</h2>
-                <p>
-                  {room.description}
-                </p>
-                <div className="price-section">
-                  <span className="price-label">Prices start at</span>
-                  <span className="price-value price-highlight">
-                    {room.price}
-                  </span>
-                  <span className="price-unit">/per night</span>
+                <div className="room-for-you-image">
+                  <img
+                    src={`http://localhost:8000/${
+                      room.main_image || "default_image.jpg"
+                    }`}
+                    alt={room.name}
+                    className="room-for-you-image-booking"
+                  />
                 </div>
-                <ul className="room-for-you-info">
-                  <li>Location: {room.district+","+ room.province || ""}</li>
-                  <li>Category: {room.type || "Single"}</li>
-                </ul>
-                <button className="book-now-for-you" onClick={(id)=> handleImageClick(room.roomId)}>
-                  More Detail!
-                </button>
+                <div className="room-for-you-details">
+                  <h2>{room.name}</h2>
+                  <p>{room.description}</p>
+                  <div className="price-section">
+                    <span className="price-label">Prices start at</span>
+                    <span className="price-value price-highlight">
+                      {room.price}
+                    </span>
+                    <span className="price-unit">/per night</span>
+                  </div>
+                  <ul className="room-for-you-info">
+                    <li>
+                      Location: {room.district + ", " + room.province || ""}
+                    </li>
+                    <li>Category: {room.type || "Single"}</li>
+                  </ul>
+                  <button
+                    className="book-now-for-you"
+                    onClick={() => handleImageClick(room.roomId)}
+                  >
+                    More Detail!
+                  </button>
+                </div>
               </div>
-            </div>
             ))}
           </ul>
-        ) : (
-          <p>Không có phòng nào được gợi ý!</p>
-        )}
-        <div class="scroll-right"> &gt; </div>
-      </div>
-
-
+          <div className="scroll-right"> &gt; </div>
+        </div>
+      )}
 
       <div className="filters-booking">
         <select name="price" onChange={handleFilterChange}>
@@ -302,11 +303,14 @@ function Booking() {
                     <span className="price-unit">/per night</span>
                   </div>
                   <ul className="room-info">
-                    <li>Location: {room.location|| ""}</li>
+                    <li>Location: {room.location || ""}</li>
                     <li>Size: {room.size || "35m²"}</li>
                     <li>Category: {room.type || "Single"}</li>
                   </ul>
-                  <button className="book-now"  onClick={(id)=> handleImageClick(room.roomId)}>
+                  <button
+                    className="book-now"
+                    onClick={(id) => handleImageClick(room.roomId)}
+                  >
                     More Detail!
                   </button>
                 </div>
