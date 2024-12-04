@@ -1,20 +1,22 @@
-import React, { useEffect, useState, useContext } from "react";
+
+import React, { useEffect, useState,useContext} from "react";
+
 import axios from "axios";
 import provincesData from "../../provinces.json";
 import "./Booking.css";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate,useOutletContext } from "react-router-dom";
 import { ChatContext } from "../AI/ChatContext";
 
 function Booking() {
   const [roomslist, setRoomsList] = useState([]);
-  const { rooms, setRooms } = useContext(ChatContext); // Lấy roomsForyou từ ChatContext
+  const { rooms,setRooms} = useContext(ChatContext); // Lấy roomsForyou từ ChatContext
   useEffect(() => {
     if (rooms && rooms.length > 0) {
-      setRooms(rooms); // Cập nhật roomsList khi rooms được cập nhật
+      setRooms(rooms);  // Cập nhật roomsList khi rooms được cập nhật
       console.log("Rooms have been updated in Booking:", rooms);
     }
   }, [rooms]); // Đặt roomsForyou vào dependencies để theo dõi sự thay đổi
-
+  
   const [filters, setFilters] = useState({
     price: "",
     type: "",
@@ -26,6 +28,7 @@ function Booking() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
 
   const banners = [
     "banner-booking-1.jpg",
@@ -53,6 +56,7 @@ function Booking() {
     setIsLoading(true);
     try {
       const params = {};
+
 
       if (filters.price) params.price = filters.price;
       if (filters.type) params.type = filters.type;
@@ -93,6 +97,7 @@ function Booking() {
     }));
   };
 
+
   // Handle district selection
   const handleDistrictChange = (e) => {
     const district = e.target.value;
@@ -106,35 +111,7 @@ function Booking() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  const handleAmenitiesChange = (e) => {
-    const { value } = e.target;
-    setFilters((prevFilters) => {
-      const updatedAmenities = prevFilters.amenities.includes(value)
-        ? prevFilters.amenities.filter((amenity) => amenity !== value)
-        : [...prevFilters.amenities, value];
 
-      if (value === "Đầy Đủ Tiện Nghi") {
-        return {
-          ...prevFilters,
-          amenities: [value],
-        };
-      }
-
-      if (updatedAmenities.includes("Đầy Đủ Tiện Nghi")) {
-        return {
-          ...prevFilters,
-          amenities: updatedAmenities.filter(
-            (amenity) => amenity !== "Đầy Đủ Tiện Nghi"
-          ),
-        };
-      }
-
-      return {
-        ...prevFilters,
-        amenities: updatedAmenities,
-      };
-    });
-  };
   const handleImageClick = (room) => {
     console.log(room);
     navigate(`/bookingDetail/${room}`);
@@ -142,35 +119,17 @@ function Booking() {
 
   const roomsPerPage = 5;
 
+
+  const scrollRight = () => {
+    const container = document.querySelector('.room-for-you ul');
+    container.scrollBy({ left: 300, behavior: 'smooth' });
+  };
+
+
+  const RoomList = ({ roomslist, currentPage, roomsPerPage, isLoading, handleImageClick }) => {}
   return (
     <div className="booking-container">
-      <header className="header-container">
-        <div className="header-container">
-          <div className="logo-container">
-            <img src="logo3.png" alt="Logo1" className="logo1" />
-          </div>
-
-          <div className="nav-links">
-            <ul>
-              <li>
-                <a href="">Home</a>
-              </li>
-              <li>
-                <a href="">About</a>
-              </li>
-              <li>
-                <a href="">Services</a>
-              </li>
-              <li>
-                <a href="">Contact</a>
-              </li>
-            </ul>
-          </div>
-          <button className="booking-button">
-            <span className="material-icons">shopping_cart</span>
-          </button>
-        </div>
-      </header>
+  
       {/* Replace the slider with a single image and overlay text */}
       <div className="banner-image-booking">
         <div className="banner-text-overlay">
@@ -179,49 +138,44 @@ function Booking() {
         </div>
       </div>
       {rooms && rooms.length > 0 && (
-        <div className="room-for-you">
-          <h2>Room For You</h2>
-          <ul>
-            {rooms.map((room, index) => (
-              <div key={room.roomId} className="room-for-you-item-booking">
-                <div className="room-for-you-image">
-                  <img
-                    src={`http://localhost:8000/${
-                      room.main_image || "default_image.jpg"
-                    }`}
-                    alt={room.name}
-                    className="room-for-you-image-booking"
-                  />
-                </div>
-                <div className="room-for-you-details">
-                  <h2>{room.name}</h2>
-                  <p>{room.description}</p>
-                  <div className="price-section">
-                    <span className="price-label">Prices start at</span>
-                    <span className="price-value price-highlight">
-                      {room.price}
-                    </span>
-                    <span className="price-unit">/per night</span>
-                  </div>
-                  <ul className="room-for-you-info">
-                    <li>
-                      Location: {room.district + ", " + room.province || ""}
-                    </li>
-                    <li>Category: {room.type || "Single"}</li>
-                  </ul>
-                  <button
-                    className="book-now-for-you"
-                    onClick={(id) => handleImageClick(room.roomId)}
-                  >
-                    More Detail!
-                  </button>
-                </div>
-              </div>
-            ))}
-          </ul>
-          <div className="scroll-right"> &gt; </div>
+  <div className="room-for-you">
+    <h2>Room For You</h2>
+    <ul>
+      {rooms.map((room, index) => (
+        <div key={room.roomId} className="room-for-you-item-booking">
+          <div className="room-for-you-image">
+            <img
+              src={`http://localhost:8000/${room.main_image || "default_image.jpg"}`}
+              alt={room.name}
+              className="room-for-you-image-booking"
+            />
+          </div>
+          <div className="room-for-you-details">
+            <h2>{room.name}</h2>
+            <p>{room.description}</p>
+            <div className="price-tag">
+             <span className="price-tag-value">
+                {room.price.toLocaleString('vi-VN')} VND
+              </span>
+            </div>
+
+            <ul className="room-for-you-info">
+              <li>Location: {room.district + ", " + room.province || ""}</li>
+              <li>Category: {room.type || "Single"}</li>
+            </ul>
+            <button
+              className="book-now-for-you"
+              onClick={(id) => handleImageClick(room.roomId)}
+            >
+              More Detail!
+            </button>
+          </div>
         </div>
-      )}
+      ))}
+    </ul>
+    <div className="scroll-right"> &gt; </div>
+  </div>
+)}
 
       <div className="filters-booking">
         <select name="price" onChange={handleFilterChange}>
@@ -263,61 +217,52 @@ function Booking() {
             </select>
           )}
         </div>
-
-        <select name="amenities" onChange={handleFilterChange}>
-          <option value="">Select Amenities</option>
-          {amenities.map((amenity, index) => (
-            <option key={index} value={amenity}>
-              {amenity}
-            </option>
-          ))}
-        </select>
       </div>
 
       <div className="room-list-booking">
-        {isLoading ? (
-          <p>Loading rooms...</p>
-        ) : (
-          roomslist
-            .slice((currentPage - 1) * roomsPerPage, currentPage * roomsPerPage)
-            .map((room) => (
-              <div key={room.roomId} className="room-item-booking">
-                <div className="room-image">
-                  <img
-                    src={room.main_image || "default_image.jpg"}
-                    alt={room.name}
-                    className="room-image-booking"
-                  />
-                </div>
-                <div className="room-details">
-                  <h2>{room.name}</h2>
-                  <p>
-                    Enjoy our classic suites with all the elegance and comfort
-                    that its interior has...
-                  </p>
-                  <div className="price-section">
-                    <span className="price-label">Prices start at</span>
-                    <span className="price-value price-highlight">
-                      {room.price}
-                    </span>
-                    <span className="price-unit">/per night</span>
-                  </div>
-                  <ul className="room-info">
-                    <li>Location: {room.location || ""}</li>
-                    <li>Size: {room.size || "35m²"}</li>
-                    <li>Category: {room.type || "Single"}</li>
-                  </ul>
-                  <button
-                    className="book-now"
-                    onClick={(id) => handleImageClick(room.roomId)}
-                  >
-                    More Detail!
-                  </button>
-                </div>
-              </div>
-            ))
-        )}
-      </div>
+  {isLoading ? (
+    <p>Loading rooms...</p>
+  ) : (
+    roomslist
+      .slice((currentPage - 1) * roomsPerPage, currentPage * roomsPerPage)
+      .map((room) => (
+        <div key={room.roomId} className="room-item-booking fade-in">
+          <div className="room-image">
+            <img
+              src={room.main_image || "default_image.jpg"}
+              alt={room.name}
+              className="room-image-booking"
+            />
+            {/* Price Tag trên ảnh */}
+            <span className="price-tag">
+            {room.price?.toLocaleString("vi-VN")} VND
+            </span>
+          </div>
+          <div className="room-details">
+            <h2>{room.name}</h2>
+            <p>
+              Enjoy our classic suites with all the elegance and comfort
+              that its interior has...
+            </p>
+            <div className="price-section">
+            
+            </div>
+            <ul className="room-info">
+              <li>Location: {room.location || ""}</li>
+              <li>Size: {room.size || "35m²"}</li>
+              <li>Category: {room.type || "Single"}</li>
+            </ul>
+            <button className="book-now" 
+            onClick={(id) => handleImageClick(room.roomId)}>
+              More Detail!
+            </button>
+          </div>
+        </div>
+      ))
+  )}
+</div>
+
+
       <div className="pagination-booking">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -332,56 +277,10 @@ function Booking() {
           Next
         </button>
       </div>
-      {/* Footer */}
-      <footer className="footer-booking">
-        <div className="footer-content">
-          <div className="footer-section about">
-            <h3>About Us</h3>
-            <p>
-              Your go-to platform for convenient and affordable room bookings.
-            </p>
-          </div>
-          <div className="footer-section links">
-            <h3>Quick Links</h3>
-            <ul>
-              <li>
-                <a href="#home">Home</a>
-              </li>
-              <li>
-                <a href="#about">About</a>
-              </li>
-              <li>
-                <a href="#services">Services</a>
-              </li>
-              <li>
-                <a href="#contact">Contact</a>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-section social">
-            <h3>Follow Us</h3>
-            <div className="social-icons">
-              <a href="#">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="#">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="#">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; 2024 BudgetWise Solutions | All rights reserved.</p>
-        </div>
-      </footer>
+     
     </div>
   );
+
 }
 
 export default Booking;

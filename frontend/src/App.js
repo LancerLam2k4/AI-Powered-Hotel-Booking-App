@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegisterTraveler from "./components/Authentication/RegisterTraveler.js"; // Đảm bảo đường dẫn đúng
 import Login from "./components/Authentication/Login.js"; // Giả sử bạn đã tạo component Login
 import AdminDashboard from "./components/Admin/AdminDashboard"; // Dashboard Admin
-import TravelerDashboard from "./components/Traveler/TravelerDashboard"; // Dashboard Traveler
+import TravelerDashboard from "./components/Traveler/HomePageTraveler.js"; // Dashboard Traveler
 import StaffDashboard from "./components/Staff/StaffDashboard"; // Dashboard Staff
 import HotelOwnerDashboard from "./components/HotelOwner/HotelOwnerDashboard"; // Dashboard Hotel Owner
 import ForgotPassword from "./components/Authentication/ForgotPassword";
@@ -25,7 +25,6 @@ const App = () => {
         {/* Chỉ định trang đầu tiên */}
         <Route path="/" element={<Login />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/hotel-owner-dashboard"element={<HotelOwnerDashboard />}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -35,6 +34,7 @@ const App = () => {
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
         </Route>  
         <Route path="/bookingDetail/:roomId" element={<BookingDetail/>}/>
         <Route path="/bookingRoom/:roomId" element={<BookingRoom />} />
