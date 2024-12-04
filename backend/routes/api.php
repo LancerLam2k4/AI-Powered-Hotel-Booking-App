@@ -4,6 +4,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BankController;
 
 Route::post('register', [AuthController::class, 'registerTraveler']);
 Route::post('login', [AuthController::class, 'login']);
@@ -21,7 +22,9 @@ Route::post('/reserve-room', [BookingController::class, 'reserveRoom']);
 Route::get('/booking-Room/{roomId}', [BookingController::class, 'bookingRoom']);
 Route::post('/bookRoom', [BookingController::class, 'bookRoom']);
 Route::post('/bookingDetails', [BookingController::class, 'bookingDetails']);
-
+Route::post('/payment', [BankController::class, 'createPayment']);
+Route::get('/payment-cancel', [BankController::class, 'paymentCancel'])->name('api.payment.cancel');
+Route::get('/payment-success', [BankController::class, 'paymentSuccess'])->name('api.payment.success');
 //Admin function
 Route::post('/add-room',[RoomController::class,'store']);
 

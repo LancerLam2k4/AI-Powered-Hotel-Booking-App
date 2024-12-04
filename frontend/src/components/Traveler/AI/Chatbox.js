@@ -51,7 +51,7 @@ const Chatbox = ({ onClose, onRoomSelected }) => {
           saveChatHistory(newMessages); // Lưu lịch sử chat bao gồm cả phản hồi của AI
           setRooms(responseData.rooms);
           console.log("Rooms tại Chatbox:", responseData.rooms);
-
+          console.log("Answer tại Chatbox:", responseData.answer);
           if (onRoomSelected) {
             onRoomSelected(responseData.rooms);
           }

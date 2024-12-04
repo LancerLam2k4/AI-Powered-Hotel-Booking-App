@@ -72,11 +72,11 @@
     },{
         "roomId": 5,
         "name": "Phòng 5",
-        "type": "Single Room",
+        "type": "Double Room",
         "price": 1500000,
         "description": "Phòng có WiFi, điều hòa, hồ bơi, và gym, đầy đủ tiện nghi.",
         "status": "Sẵn sàng",
-        "province": "Hà Nội",
+        "province": "Đà Nẵng",
         "district": "Quận Hoàn Kiếm",
         "reviewsCore": 4.5,
         "created_at": "2024-11-11 02:18:00",

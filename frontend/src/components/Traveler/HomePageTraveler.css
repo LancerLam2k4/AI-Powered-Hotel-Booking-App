@@ -1,6 +1,484 @@
-.HomePage-bg {
-    margin: 0;
+.homeSlider-section {
     width: 100%;
-    height: 100vh;
-    background-color: aqua;
-}
+    height: 60vh; /* To ensure the slider covers the full height of the viewport */
+    overflow: hidden; /* Prevent scrolling issues */
+    position: relative;
+  }
+  
+  .homeSlider-item {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Match the height of the section */
+  }
+  
+  .homeSlider-image {
+    width: 100%;
+    height: 60vh; /* Ensure the image fills the viewport */
+    background-size: cover; /* Make sure the image covers the entire div */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent repeating of the image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .homeSlider-textOverlay {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    transform: translate(-35%, -15%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(50px); /* Start below */
+    transition: opacity 0.5s, transform 0.5s; /* Smooth transition */
+    width: 70%;
+  }
+  
+  .homeSlider-textOverlay.active {
+    animation: slideUp 0.8s ease-out; /* Trigger animation when active */
+    opacity: 1;
+    transform: translateY(0); /* Reset position */
+  }
+  .homeSlider-stars {
+    font-size: 2.8rem; /* Increase stars size */
+    margin-bottom: 10px;
+  }
+  
+  .homeSlider-title {
+    font-size: 3rem; /* Increase title size */
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .homeSlider-subtitle {
+    font-size: 3rem; /* Increase subtitle size */
+    margin: 10px 0;
+  }
+  
+  .homeSlider-description {
+    font-size: 1.5rem; /* Increase description size */
+    margin-top: 10px;
+  }
+  
+  /* Section2 */
+  .section-two {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 10%;
+    background-color: #ffff;
+  }
+  
+  .section-two-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .section-two-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .section-two-subtitle {
+    color: #f27224;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  
+  .section-two-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    margin-right: 205px;
+  }
+  
+  .section-two-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 30px;
+  
+    max-width: 600px; /* Đảm bảo nút và mô tả thẳng hàng */
+  }
+  
+  .section-two-btn {
+    padding: 10px 20px; 
+    font-size: 16px; 
+    width: auto; 
+    max-width: 180px; 
+    margin-top: -18px;
+    display: inline-block;
+    align-self: flex-start; /* Căn nút thẳng hàng với phần mô tả */
+    background-color: transparent;
+    border: 2px solid #c19b76;
+    color: #c19b76;
+    transition: all 0.3s ease;
+  }
+  
+  .section-two-btn:hover {
+    border-color: black; 
+    color: black; 
+    background-color: transparent; 
+  }
+  
+  .section-two-image img {
+    max-width: 120%;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-left: 160px;
+  }
+  
+  /* Section3 */
+  /* Dining & Bar Section */
+  .dining-bar {
+    padding: 50px 0;
+    background-color: #f8f8f8;
+  }
+  
+  .dining-bar-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  
+  .dining-bar-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .section-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .section-description {
+    font-size: 18px;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+  
+  /* Thực đơn bên trái */
+  .dining-bar-menu {
+    width: 50%;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+  
+  .dining-bar-item {
+    border-radius: 10px;
+  
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .item-title {
+    font-size: 27px;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .item-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #c19b76;
+  }
+  
+  .item-description {
+    font-size: 12px;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .dining-bar-footer {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .see-all-menu-btn {
+    padding: 10px 15px;
+    color: #c19b76;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 2px solid #c19b76;
+  }
+  
+  .see-all-menu-btn:hover {
+    border-color: black; /* Màu viền khi hover */
+    color: black; /* Màu chữ khi hover */
+    background-color: transparent; /* Giữ nền trong suốt */
+  }
+  
+  /* Tấm ảnh bên phải */
+  .dining-bar-image-container {
+    width: 45%;
+    position: relative; /* Cần position relative để căn giữa nút */
+  }
+  
+  .dining-bar-image {
+    width: 110%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    margin-right: 5%;
+  }
+  
+  /* Section 4 - Amenities */
+  
+  .amenities-section {
+    padding: 50px 0;
+    width: 100%;
+    background-color: #c19b76; /* Cho section có màu nền để phân biệt */
+    text-align: center; /* Căn giữa tiêu đề và mô tả */
+  }
+  
+  .amenities-title {
+    font-size: 1rem;
+    color: #f8f8f8;
+    margin-bottom: 15px;
+  }
+  
+  .amenities-subtitle {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #f8f8f8;
+  }
+  
+  .amenities-description {
+    margin: 20px 0;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #f8f8f8;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 2; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+  }
+  
+  .amenities-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    width: 100%; /* Đảm bảo chiều rộng full */
+    margin-top: 30px;
+  }
+  
+  .amenities-image {
+    width: 35%;
+    height: auto;
+    object-fit: cover;
+    transform: translateX(190px);
+    border: 5px solid white;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  
+  .amenities-right {
+    width: 50%; /* Cung cấp chiều rộng cho phần bên phải */
+    text-align: left;
+    position: relative;
+    top: -30px;
+  }
+  
+  .book-suite {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #f8f8f8;
+  }
+  
+  .suite-description {
+    margin: 15px 0;
+    font-size: 1rem;
+    color: #f8f8f8;
+  }
+  
+  .book-now-btn {
+    padding: 10px 30px; /* Thu gọn kích thước nút */
+    background-color: transparent;
+    border: 2px solid #f8f8f8;
+    color: #f8f8f8;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+  }
+  
+  .book-now-btn:hover {
+    border-color: #f8f8f8; /* Màu viền khi hover */
+    color: black; /* Màu chữ khi hover */
+    background-color: #f8f8f8; /* Giữ nền trong suốt */
+  }
+  
+  /* Section 5 */
+  .reviews-section {
+    padding: 50px 0;
+    background-color: #f4f4f4;
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #333;
+  }
+  
+  .reviews-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .review {
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .review img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .review h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .review p {
+    font-size: 16px;
+    color: #777;
+    line-height: 1.5;
+  }
+  
+  .review .author {
+    font-size: 14px;
+    font-style: italic;
+    color: #333;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .review:hover {
+    transform: translateY(-10px);
+  }
+  
+  .see-all-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    color: #c19b76;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: 2px solid #c19b76;
+    margin-bottom: 60px;
+    border-radius: 5px;
+  }
+  
+  .see-all-btn:hover {
+    border-color: black; 
+    color: black; 
+    background-color: transparent;
+  }
+  /* Section 7 */
+  /* Main container for images */
+  .new-image-container {
+    display: flex;
+    justify-content: space-between; 
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto; 
+  }
+  
+  /* Wrapper for each image */
+  .new-image-wrapper {
+    position: relative;
+    width: calc(100% / 8);
+    height: 200px; 
+    margin-right: 10px; 
+  }
+  
+  /* Style for the images */
+  .new-image {
+    width: 107%;
+    height: 100%;
+    object-fit: cover;
+  
+    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  /* Hover effect on image */
+  .new-image-wrapper:hover .new-image {
+    filter: brightness(70%); /* Darken the image on hover */
+  }
+  
+  /* Plus sign positioning */
+  .plus-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(
+      -50%,
+      -50%
+    ); /* Center the '+' sign in the middle of the image */
+    font-size: 32px;
+    color: white;
+    display: none; /* Initially hide the '+' sign */
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Show the plus sign on hover */
+  .new-image-wrapper:hover .plus-icon {
+    display: block;
+    opacity: 1; /* Make the '+' sign appear */
+  }
+  

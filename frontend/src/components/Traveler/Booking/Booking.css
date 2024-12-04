@@ -1,19 +1,21 @@
-body{
-    font-family: 'FontAwesome';
-}
-.booking-container {
+body {
+    font-family: "FontAwesome";
+  }
+  .booking-container {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    max-width: 200%; 
-    width: 105%
-}
-
-.banner-image-booking {
+    flex-direction: column;
+    align-items: center;
+    max-width: 200%;
+    width: 105%;
+  }
+  
+  .banner-image-booking {
     position: relative;
-    width: 100vw; /* Full viewport width */
+  
+    width: 104vw; /* Full viewport width */
     height: 50vh; /* Full viewport height */
-    background-image: url('D:\AI-Powered-Hotel-Booking-App\frontend\public\banner-booking-2.jpg'); /* Use the path to your image */
+    background-image: url("D:\Github\AI-Powered-Hotel-Booking-App\frontend\public\bg-register.png"); /* Use the path to your image */
+  
     background-size: cover; /* Ensure the image covers the whole area */
     background-position: center; /* Center the image */
     background-repeat: no-repeat;
@@ -21,18 +23,25 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-.banner-text-overlay {
+  }
+  
+  .banner-text-overlay {
     position: absolute;
     color: white;
     padding: 20px;
     text-wrap: 20px;
     border-radius: 8px;
-}
-
-/* Container chính cho phần filters-booking */
-.filters-booking {
+  }
+  .banner-text-overlay h1 {
+    font-size: 4.5rem;
+  }
+  .banner-text-overlay p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+  
+  /* Container chính cho phần filters-booking */
+  .filters-booking {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -42,10 +51,10 @@ body{
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
     max-width: 100%;
     margin: 30px auto;
-}
-
-/* Các ô select chung */
-.filters-booking select {
+  }
+  
+  /* Các ô select chung */
+  .filters-booking select {
     padding: 12px 18px;
     font-size: 1rem;
     font-weight: 500;
@@ -57,186 +66,345 @@ body{
     transition: all 0.3s ease;
     cursor: pointer;
     width: 220px;
-}
-
-/* Hiệu ứng hover */
-.filters-booking select:hover {
+  }
+  
+  /* Hiệu ứng hover */
+  .filters-booking select:hover {
     border-color: #4a90e2;
     background-color: #f0f8ff;
     color: #4a90e2;
     box-shadow: 0px 5px 12px rgba(74, 144, 226, 0.2);
     transform: translateY(-3px);
-}
-
-/* Hiệu ứng khi focus */
-.filters-booking select:focus {
+  }
+  
+  /* Hiệu ứng khi focus */
+  .filters-booking select:focus {
     border-color: #ff7f50;
     background-color: #fffbf5;
     box-shadow: 0px 4px 12px rgba(255, 127, 80, 0.3);
     outline: none;
-}
-
-/* Bộ lọc khu vực (Location) */
-.location-filter {
+  }
+  
+  /* Bộ lọc khu vực (Location) */
+  .location-filter {
     display: flex;
     flex-direction: column;
     gap: 12px;
-}
-
-/* Phong cách hiện đại cho từng option trong select */
-.filters-booking option {
+  }
+  
+  /* Phong cách hiện đại cho từng option trong select */
+  .filters-booking option {
     padding: 10px;
     background-color: #ffffff;
     color: #333;
-}
-
-/* Room list container with wrapping */
-.room-list-booking {
+  }
+  
+  /* Room list container with wrapping */
+  .room-list-booking {
     display: flex;
-    flex-wrap: wrap; /* Cho phép các phần tử room item xuống dòng */
-    max-width: 100vw; /* Đảm bảo container không có độ rộng giới hạn */
+  
+    flex-wrap: wrap;
+    justify-content: center;
+  
     margin: 0;
     padding: 20px;
-}
-
-/* Individual room item section */
-.room-item-booking {
+  }
+  
+  /* Individual room item section */
+  
+  /* Room list container with wrapping */
+  .room-list-booking {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  /* Individual room item section */
+  .room-item-booking {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px; /* Bo góc mượt mà */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .room-item-booking:hover {
+    transform: translateY(-5px); /* Tạo hiệu ứng đẩy lên khi hover */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Làm bóng đổ mạnh hơn khi hover */
+  }
+  
+  /* Room image section */
+  .room-image {
+    flex: 0 0 40%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+    margin-right: 20px; /* Khoảng cách giữa ảnh và phần chi tiết */
+  }
+  
+  /* Image itself with proper fit */
+  .room-image-booking {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Giữ tỷ lệ ảnh mà không bị vỡ */
+    object-position: center; /* Đảm bảo hình ảnh được căn giữa */
+    border-radius: 8px;
+  }
+  
+  /* Room details section */
+  .room-details {
+    flex: 1;
+    text-align: left; /* Căn trái nội dung chi tiết phòng */
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-family: "Arial", sans-serif; /* Chọn font chữ thanh thoát */
+    color: #333;
+  }
+  
+  .room-details h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #1a1a1a;
+  }
+  
+  .room-details p {
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .room-infor li {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #666;
+  }
+  
+  .price-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Price tag styling */
+  .price-tag {
+    background-color: #e60000;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Price unit styling (per night) */
+  .price-section span {
+    font-size: 1.2rem;
+    color: #555; /* Màu chữ nhạt cho phần mô tả */
+  }
+  
+  /* Book Now button styling */
+  .book-now {
+    display: block; /* Đổi display thành block để dễ dàng căn giữa */
+    width: 200px; /* Bạn có thể điều chỉnh chiều rộng của nút nếu cần */
+    padding: 8px 25px;
+    background-color: #ff6600;
+    color: white;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px; /* Bo góc nút */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    margin: 20px auto 0; /* Tạo khoảng cách trên và căn giữa theo chiều ngang */
+    text-transform: uppercase; /* Chữ in hoa */
+  }
+  
+  /* Hiệu ứng khi di chuột vào nút */
+  .book-now:hover {
+    background-color: #ff5500; /* Đổi màu khi hover */
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng đổ nhẹ */
+  }
+  
+  /* Hiệu ứng khi nút ở trạng thái focus (nhấn vào) */
+  .book-now:focus {
+    outline: none; /* Bỏ outline mặc định */
+    box-shadow: 0 0 0 2px rgba(255, 102, 0, 0.8); /* Thêm viền cam khi focus */
+  }
+  
+  /* Responsive Design - Đảm bảo giao diện trên màn hình nhỏ */
+  @media (max-width: 768px) {
+    .room-item-booking {
+      flex-direction: column; /* Chuyển sang dạng cột trên màn hình nhỏ */
+      width: 100%;
+    }
+  
+    .room-image {
+      flex: 0 0 100%; /* Ảnh chiếm toàn bộ chiều rộng */
+      height: 250px; /* Giảm chiều cao ảnh trên màn hình nhỏ */
+    }
+  
+    .room-details {
+      padding-left: 20px; /* Thêm khoảng cách cho phần chi tiết phòng */
+    }
+  
+    .price-section {
+      flex-direction: column; /* Đổi sang dạng cột cho phần giá */
+      align-items: flex-start;
+    }
+  }
+  
+  .room-item-booking {
     display: flex;
     align-items: stretch;
     width: 100%; /* Giữ cho room-item chiếm toàn bộ chiều rộng */
     padding: 0;
-}
-
-/* Room image section */
-.room-image {
+  }
+  
+  /* Room image section */
+  .room-image {
     flex: 0 0 50%; /* Bức ảnh chiếm 50% chiều rộng */
     max-width: 40%;
     height: 400px;
     overflow: hidden;
     position: relative;
-}
-
-/* Image itself with proper fit */
-.room-image-booking {
+  }
+  
+  /* Image itself with proper fit */
+  .room-image-booking {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Giữ tỷ lệ ảnh mà không bị vỡ */
     object-position: center; /* Đảm bảo hình ảnh được căn giữa */
-}
-
-    /* Room details section */
-    .room-details {
-        flex: 1;
-    
+  }
+  
+  /* Room details section */
+  .room-details {
+    flex: 1;
+  
     font-size: 1.25rem; /* Increase font size */
     line-height: 1.5; /* Optional: adjust line height for better readability */
     padding-left: 40px;
-    font-family: 'FontAwesome';
-    
-    }
-    .room-details h2,p{
-        font-family: 'FontAwesome';
-    }
-    .room-infor li{
-        font-family: 'FontAwesome';
-    }
-    /* Price section styling */
-        .price-section {
-            display: flex;
-            align-items: baseline;
-            margin-bottom: 10px;
-            font-family: 'FontAwesome';
-        }
-
-        /* Price label and value */
-        .price-label {
-            font-size: 1rem;
-            color: #666;
-            margin-right: 5px;
-            font-family: 'FontAwesome';
-        }
-
-        .price-value {
-            font-size: 1.5rem; /* Tăng kích thước font-size */
-            font-weight: bold; /* Làm đậm font để nhấn mạnh */
-            color: #333; /* Màu chữ đậm hơn */
-            margin-right: 3px;
-        }
-
-        .price-unit {
-            font-size: 1rem;
-            color: #666;
-            margin-left: 3px;
-        }
-
- 
-    /* Book Now button styling */
-    .book-now {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #ff6600;
-        color: white;
-        text-align: center;
-        font-size: 1rem;
-        font-weight: bold;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .book-now:hover {
-        background-color: #ff5500;
-    }
-
-/* Alternate layout for odd items: image first */
-.room-item-booking:nth-child(odd) .room-image {
+    font-family: "FontAwesome";
+  }
+  .room-details h2,
+  p {
+    font-family: "FontAwesome";
+  }
+  .room-infor li {
+    font-family: "FontAwesome";
+  }
+  /* Price section styling */
+  .price-section {
+    display: flex;
+    align-items: center; /* Căn giữa theo trục ngang */
+    justify-content: flex-start; /* Bắt đầu từ trái */
+    margin-bottom: 15px; /* Tăng khoảng cách phía dưới */
+    font-family: "Arial", sans-serif; /* Sử dụng font chuẩn thay vì FontAwesome */
+    gap: 8px; /* Tạo khoảng cách giữa các phần tử */
+  }
+  
+  /* Price label and value */
+  .price-label {
+    font-size: 1rem;
+    color: #555;
+    font-weight: normal;
+  }
+  
+  /* Price value */
+  .price-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+    line-height: 1.2;
+  }
+  
+  /* Price unit */
+  .price-unit {
+    font-size: 1rem;
+    color: #777;
+    font-weight: normal;
+    margin-left: 5px;
+    line-height: 1.2;
+  }
+  
+  /* Book Now button styling */
+  .book-now {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6600;
+    color: white;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .book-now:hover {
+    background-color: #ff5500;
+  }
+  
+  /* Alternate layout for odd items: image first */
+  .room-item-booking:nth-child(odd) .room-image {
     order: 1; /* Di chuyển ảnh sang phía bên trái */
-}
-
-.room-item-booking:nth-child(odd) .room-details {
+  }
+  
+  .room-item-booking:nth-child(odd) .room-details {
     order: 2; /* Di chuyển phần chữ sang phía bên phải */
-}
-
-/* Alternate layout for even items: details first */
-.room-item-booking:nth-child(even) .room-image {
+  }
+  
+  /* Alternate layout for even items: details first */
+  .room-item-booking:nth-child(even) .room-image {
     order: 2; /* Di chuyển ảnh sang phía bên phải */
-}
-
-.room-item-booking:nth-child(even) .room-details {
+  }
+  
+  .room-item-booking:nth-child(even) .room-details {
     order: 1; /* Di chuyển phần chữ sang phía bên trái */
-}
-
-
-.room-item-booking:nth-child(even) {
+  }
+  
+  .room-item-booking:nth-child(even) {
     background-color: #f0f0f0; /* Màu nền xám cho các item lẻ và chẵn */
     width: 100vw; /* Kéo background của item ra hết màn hình */
-    
-}
-
-
-/* Header.css */
-.header-container {
+  }
+  
+  /* Header.css */
+  .header-container {
     position: sticky;
     top: 0;
     z-index: 1000;
     display: flex;
-    justify-content: space-between; 
-    align-items: center; 
+    justify-content: space-between;
+    align-items: center;
     padding: 12px 40px;
-    background-color: #87CEFA;
+    background-color: #87cefa;
     color: gray;
-    
+  
     width: 100vw;
   }
   
   .logo-container {
-    margin-right: 35%; 
-    
+    margin-right: 35%;
   }
   
   .logo-container .logo1 {
-    width: 150px; 
+    width: 150px;
     margin-left: 200px;
     color: #000;
   }
@@ -254,7 +422,7 @@ body{
   }
   
   .nav-links ul li {
-    margin: 0 30px; 
+    margin: 0 30px;
   }
   
   .nav-links ul li a {
@@ -263,22 +431,21 @@ body{
     font-size: 16px;
     font-family: "Montserrat", Helvetica, Arial, sans-serif;
     font-weight: bold;
-  
   }
   
   .nav-links ul li a:hover {
     text-decoration: underline;
   }
   .booking-button {
-    display: inline-flex; 
+    display: inline-flex;
     align-items: center;
     padding: 12px 30px;
     font-size: 12px;
     line-height: 24px;
     font-family: "Montserrat", Helvetica, Arial, sans-serif;
     font-weight: 400;
-    letter-spacing: .08em;
-    transition: .33s all ease;
+    letter-spacing: 0.08em;
+    transition: 0.33s all ease;
     white-space: normal;
     text-transform: uppercase;
     cursor: pointer;
@@ -286,28 +453,27 @@ body{
     margin-left: 50px;
     color: #000;
     background-color: transparent;
-    border:none;
-    gap: 8px; 
+    border: none;
+    gap: 8px;
     margin-left: -200px;
-  
   }
   .booking-button:hover {
     color: #c19b76;
-      background-color: transparent;
-      border-color: #000;
+    background-color: transparent;
+    border-color: #000;
   }
-
+  
   /* Container pagination-booking */
-.pagination-booking {
+  .pagination-booking {
     display: flex;
     justify-content: center;
     gap: 12px;
     padding: 15px 0;
     margin-top: 20px;
-}
-
-/* Nút điều hướng (Previous và Next) */
-.pagination-booking button {
+  }
+  
+  /* Nút điều hướng (Previous và Next) */
+  .pagination-booking button {
     padding: 10px 18px;
     font-size: 1rem;
     font-weight: 500;
@@ -318,346 +484,251 @@ body{
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Hiệu ứng hover cho nút điều hướng */
-.pagination-booking button:hover:not([disabled]) {
+  }
+  
+  /* Hiệu ứng hover cho nút điều hướng */
+  .pagination-booking button:hover:not([disabled]) {
     background-color: #357ab8;
     box-shadow: 0px 6px 12px rgba(53, 122, 184, 0.3);
     transform: translateY(-2px);
-}
-
-/* Hiệu ứng focus cho nút điều hướng */
-.pagination-booking button:focus:not([disabled]) {
+  }
+  
+  /* Hiệu ứng focus cho nút điều hướng */
+  .pagination-booking button:focus:not([disabled]) {
     background-color: #2a5c87;
     box-shadow: 0px 4px 15px rgba(42, 92, 135, 0.4);
     outline: none;
-}
-
-/* Phong cách cho nút khi bị disabled */
-.pagination-booking button[disabled] {
+  }
+  
+  /* Phong cách cho nút khi bị disabled */
+  .pagination-booking button[disabled] {
     color: #ffffff;
     background-color: #b3b3b3;
     cursor: not-allowed;
     box-shadow: none;
     opacity: 0.6;
-}
-/* Footer */
-.footer-booking {
-    background-color: #333;
-    color: #fff;
-    padding: 40px 20px;
-    width: 100vw; /* Full viewport width */
-}
-
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-section {
-    flex: 1;
-    min-width: 200px;
-}
-
-.footer-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-}
-
-.footer-section p, .footer-section a, .footer-bottom p {
-    font-size: 0.95rem;
-    color: #ccc;
-    margin-bottom: 10px;
-    text-decoration: none;
-}
-
-.footer-section a:hover {
-    color: #ff6600;
-}
-
-.footer-section.links ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.footer-section.links li {
-    margin-bottom: 8px;
-}
-
-.footer-section.social .social-icons a {
-    color: #ccc;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    transition: color 0.3s;
-}
-
-.footer-section.social .social-icons a:hover {
-    color: #ff6600;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #444;
-}
-
-.footer-bottom p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-
-/* Hiệu ứng hover cho nút điều hướng */
-.pagination-booking button:hover:not([disabled]) {
-    background-color: #357ab8;
-    box-shadow: 0px 6px 12px rgba(53, 122, 184, 0.3);
-    transform: translateY(-2px);
-}
-
-/* Hiệu ứng focus cho nút điều hướng */
-.pagination-booking button:focus:not([disabled]) {
-    background-color: #2a5c87;
-    box-shadow: 0px 4px 15px rgba(42, 92, 135, 0.4);
-    outline: none;
-}
-
-/* Phong cách cho nút khi bị disabled */
-.pagination-booking button[disabled] {
-    color: #ffffff;
-    background-color: #b3b3b3;
-    cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.6;
-}
-/* Footer */
-.footer-booking {
-    background-color: #333;
-    color: #fff;
-    padding: 40px 20px;
-    width: 100vw; /* Full viewport width */
-}
-
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-section {
-    flex: 1;
-    min-width: 200px;
-}
-
-.footer-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-}
-
-.footer-section p, .footer-section a, .footer-bottom p {
-    font-size: 0.95rem;
-    color: #ccc;
-    margin-bottom: 10px;
-    text-decoration: none;
-}
-
-.footer-section a:hover {
-    color: #ff6600;
-}
-
-.footer-section.links ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.footer-section.links li {
-    margin-bottom: 8px;
-}
-
-.footer-section.social .social-icons a {
-    color: #ccc;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    transition: color 0.3s;
-}
-
-.footer-section.social .social-icons a:hover {
-    color: #ff6600;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid #444;
-}
-
-.footer-bottom p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #777;
-}
-
-@media (max-width: 768px) {
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-
-
-
-
-.room-for-you {
+  }
+  
+  /* Container cho phần Room For You */
+  .room-for-you {
     width: 100%;
-    height: 500px; /* Điều chỉnh chiều cao cố định theo yêu cầu */
-    overflow-y: auto; /* Thêm cuộn dọc nếu nội dung vượt quá chiều cao */
-    padding: 20px;
-    white-space: nowrap; /* Ngăn không cho các item xuống dòng */
-    position: relative;
-}
-
-.room-for-you h2 {
+    max-width: 1200px; /* Giới hạn chiều rộng để giao diện không quá rộng */
+    margin: 0 auto; /* Căn giữa container */
+    padding: 40px 20px;
+    background-color: #fafafa; /* Màu nền nhẹ */
+    border-radius: 10px; /* Bo góc container */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ */
+    animation: fadeIn 1s ease-in; /* Thêm hiệu ứng fade-in */
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Tiêu đề của phần Room For You */
+  .room-for-you h2 {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-.room-for-you-wrapper {
-    display: inline-flex; /* Hiển thị các item trên cùng một hàng */
-    justify-content: flex-start;
-}
-
-.room-for-you-item-booking {
-    display: inline-flex;
-    width: calc(25% - 20px); /* Chia đều thành 3 cột */
-    height: 408px;
-    margin-right: 20px;
-    box-sizing: border-box;
-    flex-direction: column;
-    border: 1px solid #ccc;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+    text-transform: uppercase; /* Chữ in hoa để làm nổi bật */
+    letter-spacing: 1px;
+  }
+  
+  /* Danh sách các phòng */
+  .room-for-you ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Khoảng cách giữa các phần tử */
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Mỗi item phòng */
+  .room-for-you-item-booking {
+    width: calc(33.333% - 20px); /* Chia đều 3 cột với khoảng cách nhỏ */
+    background-color: #fff;
     border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-}
-
-.room-for-you-item-booking:last-child {
-    margin-right: 0; /* Xóa margin phải của phần tử cuối cùng */
-}
-
-.room-for-you-image {
-    width: 100%;
-    height: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Thêm hiệu ứng hover */
+    animation: fadeIn 1.5s ease-in;
+  }
+  
+  .room-for-you-item-booking:hover {
+    transform: translateY(-5px); /* Đẩy lên khi hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Thêm bóng đổ khi hover */
+  }
+  
+  /* Ảnh của phòng */
+  .room-for-you-image {
+    position: relative;
+    height: 200px; /* Cố định chiều cao của ảnh */
     overflow: hidden;
-}
-
-.room-for-you-image img {
+  }
+  
+  .room-for-you-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
-}
-
-.room-for-you-details {
-    padding: 10px;
-}
-
-.room-for-you-details h2 {
-    font-size: 18px;
+    object-fit: cover; /* Đảm bảo ảnh vừa vặn */
+    transition: transform 0.5s ease-in-out; /* Thêm hiệu ứng phóng to khi hover */
+  }
+  
+  .room-for-you-item-booking:hover .room-for-you-image img {
+    transform: scale(1.1); /* Phóng to ảnh khi hover */
+  }
+  
+  /* Chi tiết của phòng */
+  .room-for-you-details {
+    padding: 20px;
+    font-family: "Arial", sans-serif; /* Đảm bảo font chữ đồng nhất */
+    background-color: #f9f9f9; /* Màu nền nhẹ cho phần chi tiết */
+    border-radius: 8px; /* Bo góc cho các phần chi tiết */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ để tạo chiều sâu */
+  }
+  
+  .room-for-you-details h2 {
+    font-size: 1.1rem; /* Giảm chút so với 1.2rem cho sự dễ đọc */
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Căn giữa tiêu đề */
     margin-bottom: 10px;
-}
-
-.room-for-you-details p {
+    line-height: 1.6;
+    margin-top: 0;
+  }
+  
+  .room-for-you-details p {
+    font-size: 14px;
+    color: #555; /* Màu chữ đậm hơn một chút để dễ đọc */
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .room-for-you-details ul {
+    padding: 0;
+    list-style-type: none; /* Bỏ dấu chấm đầu dòng */
+    margin-bottom: 20px;
+  }
+  
+  .room-for-you-details ul li {
     font-size: 14px;
     color: #666;
     margin-bottom: 10px;
-}
-
-.room-for-you .price-section {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
-}
-
-.room-for-you .price-label {
-    font-size: 14px;
-    color: #999;
-    margin-right: 5px;
-}
-
-.room-for-you .price-value {
-    font-size: 18px;
+  }
+  
+  .room-for-you-details ul li::before {
+    content: "•"; /* Thêm dấu chấm tròn nhỏ ở trước mỗi mục */
+    color: #e67e22; /* Màu sắc dấu chấm tròn để nổi bật */
+    font-size: 1.2rem;
+    margin-right: 10px;
+  }
+  
+  /* Phần nhãn giá (Price tag) */
+  .price-tag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .price-tag-value {
+    font-size: 15px;
     font-weight: bold;
-    color: #e67e22;
-    margin-right: 5px;
-}
-
-.room-for-you .price-unit {
-    font-size: 14px;
-    color: #999;
-}
-
-.room-for-you-info {
+    color: white;
+    padding: -1px 16px;
+    border-radius: 20px; /* Bo tròn góc */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Danh sách thông tin phòng */
+  .room-for-you-info {
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
-
-.room-for-you-info li {
+  }
+  
+  .room-for-you-info li {
     font-size: 14px;
     color: #666;
-    margin-bottom: 5px;
-}
-
-.book-now-for-you {
-    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Nút đặt phòng */
+  .book-now-for-you {
+    width: 100%;
+    padding: 12px;
     background-color: #e67e22;
     color: white;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
     cursor: pointer;
-    width: 100%;
     text-align: center;
-    margin-top: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.book-now-for-you:hover {
-    background-color: #d35400;
-}
-
-.room-for-you .scroll-right {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: 30px;
-    cursor: pointer;
-    z-index: 10;
-}
-
-@media (max-width: 768px) {
-    .room-for-you-item-booking {
-        width: calc(50% - 20px); /* 2 cột khi màn hình nhỏ */
-    }
-}
-
-@media (max-width: 480px) {
-    .room-for-you-item-booking {
-        width: 100%; /* 1 cột khi màn hình rất nhỏ */
-    }
-}
-
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 15px;
+  }
   
+  .book-now-for-you:hover {
+    background-color: #d35400;
+    transform: scale(1.05); /* Phóng to nhẹ khi hover */
+  }
+  
+  /* Đoạn văn bản khi không có phòng nào */
+  .fade-in {
+    animation: fadeIn 1s ease-in;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .room-for-you-item-booking {
+      width: calc(50% - 20px); /* 2 cột khi màn hình nhỏ */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .room-for-you-item-booking {
+      width: 100%; /* 1 cột khi màn hình rất nhỏ */
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Footer */
+  /* General Footer Styling */
+  .footer-booking {
+    background: #444; /* Gradient background */
+    color: #f5f5f5;
+    padding: 40px 20px;
+    font-family: "Arial", sans-serif;
+  }
+  .footer-logo-desc img {
+    width: 50%;
+  }
   

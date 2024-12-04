@@ -1,119 +1,340 @@
-Css
-/* Header styling */
-.header-room-detail {
+/* Container for Room Detail */
+.room-detail-container {
     width: 100%;
-    height: 60px;
-    background-color: #f0f0f0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Section for Room Details */
+  .room-detail-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  /* Image Section */
+  .room-detail-image {
+    flex: 1 1 60%; /* Chiếm 60% không gian */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Slick Carousel Wrapper */
+  .slick-slider {
+    position: relative;
+  }
+  
+  /* Container of images for slick carousel */
+  .room-detail-image-container {
+    display: flex;
+    transition: transform 1s ease-in-out;
+  }
+  
+  /* Sliding effect for room images using Slick */
+  .room-detail-image-container .slick-slide {
+    transition: transform 1s ease-in-out;
+  }
+  
+  .room-detail-image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Price Tag Styling */
+  .single-room-image-room-detail {
+    position: relative; /* Để các phần tử bên trong có thể sử dụng absolute positioning */
+  }
+  
+  .price-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px; /* Điều chỉnh vị trí */
+    background-color: #ff6347; /* Màu nền cho price tag */
+    color: white;
+    padding: 4px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2; /* Đảm bảo price tag nằm trên ảnh */
+  }
+  
+  /* Make sure the price tag is visible on all screen sizes */
+  @media (max-width: 768px) {
+    .price-tag {
+      font-size: 16px;
+      padding: 8px 12px;
+      top: 15px;
+      left: 15px;
+    }
+  }
+  
+  /* Info Section */
+  .room-detail-info {
+    flex: 1 1 35%;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .room-detail-info h6 {
+    font-size: 14px;
+    color: #999;
+  }
+  
+  .room-detail-info h4,
+  .room-detail-info h2 {
+    font-size: 24px;
+    color: #333;
+    margin-top: 25px;
+  }
+  
+  .room-detail-info p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+  }
+  
+  /* Room Quantity and Booking Button */
+  .room-booking-quantity {
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    border-bottom: 1px solid #ddd;
-}
-
-.header-room-detail .logo-room-detail {
-    height: 40px;
-    margin-left: 10px;
-}
-
-/* Room details section */
-#roomdetails-room-detail {
-    display: flex;
     margin-top: 20px;
-    padding: 20px;
-}
-
-/* Main image container */
-.single-room-image-room-detail {
-    width: 40%;
-    margin-right: 50px;
-}
-
-.main-img-room-detail {
-    width: 100%;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-/* Small images row below the main image */
-.small-img-group-room-detail {
+    gap: 10px;
+  }
+  
+  .room-booking-quantity input {
+    padding: 4px;
+    font-size: 16px;
+    width: 60px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .room-book-button {
+    padding: 7px 20px;
+    font-size: 16px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .room-book-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Small Images in Room Detail */
+  .room-detail-small-images {
     display: flex;
     justify-content: space-between;
-}
-
-.small-img-col-room-detail {
-    flex-basis: 24%;
+  
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .small-img-col-room-detail {
     cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .small-img-col-room-detail:hover {
+    transform: scale(1.05); /* Zoom nhẹ khi hover */
+  }
+  
+  .small-img-room-detail {
+    border-radius: 8px;
     border: 1px solid #ddd;
-    padding: 2px;
-    border-radius: 4px;
-    transition: transform 0.2s;
-}
-
-.small-img-col-room-detail:hover {
-    transform: scale(1.05);
-}
-
-.small-img-room-detail {
-    width: 100%;
-}
-
-/* Room details styling */
-.single-room-details-room-detail {
-    width: 50%;
-    padding-top: 20px;
-    text-align: justify;
-}
-
-.breadcrumbs-room-detail {
-    font-size: 18px;
-    color: #555;
-    font-weight: bold;
-}
-
-.single-room-details-room-detail h4 {
-    font-size: 28px;
+  }
+  
+  /* Amenities Section */
+  .room-amenities ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .room-amenities li {
+    font-size: 16px;
     margin: 10px 0;
-}
-
-.single-room-details-room-detail h2 {
-    font-size: 24px;
-    color: #088178;
-    margin-bottom: 20px;
-    margin-right: 580px;
-}
-
-.single-room-details-room-detail select {
-    display: block;
-    padding: 8px;
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-.single-room-details-room-detail input {
-    width: 60px;
-    height: 40px;
-    padding-left: 8px;
-    font-size: 16px;
-    margin-right: 10px;
-}
-
-.single-room-details-room-detail button {
+    display: flex;
+    align-items: center;
+  }
+  
+  .room-amenities .icon-circle {
+    font-size: 0px;
     color: white;
-    background: #088178;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-.single-room-details-room-detail button:hover {
-    background-color: #066a5f;
-}
-
-.single-room-details-room-detail span {
-    display: block;
-    margin-top: 20px;
-    line-height: 1.6;
-    color: #333;
-}
+    background-color: red;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .room-detail-section {
+      flex-direction: column;
+    }
+  
+    .room-detail-image {
+      flex: 1 1 100%;
+    }
+  
+    .room-detail-info {
+      flex: 1 1 100%;
+    }
+  }
+  
+  /* Áp dụng font chữ Raleway cho toàn bộ trang */
+  body {
+    font-family: "Raleway", sans-serif;
+  }
+  
+  /* Áp dụng font chữ Lora cho các tiêu đề */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: "Lora", serif;
+    font-weight: 600;
+  }
+  /* Footer */
+  /* General Footer Styling */
+  .footer-booking {
+    background: #444;
+    color: #f5f5f5;
+    padding: 40px 20px;
+    font-family: "Arial", sans-serif;
+    width: 100%;
+  }
+  .footer-logo-desc img {
+    width: 50%;
+  }
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+  }
+  
+  /* Section Styling */
+  .footer-logo-desc,
+  .footer-links,
+  .footer-contact,
+  .footer-social {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .footer-logo-desc h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #ffcc00;
+  }
+  
+  .footer-logo-desc p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #ddd;
+  }
+  
+  .footer-links h4,
+  .footer-contact h4,
+  .footer-social h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  
+  .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-links ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-links ul li a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  
+  .footer-links ul li a:hover {
+    color: #f5f5f5;
+  }
+  
+  .footer-contact p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .footer-contact a {
+    color: #ffcc00;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-contact a:hover {
+    color: #fff;
+  }
+  
+  .footer-social .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .footer-social .social-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background: #444;
+    color: #f5f5f5;
+    font-size: 18px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .footer-social .social-icons a:hover {
+    background: #ffcc00;
+    color: #2c3e50;
+  }
+  
+  /* Bottom Bar */
+  .footer-bottom {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 12px;
+    color: #bbb;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+  }
+  
+  .footer-bottom a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+  
+  .footer-bottom a:hover {
+    color: #f5f5f5;
+  }
+  
