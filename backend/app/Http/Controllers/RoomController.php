@@ -30,7 +30,6 @@ class RoomController extends Controller
 
         // Tạo mới phòng trong cơ sở dữ liệu
         $room = Room::create($validatedRoomData);
-
         // Lưu hình ảnh vào Storage
         $mainImagePath = $this->storeImage($request->file('main_image'), 'images');
         $additionalImagesPaths = [];
@@ -44,10 +43,9 @@ class RoomController extends Controller
                 }
             }
         }
-
         // Lưu thông tin hình ảnh vào file JSON
-        $this->saveImagesToJsonFile($room->id, $mainImagePath, $additionalImagesPaths);
-
+        $this->saveImagesToJsonFile($room->roomId, $mainImagePath, $additionalImagesPaths);
+        
         return response()->json(['message' => 'Room created successfully!', 'room' => $room], 201);
     }
 

@@ -26,17 +26,36 @@ function BookingRoom() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
   const [countdown, setCountdown] = useState(5);
+  const [subImages, setSubImages] = useState([]);
+  const [mainImage, setMainImage] = useState();
   // Thiết lập ngày hiện tại
   useEffect(() => {
     const currentDate = new Date().toISOString().slice(0, 10);
     setArrivalDate(currentDate);
   }, []);
-
-  const images = [
-    "sub-room-2.png",
-    "sub-room-3.png",
-    "sub-room-4.png",
-  ];
+  useEffect(() => {
+    const fetchRoomImages = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/showDetail",
+          {
+            params: { roomId },
+          }
+        );
+        setRoom(response.data);
+        setSubImages(response.data.additional_images)
+        setMainImage(response.data.main_image)
+      } catch (err) {
+        setError(
+          "Error fetching room detail: " +
+            (err.response?.data?.message || err.message)
+        );
+        console.error(err);
+      }
+    };
+    fetchRoomImages();
+  }, [roomId]);
+  if (!room) return <div>Loading...</div>;
   const handleReservation = async (e) => {
     e.preventDefault();
   
@@ -102,7 +121,7 @@ function BookingRoom() {
   };
 
   const calculateTotalPrice = () => {
-    const pricePerNight = 20;
+    const pricePerNight = room.price;
     const totalDays = calculateTotalDays();
     return pricePerNight * totalDays;
   };
@@ -111,20 +130,13 @@ function BookingRoom() {
   const convertToUSD = (vndPrice) => {
     return (vndPrice / exchangeRate).toFixed(2); // Convert and format as USD
   };
-  const handleImageClick = (imgSrc) => {
-    console.log("Image clicked:", imgSrc);
-    // Thực hiện hành động khi nhấn vào ảnh, ví dụ:
-    // - Cập nhật ảnh hiển thị lớn
-    // - Lưu đường dẫn hình ảnh đã chọn
-  };
-
   return (
     
     <div className="bookingroom-container">
 
     <div className="sochi-container">
   <div className="sochi-main-image">
-    <img src="bg-login.png" alt="Main Hotel Image" className="sochi-main-image-img" />
+    <img src={room.main_image} alt="Main Hotel Image" className="sochi-main-image-img" />
     <div className="sochi-text-overlay">
       <h1>Hello. Salut. Hola</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -133,7 +145,7 @@ function BookingRoom() {
     </div>
   </div>
   <div className="sochi-side-images">
-  {['bg-register.png', 'bg-login.png', 'bg-login.png', 'bg-login.png'].map((imgSrc, index) => (
+  {subImages.map((imgSrc, index) => (
     <img
       key={index}
       src={imgSrc}
@@ -145,16 +157,6 @@ function BookingRoom() {
 </div>
 <div className="booking-separator"></div>
       <div className="bookingroom-side-by-side">
-          {/* Phần hình ảnh chi tiết phòng */}
-  {/* <div className="bookingroom-room-images">
-    <div className="room-detail-small-images">
-      {['bg-login.png', 'bg-login.png', 'bg-login.png', 'bg-login.png'].map((imgSrc, index) => (
-        <div key={index} className="small-img-col-room-detail" onClick={() => handleImageClick(imgSrc)}>
-          <img src={imgSrc} className="small-img-room-detail" width="100%" alt="Room" />
-        </div>
-      ))}
-    </div>
-  </div> */}
         <div className="bookingroom-reservation-section">
           <form className="bookingroom-reservation-form-container" onSubmit={handleReservation}>
             <div className="bookingroom-form-row">
@@ -199,8 +201,8 @@ function BookingRoom() {
             <div className="bookingroom-total-price">
     
           <p>Total Days: {calculateTotalDays()}</p>
-          <p className="price">Total Price : {new Intl.NumberFormat('vi-VN', {currency: 'VND' }).format(calculateTotalPrice() * 23000)} VND</p>
-          <p className="price-usd">Price Conversion: {convertToUSD(calculateTotalPrice() * 23000)} USD</p>
+          <p className="price">Total Price : {new Intl.NumberFormat('vi-VN', {currency: 'VND' }).format(calculateTotalPrice())} VND</p>
+          <p className="price-usd">Price Conversion: {convertToUSD(calculateTotalPrice())} USD</p>
             </div>
             <button type="submit" className="bookingroom-reservation-form-button" onClick={handleReservation}>Reserve Now
             </button>

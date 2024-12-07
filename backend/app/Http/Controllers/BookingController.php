@@ -137,7 +137,8 @@ class BookingController extends Controller
         return response()->json([
             'roomId' => $roomData['roomId'],
             'name' => $room->name, 
-            'price' => $room->price, 
+            'price' => $room->price,
+            'reviewsCore' =>$room->reviewsCore,
             'description' => $room->description,
             'main_image' => url($roomData['main_image']), 
             'additional_images' => array_map(fn($image) => url($image), $roomData['additional_images']),

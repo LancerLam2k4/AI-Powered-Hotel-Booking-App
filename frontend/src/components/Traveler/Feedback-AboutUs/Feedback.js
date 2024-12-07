@@ -1,26 +1,54 @@
 import React, { useState } from "react";
 import "./Feedback.css"; // Import CSS for Feedback page
+import axios from "axios";
 
 const Feedback = () => {
   // Define states to store form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [reviewsCore, setReviewsCore] = useState(null); // State for reviewsCore
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic for submitting feedback (e.g., API call)
-    alert("Thank you for your feedback!");
-    
+
+    // Prepare feedback data
+    const feedbackData = {
+      name,
+      email,
+      feedback,
+      reviewsCore,
+    };
+
+    try {
+      console.log(feedbackData);
+      // Send feedback data to backend
+      const response = await axios.post("http://localhost:8000/api/submitFeedback", feedbackData);
+      
+      if (response.data.success) {
+        alert("Thank you for your feedback!");
+      } else {
+        alert("Failed to submit feedback: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      alert("An error occurred while submitting your feedback.");
+    }
+
     // Reset form fields after submission
     setName("");
     setEmail("");
     setFeedback("");
+    setReviewsCore(null);
   };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen); // Toggle modal visibility
+  };
+
+  const handleEmojiClick = (score) => {
+    setReviewsCore(score); // Set reviewsCore based on clicked emoji
   };
 
   return (
@@ -29,11 +57,46 @@ const Feedback = () => {
       <p className="feedback-form-description">Your feedback is very important to us</p>
       <form onSubmit={handleSubmit}>
         <div className="feedback-emojis">
-          <span role="img" aria-label="Very Happy">😃</span>
-          <span role="img" aria-label="Happy">🙂</span>
-          <span role="img" aria-label="Neutral">😐</span>
-          <span role="img" aria-label="Sad">😟</span>
-          <span role="img" aria-label="Angry">😡</span>
+          <span
+            role="img"
+            aria-label="Very Happy"
+            onClick={() => handleEmojiClick(1)}
+            className={reviewsCore === 1 ? "selected-emoji" : ""}
+          >
+            😡
+          </span>
+          <span
+            role="img"
+            aria-label="Happy"
+            onClick={() => handleEmojiClick(2)}
+            className={reviewsCore === 2 ? "selected-emoji" : ""}
+          >
+            😟
+          </span>
+          <span
+            role="img"
+            aria-label="Neutral"
+            onClick={() => handleEmojiClick(3)}
+            className={reviewsCore === 3 ? "selected-emoji" : ""}
+          >
+            😐
+          </span>
+          <span
+            role="img"
+            aria-label="Sad"
+            onClick={() => handleEmojiClick(4)}
+            className={reviewsCore === 4 ? "selected-emoji" : ""}
+          >
+            🙂
+          </span>
+          <span
+            role="img"
+            aria-label="Angry"
+            onClick={() => handleEmojiClick(5)}
+            className={reviewsCore === 5 ? "selected-emoji" : ""}
+          >
+            😃
+          </span>
         </div>
         <div className="input-group-feedbback">
           <label htmlFor="feedback-text" className="input-label-feedbback">What would you like to share?</label>
@@ -68,18 +131,22 @@ const Feedback = () => {
         <div className="input-group-feedback">
           <label className="input-label-feedbback" htmlFor="nickname">Nickname</label>
           <input
-            type="nick"
+            type="text"
             id="nickname"
             className="input-field-feedbback"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
         <div className="input-group-feedbback">
           <label className="input-label-feedbback" htmlFor="email-address">Email address (Will not be published)</label>
           <input
-            type="em"
+            type="email"
             id="email-address"
             className="input-field-feedbback"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -116,4 +183,3 @@ const Feedback = () => {
 };
 
 export default Feedback;
-

@@ -337,4 +337,50 @@
   .footer-bottom a:hover {
     color: #f5f5f5;
   }
-  
+.room-detail-image {
+  position: relative;
+  max-width: 100%;
+}
+
+.price-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Main image container to ensure the image fills the container */
+.main-image-container {
+  width: 100%; /* Chiếm toàn bộ chiều rộng của parent */
+  height: 400px; /* Đặt chiều cao phù hợp */
+  overflow: hidden; /* Ẩn phần thừa của ảnh */
+  position: relative;
+}
+
+.main-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh lấp đầy mà không bị méo */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.room-detail-small-images {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.small-img-col-room-detail {
+  flex: 1;
+}
+
+.small-img-room-detail {
+  border-radius: 5px;
+  object-fit: cover;
+}

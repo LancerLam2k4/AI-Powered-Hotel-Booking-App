@@ -159,3 +159,11 @@
   filter: brightness(1.0); /* Làm sáng emoji khi hover */
   
 }
+.selected-emoji {
+  font-size: 2.5rem; /* Increase size for emphasis */
+  color: orange;
+  border-radius: 50%;
+  transform: translateY(-20px); /* Move emoji upwards */
+  transition: transform 0.3s ease, font-size 0.3s ease; /* Smooth animation */
+}
+

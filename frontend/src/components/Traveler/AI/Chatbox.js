@@ -3,11 +3,11 @@ import axios from "axios";
 import "./Chatbox.css";
 import { ChatContext } from "./ChatContext";
 
-const Chatbox = ({ onClose, onRoomSelected }) => {
+const Chatbox = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-  const { rooms, setRooms } = useContext(ChatContext);
-
+  const { rooms, setRooms} = useContext(ChatContext);
+  const { specificRoom, setSpecificRoom } = useContext(ChatContext);
   // Khôi phục lịch sử từ sessionStorage khi tải trang
   useEffect(() => {
     const storedMessages = sessionStorage.getItem("chatHistory");
@@ -41,20 +41,21 @@ const Chatbox = ({ onClose, onRoomSelected }) => {
         });
 
         const responseData = response.data;
-        console.log(responseData);
-
-        if (responseData.rooms) {
-          // Nếu phản hồi có thông tin phòng
+        if (responseData.specificRoom) {
           const aiMessage = { sender: "ai", text: responseData.answer };
           const newMessages = [...updatedMessages, aiMessage];
           setMessages(newMessages);
-          saveChatHistory(newMessages); // Lưu lịch sử chat bao gồm cả phản hồi của AI
-          setRooms(responseData.rooms);
+          saveChatHistory(newMessages); // Lưu lịch sử chat
+          console.log("Dữ liệu được gửi tới setSpecificRoom:", responseData.specificRoom);
+          setSpecificRoom(responseData.specificRoom); // Gửi phòng cụ thể lên ChatContext
+          //console.log("Specific Room tại Chatbox:", responseData.specificRoom);
+        } else if (responseData.rooms) {
+          const aiMessage = { sender: "ai", text: responseData.answer };
+          const newMessages = [...updatedMessages, aiMessage];
+          setMessages(newMessages);
+          saveChatHistory(newMessages); // Lưu lịch sử chat
+          setRooms(responseData.rooms); // Gửi danh sách phòng lên ChatContext
           console.log("Rooms tại Chatbox:", responseData.rooms);
-          console.log("Answer tại Chatbox:", responseData.answer);
-          if (onRoomSelected) {
-            onRoomSelected(responseData.rooms);
-          }
         } else {
           // Câu trả lời thông thường
           const aiMessage = { sender: "ai", text: responseData.answer || responseData.error };
