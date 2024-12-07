@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from transformers import BertTokenizer, BertForQuestionAnswering
+from transformers import PhobertTokenizer, BertForQuestionAnswering
 from fuzzywuzzy import fuzz
 import torch
 import json
@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 # Load model and tokenizer
 model = BertForQuestionAnswering.from_pretrained('trained_model')
-tokenizer = BertTokenizer.from_pretrained('vinai/phobert-base')
+tokenizer = PhobertTokenizer.from_pretrained('vinai/phobert-base')
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 model.to(device)
 
@@ -24,9 +24,6 @@ model.to(device)
 
 
 def load_responses():
-    """
-    Đọc file JSON và trả về danh sách các câu trả lời.
-    """
     with open('data/responses.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
     return data["answers"]
@@ -48,15 +45,14 @@ def get_current_user_id(file_path):
         print(f"Error reading currentID.json: {e}")
         return None
 
-# Normalize Vietnamese text (remove accents)
+import unicodedata
+from pyvi import ViTokenizer
+
 def normalize_text(text):
-    # Kiểm tra nếu văn bản đã có dấu hay chưa
     normalized_text = ''.join(
         char for char in unicodedata.normalize('NFD', text)
         if unicodedata.category(char) != 'Mn'
     ).lower()
-    
-    # Nếu văn bản không có dấu, sử dụng ViTokenizer để tạo lại dấu
     text_with_accents = ViTokenizer.tokenize(normalized_text)
     return text_with_accents
 
@@ -107,20 +103,27 @@ def ask_question():
     user_info = next((user for user in users_data if user['user_id'] == user_id), None)
     if not user_info:
         return jsonify({"error": f"Không tìm thấy user_id {user_id}"}), 404
-    
-    # Kiểm tra xem câu hỏi có đề cập đến phòng cụ thể không
     normalized_question = normalize_text(question)
+    
+    # Kiểm tra các phòng cụ thể
     for room in rooms_data:
         room_id = str(room.get('roomId'))
         room_name = normalize_text(room.get('name', ''))
 
-        if room_id in normalized_question or room_name in normalized_question:
-            # Gán matched_fields chỉ tồn tại "phòng cụ thể"
+        # Kiểm tra ID phòng là số nguyên vẹn
+        id_pattern = rf"\b{room_id}\b"
+        if re.search(id_pattern, normalized_question):
             matched_fields = ["phòng cụ thể"]
-
-            # Gọi hàm xử lý thông tin phòng cụ thể
             room_details = get_room_specific_details(question, room)
-            return jsonify({"answer": room_details, "rooms": [room]})
+            return jsonify({"answer": room_details, "specificRoom": [room]})
+
+        # Kiểm tra tên phòng là từ nguyên vẹn
+        name_pattern = rf"\b{room_name}\b"
+        if re.search(name_pattern, normalized_question):
+            matched_fields = ["phòng cụ thể"]
+            room_details = get_room_specific_details(question, room)
+            return jsonify({"answer": room_details, "specificRoom": [room]})
+
     matched_fields = match_categories(question)
     if not matched_fields:
         return jsonify({"answer": "Không rõ câu hỏi thuộc lĩnh vực nào. Vui lòng thử lại."}), 404
@@ -133,16 +136,17 @@ def ask_question():
     # Tạo danh sách chứa kết quả theo từng lĩnh vực
     all_results = []
     location_results = []  # Kết quả từ "vị trí"
+    
     for field in matched_fields:
         if field == "giá":
-            response = query_price_related(user_info, question)
+            response = query_price_related(user_info, normalized_question)
         elif field == "loại":
-            response = query_type_related(user_info, question)
+            response = query_type_related(user_info, normalized_question)
         elif field == "vị trí":
-            response = query_location_related(user_info, question)
+            response = query_location_related(user_info, normalized_question)
             location_results.extend(response.get("rooms", []))
         elif field == "điểm đánh giá":
-            response = query_review_related(user_info, question)
+            response = query_review_related(user_info, normalized_question)
         elif field == "gợi ý":
             response = suggest_room_info(user_info)
         else:
@@ -161,7 +165,7 @@ def ask_question():
             room for room in location_results
             if room not in all_results
         ]
-        prioritized_results = intersection + exclusive_location
+        prioritized_results = exclusive_location + intersection  # Ưu tiên kết quả "vị trí" trước
     else:
         prioritized_results = all_results
 
@@ -197,15 +201,11 @@ def ask_question():
     return jsonify({"answer": "Không tìm thấy phòng nào phù hợp."}), 404
 
 
-
-
 # Các hàm xử lý cho từng trường
 def query_price_related(user_info, question):
-    available_rooms = get_available_rooms(user_info, rooms_data)
-    import re
-    # Rẻ nhất
-    if "giá" in question.lower() or "rẻ" in question.lower() or "đắt" in question.lower():
-        if "rẻ nhất" in question.lower():
+        available_rooms = get_available_rooms(user_info, rooms_data)
+        import re
+        if "re nhat" in question.lower():
             cheapest_room = min(available_rooms, key=lambda r: r.get('price', float('inf')), default=None)
             if cheapest_room:
                 return {
@@ -215,7 +215,7 @@ def query_price_related(user_info, question):
             return {"answer": "Không tìm thấy phòng nào."}
 
         # Đắt nhất
-        if "đắt nhất" in question.lower():
+        if "đat nhat" in question.lower():
             most_expensive_room = max(available_rooms, key=lambda r: r.get('price', float('-inf')), default=None)
             if most_expensive_room:
                 return {
@@ -225,7 +225,7 @@ def query_price_related(user_info, question):
             return {"answer": "Không tìm thấy phòng nào."}
         
         # Giá khoảng A và B
-        price_range_match = re.search(r'giá khoảng (\d+)[^\d]+(\d+)', question.lower())
+        price_range_match = re.search(r'gia khoang (\d+)[^\d]+(\d+)', question.lower())
         if price_range_match:
             min_price = int(price_range_match.group(1))
             max_price = int(price_range_match.group(2))
@@ -241,7 +241,7 @@ def query_price_related(user_info, question):
             return {"answer": f"Không có phòng nào trong khoảng giá từ {min_price} đến {max_price} VND."}
 
         # Giá chính xác
-        exact_price_match = re.search(r'giá khoảng (\d+)', question.lower())
+        exact_price_match = re.search(r'gia khoang (\d+)', question.lower())
         if exact_price_match:
             exact_price = int(exact_price_match.group(1))
             # Tính toán giá chênh lệch 10%
@@ -259,7 +259,7 @@ def query_price_related(user_info, question):
                 }
             return {"answer": f"Không có phòng nào trong khoảng giá {exact_price} VND."}
         # Giá dưới A
-        below_price_match = re.search(r'giá dưới (\d+)', question.lower())
+        below_price_match = re.search(r'gia duoi (\d+)', question.lower())
         if below_price_match:
             max_price = int(below_price_match.group(1))
             rooms_below_price = [
@@ -274,7 +274,7 @@ def query_price_related(user_info, question):
             return {"answer": f"Không có phòng nào có giá dưới {max_price} VND."}
 
         # Giá trên A
-        above_price_match = re.search(r'giá trên (\d+)', question.lower())
+        above_price_match = re.search(r'gia tren (\d+)', question.lower())
         if above_price_match:
             min_price = int(above_price_match.group(1))
             rooms_above_price = [
@@ -288,17 +288,17 @@ def query_price_related(user_info, question):
                 }
             return {"answer": f"Không có phòng nào có giá trên {min_price} VND."}
         return {"error": "Xin lỗi tôi không rõ vấn đề bạn đang đề cập .Hãy thử lại sau!"}
-    return {"error": "Xin lỗi, tôi không rõ vấn đề bạn đang đề cập. Hãy thử lại sau!"}
+    
 
 def query_type_related(user_info, question):
     available_rooms = get_available_rooms(user_info, rooms_data)
     room_type_mapping = {
-        "single room": ["single room", "phòng đơn"],
-        "double room": ["double room", "phòng đôi"],
-        "suite": ["suite", "phòng hạng sang"],
-        "apartment": ["apartment", "căn hộ"]
+        "single room": ["single room", "phong đon"],
+        "double room": ["double room", "phong đoi"],
+        "suite": ["suite", "phong hang sang","phong vip"],
+        "apartment": ["apartment", "can ho"]
     }
-    if "loại" in question.lower() or any(
+    if "loai" in question.lower() or any(
         keyword in question.lower() for keywords in room_type_mapping.values() for keyword in keywords):
         requested_types = []
         for standard_type, keywords in room_type_mapping.items():
@@ -321,9 +321,9 @@ def query_type_related(user_info, question):
     return {"error": "Xin lỗi, tôi không rõ vấn đề bạn đang đề cập. Hãy thử lại sau!"}
 
 def query_location_related(user_info, question):
-    if any(keyword in question.lower() for keyword in ["tại", "ở", "vị trí"]):
+    if any(keyword in question.lower() for keyword in ["tai", "o", "vi tri"]):
         available_rooms = get_available_rooms(user_info, rooms_data)
-        location_keywords = ["tại", "ở", "vị trí"]
+        location_keywords = ["tai", "o", "vi tri"]
         user_location = None
 
         # Lấy thông tin vị trí từ câu hỏi
@@ -452,25 +452,23 @@ def get_room_specific_details(question, room):
         details.append(f"Phòng {room.get('name')} có mức giá hấp dẫn là {room.get('price')} VNĐ, phù hợp với nhiều đối tượng khách hàng.")
     if any(keyword in normalized_question for keyword in ["loai", "type", "the loai", "phong loai"]):
         details.append(f"Đây là một phòng thuộc loại {room.get('type')}, mang lại sự tiện nghi và thoải mái.")
-    if any(keyword in normalized_question for keyword in ["địa điểm", "vị trí", "location"]):
-        details.append(f"Phòng được đặt tại vị trí {room.get('location')}, rất thuận tiện cho việc di chuyển và tham quan.")
+    if any(keyword in normalized_question for keyword in ["đia điem", "vi tri", "location"]):
+        details.append(f"Phòng được đặt tại vị trí {room.get('province')},{room.get('district')}, rất thuận tiện cho việc di chuyển và tham quan.")
     if any(keyword in normalized_question for keyword in ["danh gia", "review", "diem", "sao", "diem danh gia"]):
-        details.append(f"Phòng nhận được đánh giá trung bình {room.get('reviewScore')}/5 sao từ khách hàng.")
+        details.append(f"Phòng nhận được đánh giá trung bình {room.get('reviewsCore')}/5 sao từ khách hàng.")
     if any(keyword in normalized_question for keyword in ["tien ich", "facilities", "amenities"]):
-        amenities = room.get('amenities', 'Không có thông tin')
-    if amenities != "Không có thông tin":
-        details.append(f"Các tiện ích nổi bật bao gồm: {amenities}.")
-    else:
-        details.append("Hiện chưa có thông tin về các tiện ích của phòng này.")
+        description = room.get('description', 'Không có thông tin')
+        details.append(f"Các tiện ích nổi bật bao gồm: {description}.")
 
 
     # Nếu không có trường cụ thể, trả về toàn bộ thông tin phòng dưới dạng đoạn văn
     if not details:
+        description = room.get('description', "Không có thông tin")
         return (
             f"Phòng {room.get('name')}  là một lựa chọn tuyệt vời. "
-            f"Đây là loại phòng {room.get('type')}, có giá {room.get('price')} VNĐ, nằm tại {room.get('location')}. "
-            f"Phòng này được đánh giá {room.get('reviewScore')}/10 điểm, và đi kèm với các tiện ích như: "
-            f"{room.get('amenities', 'Không có thông tin')}."
+            f"Đây là loại phòng {room.get('type')}, có giá {room.get('price')} VNĐ, nằm tại {room.get('province')},{room.get('district')}. "
+            f"Phòng này được đánh giá {room.get('reviewsCore')}/5 điểm, và đi kèm với các tiện ích như: "
+            f"{room.get('description', 'Không có thông tin')}."
         )
 
     # Kết hợp các chi tiết thành đoạn văn
@@ -526,7 +524,7 @@ def suggest_room_info(user_info):
                 similarity_score += 1
 
             # So sánh tiện nghi
-            shared_amenities = set(candidate.get('amenities', [])).intersection(set(ref_room.get('amenities', [])))
+            shared_amenities = set(candidate.get('description', [])).intersection(set(ref_room.get('description', [])))
             similarity_score += len(shared_amenities)
 
             # Chỉ thêm nếu có điểm tương đồng

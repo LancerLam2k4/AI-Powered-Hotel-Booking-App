@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProfileController;
@@ -25,6 +26,7 @@ Route::post('/bookingDetails', [BookingController::class, 'bookingDetails']);
 Route::post('/payment', [BankController::class, 'createPayment']);
 Route::get('/payment-cancel', [BankController::class, 'paymentCancel'])->name('api.payment.cancel');
 Route::get('/payment-success', [BankController::class, 'paymentSuccess'])->name('api.payment.success');
+Route::post('/submitFeedback', [FeedbackController::class, 'ProcessFeedback']);
 //Admin function
 Route::post('/add-room',[RoomController::class,'store']);
 

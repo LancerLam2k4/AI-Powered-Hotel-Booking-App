@@ -35,13 +35,14 @@ const App = () => {
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
           <Route path="/booking" element={<Booking />} />
           <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
+          <Route path="/bookingDetail/:roomId" element={<BookingDetail/>}/>
+          <Route path="/bookingRoom/:roomId" element={<BookingRoom />} />
+          <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
+          <Route path="/feedback" element={<Feedback />} />
+          <Route path="/edit-basic-info" element={<EditBasicInfo />} />
+          <Route path="/edit-room" element={<EditRoom />} />
         </Route>  
-        <Route path="/bookingDetail/:roomId" element={<BookingDetail/>}/>
-        <Route path="/bookingRoom/:roomId" element={<BookingRoom />} />
-        <Route path="/edit-advanced-profile" element={<EditAdvancedInfo />} />
-        <Route path="/feedback" element={<Feedback />} />
-        <Route path="/edit-basic-info" element={<EditBasicInfo />} />
-        <Route path="/edit-room" element={<EditRoom />} />
+        
       </Routes>
   );
 };
