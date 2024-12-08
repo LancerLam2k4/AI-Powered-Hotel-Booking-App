@@ -27,8 +27,8 @@ const TravelerLayout = () => {
 
           <div className="nav-links">
             <ul>
-              <li><a href="traveler-dashboard">Home</a></li>
-              <li><a href="booking">Room&Suites</a></li>
+              <li><a href="/traveler-dashboard">Home</a></li>
+              <li><a href="/booking">Room&Suites</a></li>
               <li><a href="">Services</a></li>
               <li><a href="">Contact</a></li>
             </ul>

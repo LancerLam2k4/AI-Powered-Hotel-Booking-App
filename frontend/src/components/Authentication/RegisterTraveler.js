@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Register.css';
 
@@ -11,23 +11,20 @@ const RegisterTraveler = () => {
     const [verificationCode, setVerificationCode] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Hàm kiểm tra toàn bộ các giá trị đầu vào
+    // Hàm kiểm tra đầu vào
     const validateInputs = () => {
-        // Kiểm tra nếu personId có đúng 12 số
         const personIdPattern = /^\d{12}$/;
         if (!personIdPattern.test(personId)) {
             alert('Person ID must be exactly 12 digits.');
             return false;
         }
 
-        // Kiểm tra nếu email đúng định dạng
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
         if (!emailPattern.test(email)) {
             alert('Please enter a valid email address.');
             return false;
         }
 
-        // Kiểm tra nếu password và confirm password không khớp
         if (password !== passwordConfirmation) {
             alert('Passwords do not match.');
             return false;
@@ -36,6 +33,7 @@ const RegisterTraveler = () => {
         return true;
     };
 
+    // Hàm xử lý đăng ký
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -44,6 +42,7 @@ const RegisterTraveler = () => {
         }
 
         try {
+            // Gửi yêu cầu đăng ký
             await axios.post('http://localhost:8000/api/check-email', {
                 person_id: personId,
                 username,
@@ -52,15 +51,21 @@ const RegisterTraveler = () => {
                 password_confirmation: passwordConfirmation,
             });
             alert('A verification code has been sent to your email. Please check and enter the code.');
-            setIsModalOpen(true);
+            setIsModalOpen(true); // Đặt isModalOpen thành true để mở modal
         } catch (error) {
             console.error(error);
             alert(error.response?.data?.message || 'Registration failed due to validation errors.');
         }
     };
 
+    useEffect(() => {
+        console.log("Modal Open State: ", isModalOpen); // Kiểm tra giá trị của isModalOpen
+    }, [isModalOpen]);
+
+    // Hàm xử lý xác minh mã
     const handleVerifyCode = async (e) => {
         e.preventDefault();
+
         try {
             await axios.post('http://localhost:8000/api/verify-code', {
                 email,
@@ -70,7 +75,7 @@ const RegisterTraveler = () => {
                 password,
             });
             alert('Email verified and registration successful!');
-            setIsModalOpen(false);
+            setIsModalOpen(false); // Đóng modal sau khi xác minh thành công
             window.location.href = '/'; // Chuyển hướng về trang login
         } catch (error) {
             console.error(error);
@@ -91,7 +96,7 @@ const RegisterTraveler = () => {
                         <div className='form-group-register'>
                             <label className='label-register'>Username :</label>
                             <input
-                            className='input-register'
+                                className='input-register'
                                 type="text"
                                 placeholder="Enter Your Username"
                                 value={username}
@@ -102,7 +107,7 @@ const RegisterTraveler = () => {
                         <div className='form-group-register'>
                             <label className='label-register'>Email :</label>
                             <input
-                            className='input-register'
+                                className='input-register'
                                 type="email"
                                 placeholder="Enter Your Email"
                                 value={email}
@@ -113,7 +118,7 @@ const RegisterTraveler = () => {
                         <div className='form-group-register'>
                             <label className='label-register'>Person ID :</label>
                             <input
-                            className='input-register'
+                                className='input-register'
                                 type="text"
                                 placeholder="Enter Your Person ID"
                                 value={personId}
@@ -125,7 +130,7 @@ const RegisterTraveler = () => {
                         <div className='form-group-register'>
                             <label className='label-register'>Password :</label>
                             <input
-                            className='input-register'
+                                className='input-register'
                                 type="password"
                                 placeholder="Enter Your Password"
                                 value={password}
@@ -154,23 +159,23 @@ const RegisterTraveler = () => {
                 </div>
             </div>
             <label className='footer'>Develop by Group 5</label>
-            {isModalOpen && (
-                <div className='modal'>
-                    <div className='modal-content'>
-                        <h2>Enter Verification Code</h2>
-                        <form onSubmit={handleVerifyCode}>
-                            <input
-                                type="text"
-                                placeholder="Verification Code"
-                                value={verificationCode}
-                                onChange={(e) => setVerificationCode(e.target.value)}
-                                required
-                            />
-                            <button type="submit">Verify Code</button>
-                        </form>
-                    </div>
+
+            {/* Modal */}
+            <div className={`modal ${isModalOpen ? 'open' : ''}`}>
+                <div className='modal-content'>
+                    <h2>Enter Verification Code</h2>
+                    <form onSubmit={handleVerifyCode}>
+                        <input
+                            type="text"
+                            placeholder="Verification Code"
+                            value={verificationCode}
+                            onChange={(e) => setVerificationCode(e.target.value)}
+                            required
+                        />
+                        <button type="submit">Verify Code</button>
+                    </form>
                 </div>
-            )}
+            </div>
         </div>
     );
 };

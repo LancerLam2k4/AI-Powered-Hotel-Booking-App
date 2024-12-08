@@ -196,7 +196,13 @@ def ask_question():
             "answer": selected_answer,
             "rooms": aggregated_rooms
         })
-    
+    # Tìm câu hỏi trong dữ liệu huấn luyện
+    for item in train_data:
+        # Kiểm tra nếu câu hỏi có trong danh sách các câu hỏi (danh sách 'question')
+        if question.lower() in [q.lower() for q in item['question']]:
+            # Chọn ngẫu nhiên một câu trả lời từ danh sách 'answer'
+            answer = random.choice(item['answer'])
+            return jsonify({'answer': answer})
     # Trả về thông báo nếu không tìm thấy phòng
     return jsonify({"answer": "Không tìm thấy phòng nào phù hợp."}), 404
 

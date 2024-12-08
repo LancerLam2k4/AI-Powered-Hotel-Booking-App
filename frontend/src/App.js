@@ -23,7 +23,7 @@ const App = () => {
       <Routes>
         <Route path="/register" element={<RegisterTraveler />} />{" "}
         {/* Chỉ định trang đầu tiên */}
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login />}/>
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/hotel-owner-dashboard"element={<HotelOwnerDashboard />}/>

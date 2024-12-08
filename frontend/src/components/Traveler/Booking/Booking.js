@@ -249,7 +249,7 @@ function Booking() {
             </div>
             <ul className="room-info">
               <li>Location: {room.location || ""}</li>
-              <li>Size: {room.size || "35m²"}</li>
+              <li>Reviews Core: {room.reviewsCore|| "0"}⭐</li>
               <li>Category: {room.type || "Single"}</li>
             </ul>
             <button className="book-now" 
