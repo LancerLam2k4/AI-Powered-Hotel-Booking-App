@@ -290,3 +290,37 @@
   object-fit: cover;
   margin-left: -9px;
 }
+/* Cố định kích thước cho ảnh chính */
+.main-image-container-booking-detail {
+  position: relative;
+  width: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều rộng */
+  height: 400px; /* Cố định chiều cao cho ảnh chính */
+  overflow: hidden;
+}
+
+.main-image-container-booking-detail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh phủ đầy phần tử mà không bị biến dạng */
+}
+
+/* Cố định kích thước cho ảnh nhỏ bên dưới */
+.room-detail-small-images {
+  height: 186px;
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Khoảng cách giữa các ảnh nhỏ */
+  margin-top: 10px;
+}
+
+.small-img-col-room-detail {
+  width: 80px; /* Cố định chiều rộng cho ảnh nhỏ */
+  height: 100%; /* Cố định chiều cao cho ảnh nhỏ */
+}
+
+.small-img-room-detail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh nhỏ không bị biến dạng và lấp đầy không gian */
+  border-radius: 8px; /* Thêm bo góc cho ảnh nhỏ nếu muốn */
+}

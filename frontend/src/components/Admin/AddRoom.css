@@ -1,153 +1,234 @@
-/* AddRoom.css */
+/* Container chính của form */
+.form-container-add-room {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px; /* Đặt chiều rộng tối đa của container */
+  margin: 0 auto; /* Căn giữa form */
+  flex-wrap: wrap; /* Cho phép form tự động xuống dòng khi không đủ không gian */
+}
 
-.add-room-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .add-room-box {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9);
-  }
-  
-  .add-room-box h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .form-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .form-group {
-    width: 48%;
-    display: flex;
+.Left-add-room, .Right-add-room {
+  width: 48%; /* Mỗi phần chiếm 48% chiều rộng của container */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Các hàng trong form */
+.form-row-add-room {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Các nhóm input (form-group) */
+.form-group-add-room {
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 16px;
+  margin-left: 0px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Tắt kiểu dáng spinner cho input số */
+}
+
+/* Các nút điều hướng và bổ sung */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.remove-btn-add-room {
+  background-color: red;
+  padding: 5px 12px;
+  font-size: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn-add-room:hover {
+  background-color: darkred;
+}
+
+/* Các phần ảnh */
+.image-section-add-room {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.image-left-add-room, .image-right-add-room {
+  width: 100%;
+}
+
+.main-image-container-add-room, .sub-images-container-add-room {
+  display: flex;
+  flex-direction: row; /* Sắp xếp các ảnh theo chiều ngang */
+  gap: 10px; /* Khoảng cách giữa các ảnh */
+  flex-wrap: wrap; /* Cho phép các ảnh xuống dòng khi không đủ không gian */
+}
+
+.main-image-container-add-room input,
+.sub-images-container-add-room input {
+  margin-top: 10px;
+}
+
+.main-preview-img-add-room, .sub-preview-img-add-room {
+  max-width: 100%;
+  margin-top: 10px;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sub-image-wrapper-add-room {
+  position: relative;
+  width: 100px; /* Kích thước cố định cho các hình ảnh */
+  height: 100px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sub-image-wrapper-add-room img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.sub-image-wrapper-add-room button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 5px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.sub-image-wrapper-add-room button:hover {
+  background-color: #ff4d4d;
+}
+
+/* Các trường chọn Tỉnh, Huyện */
+select {
+  height: 40px;
+  border-radius: 8px;
+  padding-left: 10px;
+}
+
+select:focus {
+  border-color: #4CAF50;
+}
+
+/* Tạo hiệu ứng cho nút "Thêm Phòng" */
+.add-room-btn-add-room {
+  width: 400px;
+  padding: 15px;
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: auto;
+}
+
+.add-room-btn-add-room:hover {
+  background-color: #0056b3;
+}
+
+/* Cải thiện hiệu ứng hover cho các label và input */
+label:hover {
+  color: #007bff;
+}
+
+input:hover, select:hover {
+  border-color: #007bff;
+}
+
+input:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Các phần tử chung của form */
+.form-row-add-room .form-group-add-room {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Cải thiện khoảng cách giữa các khối Left và Right */
+.Left-add-room {
+  padding-right: 20px;
+}
+
+.Right-add-room {
+  padding-left: 20px;
+}
+
+/* Điều chỉnh kích thước cho các thiết bị di động */
+@media screen and (max-width: 768px) {
+  .form-container-add-room {
     flex-direction: column;
+    padding: 15px;
   }
-  
-  .form-group label {
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
+
+  .Left-add-room, .Right-add-room {
     width: 100%;
-    display: block;
-    text-align: left;
-    padding-left: 0;
-    margin-left: 0;
   }
-  
-  form input[type="text"],
-  form input[type="number"] {
-    width: 95%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-align: left;
+
+  .remove-btn-add-room {
+    font-size: 12px;
+    padding: 3px 8px;
   }
-  
-  label {
-    cursor: default;
-    margin-left: 30px;
-    font-family: 'Roboto Slab', serif;
-    font-size: 24px;
+
+  .main-preview-img-add-room, .sub-preview-img-add-room {
+    max-height: 180px;
   }
-  
-  /* Adjustments for the labels on the left and right */
-  .form-row {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .form-group.left {
-    flex: 1; /* Left group takes available space */
-    margin-right: 10px; /* Spacing between left and right groups */
-  }
-  
-  .form-group.right {
-    flex: 1; /* Right group takes available space */
-    margin-left: 10px; /* Spacing between left and right groups */
-  }
-  
-  /* Main and sub image sections remain unchanged */
-  .image-section {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .main-image-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-bottom: 20px;
-    flex-direction: row;
-  }
-  
-  .main-preview-img {
-    width: 150px; /* Adjust as needed */
-    height: auto;
-    object-fit: cover;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .sub-images-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .sub-image-wrapper {
-    position: relative;
-    display: inline-block;
-    margin: 10px;
-  }
-  
-  .sub-preview-img {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin: 0;
-  }
-  
-  .remove-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    padding: 2px 5px;
-    z-index: 1;
-  }
-  
-  .add-room-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-  }
-  
-  .add-room-btn:hover {
-    background-color: #45a049;
-  }
-  
+}

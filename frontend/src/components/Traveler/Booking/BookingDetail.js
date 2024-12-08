@@ -68,19 +68,18 @@ const RoomDetail = () => {
     autoplaySpeed: 2000, // Speed of autoplay (2 seconds)
     adaptiveHeight: true,
   };
-  console.log(room.reviewsCore)
+  console.log(room.reviewsCore);
   return (
     <div className="room-detail-container">
       {/* Room Details Section */}
       <section id="roomdetails-room-detail" className="room-detail-section">
         <div className="room-detail-image">
-          <div className="price-tag">$200 per night</div>
+          <div className="price-tag">{formatCurrency(room.price)} VNĐ/per night</div>
 
           {/* Use Slick Slider here */}
           <Slider {...settings}>
-            {/* Hiển thị ảnh chính */}
             {[mainImage, ...subImages].map((imgSrc, index) => (
-              <div key={index} className="main-image-container">
+              <div key={index} className="main-image-container-booking-detail">
                 <img
                   src={imgSrc}
                   className="main-image-bookingDetail"
@@ -106,7 +105,6 @@ const RoomDetail = () => {
         </div>
 
         <div className="room-detail-info">
-          <h6 className="room-detail-breadcrumbs">Hotel / Room</h6>
           <h4>{room.name}</h4>
           <div className="room-booking-quantity">
             <button

@@ -108,7 +108,7 @@ const Home = () => {
             <button className="section-two-btn">Read More</button>
           </div>
           <div className="section-two-image">
-            <img src="2.jpg" alt="Hotel View" />
+            <img src="3.jpg" alt="Hotel View" />
           </div>
         </div>
       </section>

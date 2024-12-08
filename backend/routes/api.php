@@ -37,7 +37,7 @@ Route::post('/rooms/{roomId}/remove-image', [RoomController::class, 'removeImage
 Route::post('/rooms/{roomId}/update-images', [RoomController::class, 'updateImages']);
 
 // Profile
-Route::get('/profile/{userId}', [ProfileController::class, 'getProfileById']);
+Route::get('/profile', [ProfileController::class, 'getProfile']);
 Route::put('/profile', [ProfileController::class, 'updateProfile']);
 Route::get('/profile/history', [ProfileController::class, 'getHistory']);
 Route::post('/profile/basic-info', [ProfileController::class, 'updateBasicInfo']);

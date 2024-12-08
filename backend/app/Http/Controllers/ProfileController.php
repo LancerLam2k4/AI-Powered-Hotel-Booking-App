@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Traveler;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,49 +13,73 @@ use Illuminate\Support\Facades\Auth;
 class ProfileController extends Controller
 {
     // Retrieve the authenticated user's profile
-    public function getProfileById($userId)
-    {
-        try {
-            // Log the incoming user ID for debugging
-            \Log::info('Fetching profile for user ID: ' . $userId);
-            
-            $user = User::with('traveler')->find($userId);
-            
-            if (!$user) {
-                \Log::warning('User not found for ID: ' . $userId);
-                return response()->json(['message' => 'User not found'], 404);
-            }
-            
-            $jsonContent = file_get_contents(base_path('currentID.json'));
-            $jsonData = json_decode($jsonContent, true);
-            
-            $hobby = $jsonData['hobby'] ?? ($user->traveler ? $user->traveler->preferences : 'Not set');
-            
-            $profile = [
-                'name' => $jsonData['name'] ?? $user->username,  
-                'id' => $user->user_id,
-                'email' => $user->email,
-                'person_id' => $user->person_id,
-                'avatar' => $user->avatar ?? 'profile_icon.png',
-                'role' => $user->role,
-                'preferences' => $hobby,
-                'search_history' => $user->traveler ? $user->traveler->search_history : null,
-                'password' => str_repeat('*', 8),
-                'phone_number' => $jsonData['phone_number'] ?? 'Not set',
-                'address' => $jsonData['address'] ?? 'Not set',
-                'hobby' => $hobby
-            ];
-        
-            return response()->json($profile, 200);
-        } catch (\Exception $e) {
-            \Log::error('Profile fetch error: ' . $e->getMessage());
-            return response()->json([
-                'message' => 'Error fetching profile',
-                'error' => $e->getMessage()
-            ], 500);
+    public function getProfile()
+{
+    try {
+        // Đường dẫn tới file currentID.json
+        $currentJsonPath = __DIR__ . '/../../../currentID.json';
+
+        // Kiểm tra file JSON
+        if (!file_exists($currentJsonPath)) {
+            return response()->json(['message' => 'currentID.json file not found.'], 404);
         }
+
+        // Đọc dữ liệu từ file JSON
+        $currentData = json_decode(file_get_contents($currentJsonPath), true);
+
+        // Kiểm tra user_id
+        if (!isset($currentData['user_id'])) {
+            return response()->json(['message' => 'User ID is missing in currentID.json.'], 400);
+        }
+
+        $userId = $currentData['user_id'];
+
+        // Tìm kiếm user trong bảng users
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Lấy thông tin user cơ bản
+        $profile = [
+            'user_id' => $user->user_id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'avatar' => $user->avatar ?? 'profile_icon.png',
+            'role' => $user->role,
+            'password' => $user->password,
+            'person_id' => $user->person_id,
+        ];
+
+        // Xử lý thông tin theo vai trò
+        if ($user->role === 'traveler') {
+            $traveler = Traveler::where('user_id', $userId)->first();
+            if ($traveler) {
+                $profile['preferences'] = $traveler->preferences;
+                $profile['search_history'] = $traveler->search_history;
+            }
+        } elseif ($user->role === 'admin') {
+            $admin = Admin::where('user_id', $userId)->first();
+            if ($admin) {
+                $profile['admin_level'] = $admin->level; // Ví dụ trường bổ sung
+            }
+        }
+
+        // Trả về thông tin
+        return response()->json($profile, 200);
+
+    } catch (\Exception $e) {
+        \Log::error('Error fetching profile: ' . $e->getMessage());
+        return response()->json([
+            'message' => 'Error fetching profile',
+            'error' => $e->getMessage()
+        ], 500);
     }
-    
+}
+
+
+
     // Update the user's email, person ID, or password
     public function updateProfile(Request $request)
     {
@@ -74,7 +99,7 @@ class ProfileController extends Controller
                 $request->validate([
                     'password' => 'required|string|min:8'
                 ]);
-                
+
                 // Update the password with hashing
                 $user->password = Hash::make($request->password);
             }
@@ -110,7 +135,7 @@ class ProfileController extends Controller
 
         return response()->json($history, 200);
     }
-    
+
     public function updateBasicInfo(Request $request)
     {
         try {
@@ -132,7 +157,7 @@ class ProfileController extends Controller
             if ($request->name) {
                 $data['name'] = $request->name;
             }
-            
+
             // Ensure the file is writable and save with proper formatting
             if (!file_put_contents($jsonPath, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE))) {
                 throw new \Exception('Failed to write to currentID.json');
