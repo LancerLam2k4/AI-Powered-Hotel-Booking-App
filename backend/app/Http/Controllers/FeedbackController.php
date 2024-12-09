@@ -16,6 +16,7 @@ class FeedbackController extends Controller
         $validatedFeedbackData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
+            'title' => 'required|string',
             'feedback' => 'required|string',
             'reviewsCore' => 'integer|min:0|max:5',
             'roomId' => 'nullable|integer', // Optional roomId
@@ -74,6 +75,25 @@ protected function saveFeedbackToJsonFile(array $feedbackData)
         throw new \Exception('Unable to save feedback to JSON file.');
     }
 }
-
+public function getFeedbacks()
+    {
+        // Định vị đường dẫn tới file JSON
+        $jsonFilePath = storage_path('app/public/feedbacks.json');
+        
+        // Kiểm tra xem file có tồn tại không
+        if (file_exists($jsonFilePath)) {
+            // Đọc nội dung của file JSON
+            $jsonData = file_get_contents($jsonFilePath);
+            
+            // Giải mã dữ liệu JSON thành mảng hoặc đối tượng
+            $feedbacks = json_decode($jsonData, true);
+            
+            // Trả về dữ liệu dưới dạng JSON
+            return response()->json($feedbacks, 200);
+        } else {
+            // Trả về lỗi nếu file không tồn tại
+            return response()->json(['error' => 'Feedback file not found'], 404);
+        }
+    }
 
 }

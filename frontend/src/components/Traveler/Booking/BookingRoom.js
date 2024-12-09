@@ -28,6 +28,7 @@ function BookingRoom() {
   const [countdown, setCountdown] = useState(5);
   const [subImages, setSubImages] = useState([]);
   const [mainImage, setMainImage] = useState();
+  const [notification, setNotification] = useState(null);
   // Thiết lập ngày hiện tại
   useEffect(() => {
     const currentDate = new Date().toISOString().slice(0, 10);
@@ -55,11 +56,32 @@ function BookingRoom() {
     };
     fetchRoomImages();
   }, [roomId]);
+  useEffect(() => {
+    // Check for URL parameters that might contain messages
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get('message');
+    const success = urlParams.get('success');
+    const error = urlParams.get('error');
+
+    if (message) setNotification({ type: 'info', message });
+    if (success) setNotification({ type: 'success', message: success });
+    if (error) setNotification({ type: 'error', message: error });
+
+    // Clear notification after 5 seconds
+    const timer = setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
   if (!room) return <div>Loading...</div>;
   const handleReservation = async (e) => {
     e.preventDefault();
   
-    // Chuẩn bị dữ liệu đặt phòng
+    // Calculate the total price first
+    const calculatedTotalPrice = convertToUSD(calculateTotalPrice()); // Convert to USD since PayPal expects USD
+  
+    // Prepare reservation data
     const reservationData = {
       roomId,
       firstName,
@@ -70,15 +92,14 @@ function BookingRoom() {
       departureDate,
       departureTime,
       specialRequest,
-      totalPrice: calculateTotalPrice(), // Tổng giá
-      totalDays: calculateTotalDays(),  // Tổng số ngày
-      
+      totalPrice: calculateTotalPrice(), // VND price for reservation
+      totalDays: calculateTotalDays(),
     };
   
     try {
       setIsSubmitting(true);
   
-      // **Bước 1: Gửi yêu cầu đặt phòng (Reservation) đến backend**
+      // Step 1: Create reservation
       const reservationResponse = await axios.post(
         'http://localhost:8000/api/reserve-room',
         reservationData
@@ -87,25 +108,22 @@ function BookingRoom() {
       if (reservationResponse.data.success) {
         console.log('Reservation successful:', reservationResponse.data);
   
-        // **Bước 2: Tạo thanh toán PayPal**
-        axios.post('http://localhost:8000/api/payment', {
+        // Step 2: Create PayPal payment with USD amount
+        const paymentResponse = await axios.post('http://localhost:8000/api/payment', {
           roomId: roomId,
-          totalPrice:totalPrice // Gửi id đến backend
-      })
-      .then(response => {
-          if (response.data.success) {
-              window.location.href = response.data.paymentUrl; // Chuyển hướng đến PayPal
-          }
-      })
-      .catch(error => {
-          console.error('Error creating payment:', error);
-      });
+          totalPrice: calculatedTotalPrice // Send USD amount
+        });
   
+        if (paymentResponse.data.success) {
+          window.location.href = paymentResponse.data.paymentUrl;
+        } else {
+          throw new Error(paymentResponse.data.message);
+        }
       } else {
         alert('Reservation failed: ' + reservationResponse.data.message);
       }
     } catch (err) {
-      setError('There was an error with your reservation or payment.');
+      setError('There was an error with your reservation or payment: ' + err.message);
       console.error(err);
     } finally {
       setIsSubmitting(false);
@@ -133,7 +151,11 @@ function BookingRoom() {
   return (
     
     <div className="bookingroom-container">
-
+      {notification && (
+        <div className={`notification ${notification.type}`}>
+          {notification.message}
+        </div>
+      )}
     <div className="sochi-container">
   <div className="sochi-main-image">
     <img src={room.main_image} alt="Main Hotel Image" className="sochi-main-image-img" />
@@ -226,7 +248,7 @@ function BookingRoom() {
             <button className="section-two-btn-2">Read More</button>
           </div>
           <div className="section-two-image-2">
-            <img src="2.jpg" alt="Hotel View" />
+            
           </div>
         </div>
       </section>
@@ -236,3 +258,5 @@ function BookingRoom() {
 }
 
 export default BookingRoom;
+
+

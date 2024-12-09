@@ -9,45 +9,78 @@ use Illuminate\Support\Facades\Storage;
 class RoomController extends Controller
 {
     public function store(Request $request)
-    {
-        // Mảng xác thực cho thông tin phòng
-        $validatedRoomData = $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'description' => 'required|string',
-            'province' => 'required|string',
-            'district' => 'required|string',
-            'reviews' => 'integer|min:0',
-        ]);
+{
+    // Mảng xác thực cho thông tin phòng
+    $validatedRoomData = $request->validate([
+        'name' => 'required|string|max:255',
+        'type' => 'required|string|max:255',
+        'price' => 'required|numeric',
+        'description' => 'required|string',
+        'province' => 'required|string',
+        'district' => 'required|string',
+        'reviews' => 'integer|min:0',
+    ]);
 
-        // Mảng xác thực cho hình ảnh
-        $validatedImageData = $request->validate([
-            'main_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'additional_images' => 'array',
-            'additional_images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+    // Mảng xác thực cho hình ảnh
+    $validatedImageData = $request->validate([
+        'main_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        'additional_images' => 'array',
+        'additional_images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+    ]);
 
-        // Tạo mới phòng trong cơ sở dữ liệu
-        $room = Room::create($validatedRoomData);
-        // Lưu hình ảnh vào Storage
-        $mainImagePath = $this->storeImage($request->file('main_image'), 'images');
-        $additionalImagesPaths = [];
+    // Tạo mới phòng trong cơ sở dữ liệu
+    $room = Room::create($validatedRoomData);
 
-        // Lưu ảnh bổ sung nếu nó khác với ảnh chính
-        if (isset($validatedImageData['additional_images'])) {
-            foreach ($validatedImageData['additional_images'] as $image) {
-                $additionalImagePath = $this->storeImage($image, 'images');
-                if ($additionalImagePath) {
-                    $additionalImagesPaths[] = $additionalImagePath;
-                }
+    // Lưu hình ảnh vào Storage
+    $mainImagePath = $this->storeImage($request->file('main_image'), 'images');
+    $additionalImagesPaths = [];
+
+    // Lưu ảnh bổ sung nếu nó khác với ảnh chính
+    if (isset($validatedImageData['additional_images'])) {
+        foreach ($validatedImageData['additional_images'] as $image) {
+            $additionalImagePath = $this->storeImage($image, 'images');
+            if ($additionalImagePath) {
+                $additionalImagesPaths[] = $additionalImagePath;
             }
         }
-        // Lưu thông tin hình ảnh vào file JSON
-        $this->saveImagesToJsonFile($room->roomId, $mainImagePath, $additionalImagesPaths);
-        
-        return response()->json(['message' => 'Room created successfully!', 'room' => $room], 201);
     }
+
+    // Lưu thông tin hình ảnh vào file JSON
+    $this->saveImagesToJsonFile($room->roomId, $mainImagePath, $additionalImagesPaths);
+
+    // Kết hợp dữ liệu phòng và hình ảnh vào một mảng chung, bao gồm roomId và status
+    $roomData = array_merge($validatedRoomData, [
+        'roomId' => $room->roomId, // roomId là id của phòng từ cơ sở dữ liệu
+        'status' => 'Sẵn Sàng',  // Trạng thái mặc định là active
+        'main_image' => $mainImagePath,
+        'additional_images' => $additionalImagesPaths,
+    ]);
+
+    // Lưu tất cả dữ liệu vào tệp room.json
+    $this->saveRoomDataToJsonFile($roomData);
+
+    return response()->json(['message' => 'Room created successfully!', 'room' => $room], 201);
+}
+
+// Phương thức lưu dữ liệu phòng vào tệp room.json
+protected function saveRoomDataToJsonFile($roomData)
+{
+    // Đọc dữ liệu cũ từ room.json
+    $jsonFilePath = $path = base_path('AI/data/rooms.json');
+
+    $existingData = [];
+
+    if (file_exists($jsonFilePath)) {
+        $existingData = json_decode(file_get_contents($jsonFilePath), true);
+    }
+
+    // Thêm phòng mới vào dữ liệu cũ
+    $existingData[] = $roomData;
+
+    // Ghi dữ liệu mới vào tệp room.json
+    file_put_contents($jsonFilePath, json_encode($existingData, JSON_PRETTY_PRINT));
+}
+
 
     protected function storeImage($image, $directory)
     {

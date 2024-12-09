@@ -100,10 +100,11 @@ body {
     text-decoration: none;
     font-size: 13px;
 }
-.link-button {
+.link-button-login {
     background: none; /* Loại bỏ nền */
     border: none;
     color: #39308a;
+    cursor: pointer;
 }
 .link-group p {
     display: inline-block;

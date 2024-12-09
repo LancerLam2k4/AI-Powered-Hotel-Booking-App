@@ -1,0 +1,332 @@
+/* General styles */
+.feedback-management {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    font-family: Arial, sans-serif;
+    flex-direction: column; /* Stacking header and feedback row */
+}
+
+/* Header styles */
+.header-row h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Feedback row container */
+.feedback-row {
+    display: flex;
+    width: 100%;
+    height: 100%; /* Ensures the row takes full available height */
+}
+
+/* Feedback list */
+.feedback-list {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    width: 35%; /* Adjusted to take 35% width */
+    height: 100%; /* Ensure it takes full height */
+    box-sizing: border-box; /* Make sure padding and borders are included in width/height calculation */
+}
+
+/* Reply modal */
+.reply-modal {
+    width: 65%; /* Adjusted to take 65% width */
+    height: 100%; /* Ensure it takes full height */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Make sure padding and borders are included in width/height calculation */
+}
+
+/* Additional content styles */
+.feedback-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.feedback-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+.feedback-item:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feedback-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Selected feedback item */
+.feedback-item.selected {
+    background-color: #e0e0e0; /* Màu nền đậm khi item được chọn */
+    border-color: #bbb; /* Đổi màu border khi item được chọn */
+}
+
+/* Modal content */
+.reply-modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-header {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.feedback-header p {
+    margin: 5px 0;
+}
+
+.feedback-header strong {
+    font-weight: bold;
+}
+
+.feedback-title {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.feedback-title p {
+    margin: 5px 0;
+}
+
+.feedback-content {
+    margin: 15px 0;
+}
+
+.feedback-content textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    font-size: 14px;
+    resize: none;
+}
+
+.reply-modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Ensure the actions stay within the 65% width */
+.reply-modal-actions {
+    position: absolute;
+    bottom: 20px; /* Position the actions at the bottom of the container */
+    left: 20px; /* Ensure the actions are inside the 65% width */
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: calc(100% - 40px); /* Account for the padding */
+}
+
+/* Style for the back button (bottom-right) */
+.back-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style for the other action buttons (bottom-left) */
+.action-buttons-left {
+    margin-left: 410px;
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Adjust icon size inside buttons */
+.icon {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+
+.feedback-info {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.feedback-info p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.feedback-info strong {
+    font-weight: bold;
+}
+/* Khung trả lời */
+.reply-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Đảm bảo rằng nó nằm trên các nút */
+}
+
+/* Các trường nhập liệu */
+.reply-form label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.reply-form input,
+.reply-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.reply-form textarea {
+    height: 100px;
+    resize: none;
+}
+
+/* Các nút "Gửi" và "Hủy" */
+.reply-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.send-button,
+.cancel-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.send-button:hover,
+.cancel-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.cancel-button:hover {
+    background-color: #ddd;
+}
+
+/* Ẩn các nút hành động khi ở chế độ trả lời */
+.reply-modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    visibility: visible;
+}
+
+.reply-modal-actions.hidden {
+    visibility: hidden;
+}
+/* Đảm bảo label và data nằm cùng một hàng */
+.email-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .email-row label {
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px; /* Khoảng cách giữa label và dữ liệu */
+  }
+  
+  .email-row p {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Đảm bảo Title input có border-bottom */
+  .title-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .title-row label {
+    font-size: 14px;
+    color: #333;
+    margin-right: 10px; /* Khoảng cách giữa label và input */
+  }
+  
+  .title-row input {
+    font-size: 14px;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ccc; /* Chỉ có border-bottom */
+    outline: none;
+    width: 100%;
+  }
+  
+  .title-row input:focus {
+    border-bottom: 1px solid #007bff; /* Thêm hiệu ứng khi focus */
+  }
+  

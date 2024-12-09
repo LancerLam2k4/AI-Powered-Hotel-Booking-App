@@ -1,248 +1,127 @@
-/* Header Section */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: lightgrey;
-    padding: 20px;
-}
-label {
-    cursor: default;
-    margin-left: 160px;
-    font-family: 'Roboto Slab', serif;
-    font-size: 24px;
+/* General Layout Adjustments */
+.admin-dashboard {
+    padding: 20px; /* Adds spacing around the dashboard content */
+    background-color: #f9f9f9; /* Matches the AdminLayout background */
+    min-height: calc(100vh - 60px); /* Ensures content fits below the AdminLayout header/footer */
 }
 
-.logo {
-    height: 60px;
-}
-
+/* Search Container */
 .search-container {
     display: flex;
     align-items: center;
-    position: relative;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .search-bar {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
+    font-size: 16px;
     border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 .search-btn {
-    position: absolute;
-    right: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.search-btn img {
-    height: 24px;
-    width: 24px;
-}
-
-/* Make the profile icon clickable */
-.profile-icon {
-    height: 50px;
+    background-color: #007bff;
     width: 50px;
-    border-radius: 50%;
+    height: 50px;
+    border: none;
+    padding: 8px 16px;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.search-btn img {
+    width: 40px;
+    height: 40px;
+}
+.search-btn:hover {
+    background-color: #0056b3;
 }
 
-/* Navigation Bar */
-.nav-bar {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 10px;
-    width: 150px;
-}
-
-.nav-btn {
-    padding: 10px;
-    font-size: 16px;
-    background-color: #db7b06;
-    border: 1px solid #000;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.nav-btn:hover {
-    background-color: #e65f06;
-}
-
-/* Rooms Management */
+/* Rooms Management Section */
 .rooms-management-box {
-    position: fixed;
-    top: 120px;
-    left: 56%;
-    transform: translateX(-50%);
-    max-height: 80vh;
-    overflow-y: auto;
-    width: 84%;
-    background-color: #f9f9f9;
-    border-radius: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.9);
-    min-height: 70vh;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .rooms-management-title {
     font-size: 24px;
+    font-weight: bold;
     margin-bottom: 20px;
 }
 
+/* Table Styling */
 .table-container {
     overflow-x: auto;
-    width: 100%;
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto; /* Allows columns to fit content automatically */
+    margin-top: 20px;
 }
 
-.table th, .table td {
-    padding: 12px;
+.table th,
+.table td {
+    padding: 10px;
     text-align: left;
-    border: 1px solid #000;
-    white-space: nowrap; /* Prevents text from wrapping */
+    border: 1px solid #ddd;
 }
 
 .table th {
-    background-color: #f2f2f2;
-    font-size: 18px;
-}
-
-.table td {
+    background-color: #f4f4f4;
     font-size: 16px;
 }
 
-/* Remove any fixed widths for specific columns */
-.table th:nth-child(4) {
-    width: auto; /* Adjust column width automatically based on content */
+.table td {
+    font-size: 14px;
 }
 
-.table th:nth-child(8){
-    max-width: 54px;
-}
-.table th:nth-child(1){
-    max-width: 60px;
-}
-
-.table td img {
-    max-width: 100%;
-    height: auto;
+/* Action Buttons in Table */
+.table-buttons {
+    display: flex;
+    gap: 10px;
 }
 
-/* Availability Column */
-.table .availability {
-    color: #28a745;
-    font-weight: bold;
+.table-buttons img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
 
-.table .availability.unavailable {
-    color: #dc3545;
-}
-
-/* Amenities Column */
-.table .amenities {
-    color: #6c757d;
-}
-
-/* Star Rating */
-.star-rating {
-    display: inline-block;
-    font-size: 20px;
-    color: gold;
-    position: relative;
-}
-
-.star-rating::before {
-    content: '★★★★★';
-    color: lightgray;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 1;
-}
-
-.star-rating::after {
-    content: '★★★★★';
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    overflow: hidden;
-    white-space: nowrap;
-    color: gold;
+.table-buttons img:hover {
+    transform: scale(1.1);
 }
 
 .add-room-btn {
-    background-color: #4CAF50; /* Green background */
-    color: white;              /* White text */
-    padding: 8px 16px;         /* Reduced padding */
-    font-size: 14px;           /* Smaller font size */
-    border: none;              /* No border */
-    border-radius: 5px;        /* Rounded corners */
-    cursor: pointer;           /* Pointer cursor */
-    transition: background-color 0.3s ease; /* Smooth background transition */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .add-room-btn:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
 }
 
-/* Edit and Delete Icons */
-.table-buttons img {
-    cursor: pointer;
-    width: 32px;
-    height: 32px;
-    transition: transform 0.2s;
-}
-
-.table-buttons .edit-icon:hover {
-    transform: scale(1.1);
-}
-
-.table-buttons .delete-icon {
-    margin-left: 5px;
-}
-
-.table-buttons .delete-icon:hover {
-    transform: scale(1.1);
-}
-
-img.add-icon {
-    width: 30px;
-    height: 30px;
-}
-
-img.add-icon:hover {
-    transform: scale(1.1);
-}
-
-/* Footer */
-.footer-admin-dashboard {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-    padding: 10px 0;
-    text-align: center;
-}
-
+/* Scrollbar Customization */
 .rooms-management-box::-webkit-scrollbar {
     width: 8px;
 }
 
 .rooms-management-box::-webkit-scrollbar-track {
     background: #f1f1f1;
-    border-radius: 4px;
 }
 
 .rooms-management-box::-webkit-scrollbar-thumb {

@@ -168,7 +168,7 @@ class BookingController extends Controller
         ];
 
         $historyGuest = [
-            'user_id' => $users->user_id,
+            
             'room_id' => $room->roomId,
             'name' => $request->firstName . ' ' . $request->lastName,
             'room_name' => $room->name,

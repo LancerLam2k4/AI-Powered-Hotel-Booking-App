@@ -18,18 +18,18 @@ import EditAdvancedInfo from "./components/Traveler/ProfileTraveler/EditAdvanced
 import Feedback from "./components/Traveler/Feedback-AboutUs/Feedback"
 import BookingRoom from "./components/Traveler/Booking/BookingRoom.js";
 import EditRoom from './components/Admin/EditRoom';
+import FeedbackManagement from "./components/Admin/Feedback/FeedbackManagement.js";
+import AdminLayout from "./components/Admin/AdminLayout.js";
 const App = () => {
   return (
       <Routes>
         <Route path="/register" element={<RegisterTraveler />} />{" "}
         {/* Chỉ định trang đầu tiên */}
         <Route path="/" element={<Login />}/>
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/hotel-owner-dashboard"element={<HotelOwnerDashboard />}/>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/add-room" element={<AddRoom/>}/>
         <Route element={<TravelerLayout />}>
           <Route path="/traveler-profile" element={<TravelerProfile />} />
           <Route path="/edit-basic-profile" element={<EditBasicInfo />} />
@@ -41,6 +41,11 @@ const App = () => {
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/edit-basic-info" element={<EditBasicInfo />} />
           <Route path="/edit-room" element={<EditRoom />} />
+        </Route>  
+        <Route element={<AdminLayout/>}>
+        <Route path="/feedback-management" element={<FeedbackManagement />} />
+        <Route path="/add-room" element={<AddRoom/>}/>
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Route>  
         
       </Routes>

@@ -10,6 +10,15 @@ class BankController extends Controller
     // dd(123);
     $roomId = $request->input('roomId'); // Lấy roomId từ request
     $totalPrice = $request->input('totalPrice');
+
+    // Validate price
+    if (!$totalPrice || $totalPrice <= 0) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Invalid price amount',
+        ], 400);
+    }
+
     // Lưu roomId vào session
     session(['room_id' => $roomId]);
     // Xử lý tạo thanh toán (tương tự bạn đã làm)
@@ -51,39 +60,37 @@ class BankController extends Controller
     }
     public function paymentCancel(Request $request)
     {
-        $roomId = session('room_id'); // Lấy id từ session
-    // dd($roomId);
+        // Get roomId from session
+        $roomId = session('room_id');
+        
+        // Clear the session
+        session()->forget('room_id');
+        
+        // Make sure we have a roomId before redirecting
         if ($roomId) {
-            return redirect("http://localhost:3000/bookingRoom/{$roomId}")
-                ->with('error', 'You have canceled the transaction.');
+            return redirect("http://localhost:3000/bookingRoom/" . $roomId);
         }
-    
-        // Nếu không có id, quay lại trang mặc định
-        return redirect('http://localhost:3000/booking')
-            ->with('error', 'You have canceled the transaction.');
+        
+        // Fallback if somehow roomId is not in session
+        return redirect("http://localhost:3000/booking");
     }
     public function paymentSuccess(Request $request)
     {
         $provider = new PayPalClient();
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
-    
+        
         $response = $provider->capturePaymentOrder($request->query('token'));
-    
+
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-            $paidAmount = $response['purchase_units'][0]['amount']['value'];
-    
-            return response()->json([
-                'success' => true,
-                'message' => 'Transaction complete.',
-                'transactionId' => $response['id'], // ID giao dịch
-                'amount' => $paidAmount, // Tổng số tiền thanh toán
-            ]);
+            session()->forget('room_id'); // Clear the session after successful payment
+            
+            // Redirect to the main booking page after successful payment
+            return redirect("http://localhost:3000/booking")
+                ->with('success', 'Payment successful! Your booking has been confirmed.');
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => $response['message'] ?? 'Something went wrong.',
-            ], 400);
+            return redirect("http://localhost:3000/booking")
+                ->with('error', $response['message'] ?? 'Something went wrong with the payment.');
         }
     }
     

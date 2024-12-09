@@ -40,7 +40,7 @@ const Login = () => {
           navigate("/admin-dashboard");
           break;
         case "traveler":
-          navigate("/traveler-profile");
+          navigate("/traveler-dashboard");
           break;
         case "staff":
           navigate("/staff-dashboard");
@@ -112,9 +112,9 @@ const Login = () => {
             required
           />
           <div className="link-group">
-            <button onClick={handleForgotPasswordClick} className="link-button">
+            <a onClick={handleForgotPasswordClick} className="link-button-login">
               Forgot password?
-            </button>
+            </a>
             <p>
               Don't have an account, <a href="/register">register here</a>.
             </p>

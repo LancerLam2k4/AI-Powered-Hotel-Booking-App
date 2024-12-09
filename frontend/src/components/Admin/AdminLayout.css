@@ -1,0 +1,226 @@
+/* General layout styles */
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+}
+
+.admin-content {
+  flex-grow: 1;
+  background-color: #ffffff;
+}
+
+/* Header styles */
+.admin-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background-color: #005f77;
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-logo-container .admin-logo1 {
+  width: 120px;
+}
+
+.admin-nav-links ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-nav-links ul li {
+  margin: 0 20px;
+}
+
+.admin-nav-links ul li a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.admin-nav-links ul li a:hover {
+  text-decoration: underline;
+}
+
+.admin-avatar-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.material-icons.admin-avatar-icon {
+  font-size: 40px;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.admin-avatar-container:hover .admin-avatar-icon {
+  transform: scale(1.1);
+}
+
+/* Dropdown menu styles */
+.admin-avatar-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 150px;
+  z-index: 10;
+  padding: 8px 0;
+}
+
+.admin-avatar-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-avatar-dropdown ul li {
+  padding: 10px 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admin-avatar-dropdown ul li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Footer styles */
+.admin-footer-booking {
+  background-color: #222;
+  color: #fff;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.admin-footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-footer-logo-desc {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-footer-logo-desc img {
+  width: 120px;
+  margin-bottom: 10px;
+}
+
+.admin-footer-logo-desc p {
+  font-size: 14px;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+.admin-footer-links {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-footer-links h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.admin-footer-links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-footer-links ul li {
+  margin-bottom: 8px;
+}
+
+.admin-footer-links ul li a {
+  text-decoration: none;
+  color: #bbb;
+  font-size: 14px;
+}
+
+.admin-footer-links ul li a:hover {
+  color: #e67e22;
+}
+
+.admin-footer-contact {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-footer-contact h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.admin-footer-contact p {
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 8px;
+}
+
+.admin-footer-contact a {
+  color: #e67e22;
+  text-decoration: none;
+}
+
+.admin-footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.admin-footer-social {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-footer-social h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.admin-social-icons a {
+  color: #bbb;
+  margin-right: 10px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.admin-social-icons a:hover {
+  color: #e67e22;
+}
+
+.admin-footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #bbb;
+  border-top: 1px solid #444;
+  padding-top: 10px;
+}
+
+.admin-footer-bottom a {
+  color: #e67e22;
+  text-decoration: none;
+}
+
+.admin-footer-bottom a:hover {
+  color: #fff;
+}
