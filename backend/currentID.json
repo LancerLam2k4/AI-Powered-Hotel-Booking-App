@@ -1,7 +1,7 @@
 {
+    "user_id": 1,
     "phone_number": "Not set",
     "address": "Not set",
-    "name": "",
-    "hobby": "Not set",
-    "user_id": 1
+    "name": "L\u00e2m",
+    "hobby": null
 }

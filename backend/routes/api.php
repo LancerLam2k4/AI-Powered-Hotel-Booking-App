@@ -27,6 +27,7 @@ Route::post('/payment', [BankController::class, 'createPayment']);
 Route::get('/payment-cancel', [BankController::class, 'paymentCancel'])->name('api.payment.cancel');
 Route::get('/payment-success', [BankController::class, 'paymentSuccess'])->name('api.payment.success');
 Route::post('/submitFeedback', [FeedbackController::class, 'ProcessFeedback']);
+Route::get('/feedbacks-management', [FeedbackController::class, 'getFeedbacks']);
 //Admin function
 Route::post('/add-room',[RoomController::class,'store']);
 

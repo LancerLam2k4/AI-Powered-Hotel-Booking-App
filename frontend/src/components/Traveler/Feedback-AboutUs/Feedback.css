@@ -69,12 +69,6 @@
   margin-top: 5px;
 }
 
-.terms-acceptance {
-  font-size: 8px;
-  margin-top: -15px;
-  margin-bottom: 10px;
-}
-
 .submit-button {
   display: block;
   width: 100%;
@@ -167,3 +161,31 @@
   transition: transform 0.3s ease, font-size 0.3s ease; /* Smooth animation */
 }
 
+.radio-options {
+  display: flex; /* Đặt các label nằm trên cùng một dòng */
+  gap: 10px; /* Khoảng cách giữa các label */
+}
+
+.radio-options label {
+  display: flex; /* Đảm bảo các input và text trong label nằm trên cùng một dòng */
+  align-items: center; /* Căn giữa input và text */
+}
+
+input[type="radio"] {
+  margin-right: 5px; /* Khoảng cách giữa input và text */
+}
+.terms-acceptance {
+  font-size: 14px; /* Đặt lại font-size để văn bản có kích thước phù hợp */
+  margin-top: 0; /* Loại bỏ khoảng cách không cần thiết */
+  margin-bottom: 10px;
+  display: flex; /* Đảm bảo checkbox và văn bản nằm trên cùng một dòng */
+  align-items: center; /* Căn giữa checkbox và văn bản theo chiều dọc */
+}
+.radio-options label {
+  display: flex; /* Đảm bảo các input và text trong label nằm trên cùng một dòng */
+  align-items: center; /* Căn giữa input và text */
+}
+
+.terms-acceptance input[type="checkbox"] {
+  margin-right: 8px; /* Khoảng cách giữa checkbox và văn bản */
+}

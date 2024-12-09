@@ -93,18 +93,20 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-
+    
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
-            
-            // Read existing data from currentID.json if it exists
-            $jsonPath = base_path('currentID.json');
+    
+            // Đường dẫn tới file currentID.json
+            $jsonPath =  __DIR__ . '/../../../currentID.json';
             $existingData = [];
+    
+            // Đọc dữ liệu hiện có từ currentID.json nếu file tồn tại
             if (file_exists($jsonPath)) {
                 $existingData = json_decode(file_get_contents($jsonPath), true) ?? [];
             }
-
-            // Prepare new data while preserving existing values
+    
+            // Cập nhật hoặc thêm mới trường user_id và các giá trị khác
             $data = [
                 'user_id' => $user->user_id,
                 'phone_number' => $existingData['phone_number'] ?? 'Not set',
@@ -112,18 +114,21 @@ class AuthController extends Controller
                 'name' => $user->username,
                 'hobby' => $user->traveler ? $user->traveler->preferences : ($existingData['hobby'] ?? 'Not set')
             ];
-
-            // Write to currentID.json with proper formatting
+    
+            // Ghi dữ liệu vào currentID.json với định dạng đẹp
             file_put_contents($jsonPath, json_encode($data, JSON_PRETTY_PRINT));
-
+    
             return response()->json([
                 'message' => 'Login successful',
                 'user' => $user
             ], 200);
         }
-
-        return response()->json(['message' => 'Invalid credentials'], 401);
+    
+        return response()->json([
+            'message' => 'Invalid credentials'
+        ], 401);
     }
+    
 
     public function forgotPassword(Request $request)
     {
