@@ -1,135 +1,66 @@
 [
     {
-        "roomId": 1,
-        "name": "Ph\u00f2ng 1",
-        "type": "Single Room",
-        "price": 150000,
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "status": "S\u1eb5n s\u00e0ng",
-        "province": "H\u00e0 N\u1ed9i",
-        "district": "Qu\u1eadn Ho\u00e0n Ki\u1ebfm",
-        "reviewsCore": 3,
-        "created_at": "2024-11-11 02:18:00",
-        "updated_at": "2024-11-11 02:18:00",
-        "main_image": "storage\/images\/1731291480_67316958831ff.png",
-        "additional_images": [
-            "storage\/images\/room1_1.png",
-            "storage\/images\/room1_2.png"
-        ]
+      "roomId": 1,
+      "name": "Phòng Deluxe",
+      "type": "Deluxe",
+      "price": 150,
+      "description": "Phòng sang trọng với view biển",
+      "district": "Quận 1",
+      "province": "Hồ Chí Minh"
     },
     {
-        "roomId": 2,
-        "name": "Ph\u00f2ng 2",
-        "type": "Single Room",
-        "price": 2500000,
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "status": "S\u1eb5n s\u00e0ng",
-        "province": "H\u00e0 N\u1ed9i",
-        "district": "Qu\u1eadn Ho\u00e0n Ki\u1ebfm",
-        "reviewsCore": 4.7,
-        "created_at": "2024-11-11 02:18:00",
-        "updated_at": "2024-11-11 02:18:00",
-        "main_image": "storage\/images\/1731291480_67316958831ff.png",
-        "additional_images": [
-            "storage\/images\/room1_1.png",
-            "storage\/images\/room1_2.png"
-        ]
+      "roomId": 2,
+      "name": "Phòng Standard",
+      "type": "Standard",
+      "price": 100,
+      "description": "Phòng tiêu chuẩn, gần trung tâm thành phố",
+      "district": "Quận 3",
+      "province": "Hồ Chí Minh"
     },
     {
         "roomId": 3,
-        "name": "Ph\u00f2ng 3",
-        "type": "Single Room",
-        "price": 1500000,
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "status": "S\u1eb5n s\u00e0ng",
-        "province": "H\u00e0 N\u1ed9i",
-        "district": "Qu\u1eadn Ho\u00e0n Ki\u1ebfm",
-        "reviewsCore": 4.5,
-        "created_at": "2024-11-11 02:18:00",
-        "updated_at": "2024-11-11 02:18:00",
-        "main_image": "storage\/images\/1731291480_67316958831ff.png",
-        "additional_images": [
-            "storage\/images\/room1_1.png",
-            "storage\/images\/room1_2.png"
-        ]
-    },
-    {
+        "name": "Phòng Superior",
+        "type": "Superior",
+        "price": 120,
+        "description": "Phòng Superior rộng rãi, có ban công nhỏ nhìn ra phố",
+        "district": "Quận 1",
+        "province": "Hồ Chí Minh"
+      },
+      {
         "roomId": 4,
-        "name": "Ph\u00f2ng 4",
-        "type": "Single Room",
-        "price": 1500000,
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "status": "S\u1eb5n s\u00e0ng",
-        "province": "H\u00e0 N\u1ed9i",
-        "district": "Qu\u1eadn Ho\u00e0n Ki\u1ebfm",
-        "reviewsCore": 4.5,
-        "created_at": "2024-11-11 02:18:00",
-        "updated_at": "2024-11-11 02:18:00",
-        "main_image": "storage\/images\/1731291480_67316958831ff.png",
-        "additional_images": [
-            "storage\/images\/room1_1.png",
-            "storage\/images\/room1_2.png"
-        ]
-    },
-    {
+        "name": "Phòng Gia đình",
+        "type": "Family",
+        "price": 180,
+        "description": "Phòng gia đình rộng rãi, có 2 giường đơn và 1 giường đôi, phù hợp cho gia đình",
+        "district": "Quận 5",
+        "province": "Hồ Chí Minh"
+      },
+      {
         "roomId": 5,
-        "name": "Ph\u00f2ng 5",
-        "type": "Double Room",
-        "price": 1500000,
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "status": "S\u1eb5n s\u00e0ng",
-        "province": "\u0110\u00e0 N\u1eb5ng",
-        "district": "Qu\u1eadn Ho\u00e0n Ki\u1ebfm",
-        "reviewsCore": 4.5,
-        "created_at": "2024-11-11 02:18:00",
-        "updated_at": "2024-11-11 02:18:00",
-        "main_image": "storage\/images\/1731291480_67316958831ff.png",
-        "additional_images": [
-            "storage\/images\/room1_1.png",
-            "storage\/images\/room1_2.png"
-        ]
-    },
-    {
-        "name": "Ph\u00f2ng 100",
-        "type": "Suite",
-        "price": "100000",
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "province": "C\u1ea7n Th\u01a1",
-        "district": "Qu\u1eadn Th\u1ed1t N\u1ed1t",
-        "main_image": "storage\/images\/1733699608_67562818c89bb.jpg",
-        "additional_images": [
-            "storage\/images\/1733699609_6756281946c5b.jpg",
-            "storage\/images\/1733699609_67562819471ba.jpg"
-        ]
-    },
-    {
-        "name": "Ph\u00f2ng 101",
-        "type": "Suite",
-        "price": "100000",
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "province": "C\u1ea7n Th\u01a1",
-        "district": "Qu\u1eadn Th\u1ed1t N\u1ed1t",
-        "roomId": null,
-        "status": "S\u1eb5n S\u00e0ng",
-        "main_image": "storage\/images\/1733699868_6756291c063f6.jpg",
-        "additional_images": [
-            "storage\/images\/1733699868_6756291c08fda.jpg",
-            "storage\/images\/1733699868_6756291c0936d.jpg"
-        ]
-    },
-    {
-        "name": "Ph\u00f2ng 102",
-        "type": "Suite",
-        "price": "100000",
-        "description": "Ph\u00f2ng c\u00f3 WiFi, \u0111i\u1ec1u h\u00f2a, h\u1ed3 b\u01a1i, v\u00e0 gym, \u0111\u1ea7y \u0111\u1ee7 ti\u1ec7n nghi.",
-        "province": "C\u1ea7n Th\u01a1",
-        "district": "Qu\u1eadn Th\u1ed1t N\u1ed1t",
+        "name": "Phòng Deluxe view hồ bơi",
+        "type": "Deluxe",
+        "price": 180,
+        "description": "Phòng Deluxe sang trọng với ban công riêng, view hồ bơi",
+        "district": "Quận 2",
+        "province": "Hồ Chí Minh"
+      },
+      {
         "roomId": 6,
-        "status": "S\u1eb5n S\u00e0ng",
-        "main_image": "storage\/images\/1733699914_6756294a3ad2c.jpg",
-        "additional_images": [
-            "storage\/images\/1733699914_6756294a3cbf5.jpg",
-            "storage\/images\/1733699914_6756294a3ced4.jpg"
-        ]
-    }
-]
+        "name": "Phòng Standard",
+        "type": "Standard",
+        "price": 90,
+        "description": "Phòng tiêu chuẩn, nhỏ gọn, giá cả phải chăng",
+        "district": "Quận 3",
+        "province": "Hồ Chí Minh"
+      },
+      {
+        "roomId": 7,
+        "name": "Phòng Executive",
+        "type": "Executive",
+        "price": 200,
+        "description": "Phòng Executive với không gian làm việc riêng biệt, phù hợp cho khách đi công tác",
+        "district": "Quận 1",
+        "province": "Hồ Chí Minh"
+      }
+  ]
+  

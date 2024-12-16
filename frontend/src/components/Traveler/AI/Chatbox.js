@@ -6,9 +6,9 @@ import { ChatContext } from "./ChatContext";
 const Chatbox = ({ onClose }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-  const { rooms, setRooms} = useContext(ChatContext);
+  const { rooms, setRooms } = useContext(ChatContext);
   const { specificRoom, setSpecificRoom } = useContext(ChatContext);
-  // Khôi phục lịch sử từ sessionStorage khi tải trang
+
   useEffect(() => {
     const storedMessages = sessionStorage.getItem("chatHistory");
     if (storedMessages) {
@@ -22,59 +22,52 @@ const Chatbox = ({ onClose }) => {
     }
   }, []);
 
-  // Hàm lưu trữ lịch sử chat vào sessionStorage
   const saveChatHistory = (newMessages) => {
     sessionStorage.setItem("chatHistory", JSON.stringify(newMessages));
   };
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() !== "") {
-      const userMessage = { sender: "user", text: inputMessage };
-      const updatedMessages = [...messages, userMessage];
-      setMessages(updatedMessages);
-      saveChatHistory(updatedMessages); // Lưu lịch sử ngay khi người dùng gửi tin nhắn
-      setInputMessage("");
+        const userMessage = { sender: "user", text: inputMessage };
+        const updatedMessages = [...messages, userMessage];
+        setMessages(updatedMessages);
+        saveChatHistory(updatedMessages);
+        setInputMessage("");
 
-      try {
-        const response = await axios.post(`http://localhost:5000/ask`, {
-          question: inputMessage,
-        });
+        try {
+            // Gửi câu hỏi tới API Python (Flask)
+            const response = await axios.post(`http://localhost:5000/ask`, {
+                question: inputMessage, // Truyền câu hỏi từ inputMessage
+            });
 
-        const responseData = response.data;
-        if (responseData.specificRoom) {
-          const aiMessage = { sender: "ai", text: responseData.answer };
-          const newMessages = [...updatedMessages, aiMessage];
-          setMessages(newMessages);
-          saveChatHistory(newMessages); // Lưu lịch sử chat
-          console.log("Dữ liệu được gửi tới setSpecificRoom:", responseData.specificRoom);
-          setSpecificRoom(responseData.specificRoom); // Gửi phòng cụ thể lên ChatContext
-          //console.log("Specific Room tại Chatbox:", responseData.specificRoom);
-        } else if (responseData.rooms) {
-          const aiMessage = { sender: "ai", text: responseData.answer };
-          const newMessages = [...updatedMessages, aiMessage];
-          setMessages(newMessages);
-          saveChatHistory(newMessages); // Lưu lịch sử chat
-          setRooms(responseData.rooms); // Gửi danh sách phòng lên ChatContext
-          console.log("Rooms tại Chatbox:", responseData.rooms);
-        } else {
-          // Câu trả lời thông thường
-          const aiMessage = { sender: "ai", text: responseData.answer || responseData.error };
-          const newMessages = [...updatedMessages, aiMessage];
-          setMessages(newMessages);
-          saveChatHistory(newMessages); // Lưu lịch sử chat bao gồm cả phản hồi của AI
+            const responseData = response.data;
+            console.log(responseData); // Log để kiểm tra dữ liệu nhận được
+
+            // Kiểm tra câu trả lời từ server Python
+            if (responseData.answer) {
+                const aiMessage = { sender: "ai", text: responseData.answer };
+                const newMessages = [...updatedMessages, aiMessage];
+                setMessages(newMessages);
+                saveChatHistory(newMessages);
+            } else {
+                // Nếu không có câu trả lời
+                const aiMessage = { sender: "ai", text: "Không có câu trả lời cho câu hỏi của bạn." };
+                const newMessages = [...updatedMessages, aiMessage];
+                setMessages(newMessages);
+                saveChatHistory(newMessages);
+            }
+        } catch (error) {
+            console.error("Error sending message:", error);
+            const errorMessage = {
+                sender: "ai",
+                text: "Xin lỗi, tôi không thể trả lời ngay bây giờ. Hãy thử lại sau!",
+            };
+            const newMessages = [...updatedMessages, errorMessage];
+            setMessages(newMessages);
+            saveChatHistory(newMessages);
         }
-      } catch (error) {
-        console.error("Error sending message:", error);
-        const errorMessage = {
-          sender: "ai",
-          text: "Xin lỗi, tôi không thể trả lời ngay bây giờ. Hãy thử lại sau!",
-        };
-        const newMessages = [...updatedMessages, errorMessage];
-        setMessages(newMessages);
-        saveChatHistory(newMessages); // Lưu lịch sử chat ngay cả khi xảy ra lỗi
-      }
     }
-  };
+};
 
   const handleClose = () => {
     onClose();
